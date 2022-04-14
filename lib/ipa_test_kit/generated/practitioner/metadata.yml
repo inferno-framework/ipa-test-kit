@@ -1,8 +1,8 @@
 ---
 :name: ipa_practitioner
 :class_name: Ipav010PractitionerSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: Practitioner
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
 :profile_name: IPA Practitioner Profile

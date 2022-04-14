@@ -4,7 +4,7 @@ require_relative 'bodytemp/bodytemp_patient_category_status_search_test'
 require_relative 'bodytemp/bodytemp_patient_code_date_search_test'
 require_relative 'bodytemp/bodytemp_patient_category_search_test'
 require_relative 'bodytemp/bodytemp_read_test'
-require_relative 'bodytemp/bodytemp_provenance_revinclude_search_test'
+#require_relative 'bodytemp/bodytemp_provenance_revinclude_search_test'
 require_relative 'bodytemp/bodytemp_validation_test'
 require_relative 'bodytemp/bodytemp_must_support_test'
 require_relative 'bodytemp/bodytemp_reference_resolution_test'
@@ -19,7 +19,7 @@ module IpaTestKit
 The IPA Observation Body Temperature sequence verifies that the system under test is
 able to provide correct responses for Observation queries. These queries
 must contain resources conforming to the Observation Body Temperature Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -85,7 +85,7 @@ fail if any attempted read fails.
     test from: :ipa_010_bodytemp_patient_code_date_search_test
     test from: :ipa_010_bodytemp_patient_category_search_test
     test from: :ipa_010_bodytemp_read_test
-    test from: :ipa_010_bodytemp_provenance_revinclude_search_test
+#    test from: :ipa_010_bodytemp_provenance_revinclude_search_test
     test from: :ipa_010_bodytemp_validation_test
     test from: :ipa_010_bodytemp_must_support_test
     test from: :ipa_010_bodytemp_reference_resolution_test

@@ -2,18 +2,18 @@ require_relative '../../search_test'
 require_relative '../../generator/group_metadata'
 
 module IpaTestKit
-  class ObservationLabProvenanceRevincludeSearchTest < Inferno::Test
+  class MedicationStatementProvenanceRevincludeSearchTest < Inferno::Test
     include IpaTestKit::SearchTest
 
-    title 'Server returns Provenance resources from Observation search by patient + category + revInclude:Provenance:target'
+    title 'Server returns Provenance resources from MedicationStatement search by patient + intent + revInclude:Provenance:target'
     description %(
       A server SHALL be capable of supporting _revIncludes:Provenance:target.
 
-      This test will perform a search by patient + category + revInclude:Provenance:target and
+      This test will perform a search by patient + intent + revInclude:Provenance:target and
       will pass if a Provenance resource is found in the response.
     %)
 
-    id :ipa_010_observation_lab_provenance_revinclude_search_test
+    id :ipa_010_medication_statement_provenance_revinclude_search_test
 
     input :patient_ids,
       title: 'Patient IDs',
@@ -22,8 +22,8 @@ module IpaTestKit
     def properties
       @properties ||= SearchTestProperties.new(
         fixed_value_search: true,
-        resource_type: 'Observation',
-        search_param_names: ['patient', 'category'],
+        resource_type: 'MedicationStatement',
+        search_param_names: ['patient', 'intent'],
         possible_status_search: true
       )
     end
@@ -37,7 +37,7 @@ module IpaTestKit
     end
 
     def scratch_resources
-      scratch[:observation_lab_resources] ||= {}
+      scratch[:medication_statement_resources] ||= {}
     end
 
     def scratch_provenance_resources

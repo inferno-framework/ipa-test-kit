@@ -1,0 +1,319 @@
+---
+:name: ipa_medicationstatement
+:class_name: Ipav010MedicationstatementSequence
+:version: v0.1.0
+:reformatted_version: v010
+:resource: MedicationStatement
+:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationstatement
+:profile_name: IPA MedicationStatement Profile
+:title: MedicationStatement
+:short_description: Verify support for the server capabilities required by the IPA
+  MedicationStatement Profile.
+:interactions:
+- :code: create
+  :expectation: MAY
+- :code: search-type
+  :expectation: SHALL
+- :code: read
+  :expectation: SHALL
+- :code: vread
+  :expectation: SHOULD
+- :code: update
+  :expectation: MAY
+- :code: patch
+  :expectation: MAY
+- :code: delete
+  :expectation: MAY
+- :code: history-instance
+  :expectation: SHOULD
+- :code: history-type
+  :expectation: MAY
+:operations: []
+:searches:
+- :expectation: SHALL
+  :names:
+  - patient
+#  - intent
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+#  - intent
+  - context
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+#  - intent
+  - effective
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHALL
+  :names:
+  - patient
+#  - intent
+  - status
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+:search_definitions:
+  :patient:
+    :path: subject
+    :full_path: MedicationStatement.subject
+    :comparators: {}
+    :values: []
+    :type: Reference
+    :contains_multiple: false
+    :multiple_or: MAY
+#  :intent:
+#    :path: intent
+#    :full_path: MedicationStatement.intent
+#    :comparators: {}
+#    :values:
+#    - proposal
+#    - plan
+#    - order
+#    - original-order
+#    - reflex-order
+#    - filler-order
+#    - instance-order
+#    - option
+#    :type: code
+#    :contains_multiple: false
+#    :multiple_or: SHALL
+  :context:
+    :path: context
+    :full_path: MedicationStatement.context
+    :comparators: {}
+    :values: []
+    :type: Reference
+    :contains_multiple: false
+    :multiple_or: MAY
+  :effective:
+    :path: effective
+    :full_path: MedicationStatement.effective
+    :comparators:
+      :eq: MAY
+      :ne: MAY
+      :gt: SHALL
+      :ge: SHALL
+      :lt: SHALL
+      :le: SHALL
+      :sa: MAY
+      :eb: MAY
+      :ap: MAY
+    :values: []
+    :type: dateTime
+    :contains_multiple: false
+    :multiple_or: MAY
+  :status:
+    :path: status
+    :full_path: MedicationStatement.status
+    :comparators: {}
+    :values:
+    - active
+    - on-hold
+#    - cancelled
+    - completed
+    - entered-in-error
+    - stopped
+#    - draft
+    - unknown
+    - intended
+    - not-taken
+    :type: code
+    :contains_multiple: false
+    :multiple_or: SHALL
+:include_params:
+- MedicationStatement:medication
+:revincludes:
+#- Provenance:target
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: []
+  :elements:
+  - :path: status
+  - :path: statusReason
+#  - :path: intent
+#  - :path: reported[x]
+  - :path: medication[x]
+  - :path: subject
+#  - :path: encounter
+  - :path: context
+#  - :path: authoredOn
+  - :path: effective[x]
+  - :path: informationSource
+#  - :path: dosageInstruction
+#  - :path: dosageInstruction.text
+  - :path: dosage
+  - :path: dosage.text
+:mandatory_elements:
+- MedicationStatement.status
+#- MedicationStatement.intent
+- MedicationStatement.medication[x]
+- MedicationStatement.subject
+#- MedicationStatement.authoredOn
+- MedicationStatement.informationSource
+#- MedicationStatement.substitution.allowed[x]
+:bindings:
+- :type: code
+  :strength: preferred
+  :system: http://hl7.org/fhir/ValueSet/languages
+  :path: language
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/medication-statement-status
+  :path: status
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/reason-medication-status-codes
+  :path: statusReason
+#- :type: code
+#  :strength: required
+#  :system: http://hl7.org/fhir/ValueSet/medicationstatement-intent
+#  :path: intent
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/medication-statement-category
+  :path: category
+#- :type: code
+#  :strength: required
+#  :system: http://hl7.org/fhir/ValueSet/statement-priority
+#  :path: priority
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/medication-codes
+  :path: medication
+#- :type: CodeableConcept
+#  :strength: example
+#  :system: http://hl7.org/fhir/ValueSet/performer-role
+#  :path: performerType
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/condition-code
+  :path: reasonCode
+#- :type: CodeableConcept
+#  :strength: example
+#  :system: http://hl7.org/fhir/ValueSet/medicationstatement-course-of-therapy
+#  :path: courseOfTherapyType
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/additional-instruction-codes
+  :path: dosage.additionalInstruction
+- :type: boolean
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/medication-as-needed-reason
+  :path: dosage.asNeeded
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/approach-site-codes
+  :path: dosage.site
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/route-codes
+  :path: dosage.route
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/administration-method-codes
+  :path: dosage.method
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/dose-rate-type
+  :path: dosage.doseAndRate.type
+#- :type: boolean
+#  :strength: example
+#  :system: http://terminology.hl7.org/ValueSet/v3-ActSubstanceAdminSubstitutionCode
+#  :path: substitution.allowed
+#- :type: CodeableConcept
+#  :strength: example
+#  :system: http://terminology.hl7.org/ValueSet/v3-SubstanceAdminSubstitutionReason
+#  :path: substitution.reason
+:references:
+- :path: MedicationStatement.subject
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+- :path: MedicationStatement.context
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Encounter
+  - http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
+- :path: MedicationStatement.derivedFrom
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Resource
+- :path: MedicationStatement.informationSource
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+#- :path: MedicationStatement.performer
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/Practitioner
+#  - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+#  - http://hl7.org/fhir/StructureDefinition/Organization
+#  - http://hl7.org/fhir/StructureDefinition/Patient
+#  - http://hl7.org/fhir/StructureDefinition/Device
+#  - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+#  - http://hl7.org/fhir/StructureDefinition/CareTeam
+#- :path: MedicationStatement.recorder
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/Practitioner
+#  - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+- :path: MedicationStatement.reasonReference
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Condition
+  - http://hl7.org/fhir/StructureDefinition/Observation
+  - http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+- :path: MedicationStatement.basedOn
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/CarePlan
+#  - http://hl7.org/fhir/StructureDefinition/MedicationStatement
+  - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+#  - http://hl7.org/fhir/StructureDefinition/ServiceStatement
+  - http://hl7.org/fhir/StructureDefinition/ServiceRequest
+#  - http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation
+#- :path: MedicationStatement.insurance
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/Coverage
+#  - http://hl7.org/fhir/StructureDefinition/ClaimResponse
+#- :path: MedicationStatement.dispenseStatement.performer
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/Organization
+#- :path: MedicationStatement.priorPrescription
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/MedicationStatement
+#- :path: MedicationStatement.detectedIssue
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/DetectedIssue
+#- :path: MedicationStatement.eventHistory
+#  :profiles:
+#  - http://hl7.org/fhir/StructureDefinition/Provenance
+:tests:
+- :id: ipa_010_medication_statement_patient_search_test
+  :file_name: medication_statement_patient_search_test.rb
+- :id: ipa_medication_statement_tests
+  :file_name: medication_statement_tests.rb
+- :id: ipa_010_medication_statement_patient_context_search_test
+  :file_name: medication_statement_patient_context_search_test.rb
+- :id: ipa_010_medication_statement_patient_effective_search_test
+  :file_name: medication_statement_patient_effective_search_test.rb
+- :id: ipa_010_medication_statement_patient_status_search_test
+  :file_name: medication_statement_patient_status_search_test.rb
+- :id: ipa_010_medication_statement_read_test
+  :file_name: medication_statement_read_test.rb
+#- :id: ipa_010_medication_statement_provenance_revinclude_search_test
+#  :file_name: medication_statement_provenance_revinclude_search_test.rb
+- :id: ipa_010_medication_statement_validation_test
+  :file_name: medication_statement_validation_test.rb
+- :id: ipa_010_medication_validation_test
+  :file_name: medication_validation_test.rb
+- :id: ipa_010_medication_statement_must_support_test
+  :file_name: medication_statement_must_support_test.rb
+- :id: ipa_010_medication_statement_reference_resolution_test
+  :file_name: medication_statement_reference_resolution_test.rb
+:id: ipa_010_medication_statement
+:file_name: medication_statement_group.rb
+:delayed_references:
+- :path: informationSource
+  :resources:
+  - Practitioner

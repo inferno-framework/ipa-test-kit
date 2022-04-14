@@ -1,8 +1,8 @@
 ---
 :name: ipa_careteam
 :class_name: Ipav010CareteamSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: CareTeam
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careteam
 :profile_name: IPA CareTeam Profile

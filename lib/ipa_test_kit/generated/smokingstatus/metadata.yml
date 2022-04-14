@@ -1,8 +1,8 @@
 ---
 :name: ipa_smokingstatus
 :class_name: Ipav010SmokingstatusSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: Observation
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-smokingstatus
 :profile_name: IPA Smoking Status Observation Profile

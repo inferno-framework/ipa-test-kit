@@ -139,7 +139,7 @@ module IpaTestKit
         The IPA #{title} sequence verifies that the system under test is
         able to provide correct responses for #{resource_type} queries. These queries
         must contain resources conforming to the #{profile_name} as
-        specified in the IPA v3.1.1 Implementation Guide.
+        specified in the IPA v0.1.0 Implementation Guide.
 
         # Testing Methodology
         #{search_description}

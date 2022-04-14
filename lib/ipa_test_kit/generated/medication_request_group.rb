@@ -3,7 +3,7 @@ require_relative 'medication_request/medication_request_patient_intent_encounter
 require_relative 'medication_request/medication_request_patient_intent_authoredon_search_test'
 require_relative 'medication_request/medication_request_patient_intent_status_search_test'
 require_relative 'medication_request/medication_request_read_test'
-require_relative 'medication_request/medication_request_provenance_revinclude_search_test'
+#require_relative 'medication_request/medication_request_provenance_revinclude_search_test'
 require_relative 'medication_request/medication_request_validation_test'
 require_relative 'medication_request/medication_validation_test'
 require_relative 'medication_request/medication_request_must_support_test'
@@ -19,7 +19,7 @@ module IpaTestKit
 The IPA MedicationRequest sequence verifies that the system under test is
 able to provide correct responses for MedicationRequest queries. These queries
 must contain resources conforming to the IPA MedicationRequest Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -83,7 +83,7 @@ fail if any attempted read fails.
     test from: :ipa_010_medication_request_patient_intent_authoredon_search_test
     test from: :ipa_010_medication_request_patient_intent_status_search_test
     test from: :ipa_010_medication_request_read_test
-    test from: :ipa_010_medication_request_provenance_revinclude_search_test
+#    test from: :ipa_010_medication_request_provenance_revinclude_search_test
     test from: :ipa_010_medication_request_validation_test
     test from: :ipa_010_medication_validation_test
     test from: :ipa_010_medication_request_must_support_test

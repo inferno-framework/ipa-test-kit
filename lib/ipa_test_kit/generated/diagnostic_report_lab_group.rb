@@ -20,7 +20,7 @@ module IpaTestKit
 The IPA DiagnosticReport for Laboratory Results Reporting sequence verifies that the system under test is
 able to provide correct responses for DiagnosticReport queries. These queries
 must contain resources conforming to the IPA DiagnosticReport Profile for Laboratory Results Reporting as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching

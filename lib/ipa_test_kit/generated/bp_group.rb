@@ -4,7 +4,7 @@ require_relative 'bp/bp_patient_category_status_search_test'
 require_relative 'bp/bp_patient_code_date_search_test'
 require_relative 'bp/bp_patient_category_search_test'
 require_relative 'bp/bp_read_test'
-require_relative 'bp/bp_provenance_revinclude_search_test'
+#require_relative 'bp/bp_provenance_revinclude_search_test'
 require_relative 'bp/bp_validation_test'
 require_relative 'bp/bp_must_support_test'
 require_relative 'bp/bp_reference_resolution_test'
@@ -19,7 +19,7 @@ module IpaTestKit
 The IPA Observation Blood Pressure sequence verifies that the system under test is
 able to provide correct responses for Observation queries. These queries
 must contain resources conforming to the Observation Blood Pressure Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -85,7 +85,7 @@ fail if any attempted read fails.
     test from: :ipa_010_bp_patient_code_date_search_test
     test from: :ipa_010_bp_patient_category_search_test
     test from: :ipa_010_bp_read_test
-    test from: :ipa_010_bp_provenance_revinclude_search_test
+#    test from: :ipa_010_bp_provenance_revinclude_search_test
     test from: :ipa_010_bp_validation_test
     test from: :ipa_010_bp_must_support_test
     test from: :ipa_010_bp_reference_resolution_test

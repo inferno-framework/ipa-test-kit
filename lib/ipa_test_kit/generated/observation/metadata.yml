@@ -1,14 +1,14 @@
 ---
-:name: ipa_observation_lab
-:class_name: Ipav010ObservationLabSequence
-:version: v3.1.1
-:reformatted_version: v311
+:name: ipa_observation
+:class_name: Ipav010ObservationSequence
+:version: v0.1.0
+:reformatted_version: v010
 :resource: Observation
-:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab
-:profile_name: IPA Laboratory Result Observation Profile
-:title: Laboratory Result Observation
+:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation
+:profile_name: IPA Observation Profile
+:title: Observation
 :short_description: Verify support for the server capabilities required by the IPA
-  Laboratory Result Observation Profile.
+  Observation Profile.
 :interactions:
 - :code: create
   :expectation: MAY
@@ -1124,18 +1124,19 @@
     :multiple_or: SHOULD
 :include_params: []
 :revincludes:
-- Provenance:target
+#- Provenance:target
 :required_concepts:
 :must_supports:
   :extensions: []
-  :slices:
-  - :name: Observation.category:Laboratory
-    :path: category
-    :discriminator:
-      :type: patternCodeableConcept
-      :path: ''
-      :code: laboratory
-      :system: http://terminology.hl7.org/CodeSystem/observation-category
+  :slices: []
+#  :slices:
+#  - :name: Observation.category:Laboratory
+#    :path: category
+#    :discriminator:
+#      :type: patternCodeableConcept
+#      :path: ''
+#      :code: laboratory
+#      :system: http://terminology.hl7.org/CodeSystem/observation-category
   :elements:
   - :path: status
   - :path: category
@@ -1262,26 +1263,26 @@
   - http://hl7.org/fhir/StructureDefinition/Observation
   - http://hl7.org/fhir/StructureDefinition/MolecularSequence
 :tests:
-- :id: ipa_010_observation_lab_patient_category_search_test
-  :file_name: observation_lab_patient_category_search_test.rb
-- :id: ipa_010_observation_lab_patient_category_date_search_test
-  :file_name: observation_lab_patient_category_date_search_test.rb
-- :id: ipa_010_observation_lab_patient_category_status_search_test
-  :file_name: observation_lab_patient_category_status_search_test.rb
-- :id: ipa_010_observation_lab_patient_code_date_search_test
-  :file_name: observation_lab_patient_code_date_search_test.rb
-- :id: ipa_010_observation_lab_patient_code_search_test
-  :file_name: observation_lab_patient_code_search_test.rb
-- :id: ipa_010_observation_lab_read_test
-  :file_name: observation_lab_read_test.rb
-- :id: ipa_010_observation_lab_provenance_revinclude_search_test
-  :file_name: observation_lab_provenance_revinclude_search_test.rb
-- :id: ipa_010_observation_lab_validation_test
-  :file_name: observation_lab_validation_test.rb
-- :id: ipa_010_observation_lab_must_support_test
-  :file_name: observation_lab_must_support_test.rb
-- :id: ipa_010_observation_lab_reference_resolution_test
-  :file_name: observation_lab_reference_resolution_test.rb
-:id: ipa_010_observation_lab
-:file_name: observation_lab_group.rb
+- :id: ipa_010_observation_patient_category_search_test
+  :file_name: observation_patient_category_search_test.rb
+- :id: ipa_010_observation_patient_category_date_search_test
+  :file_name: observation_patient_category_date_search_test.rb
+- :id: ipa_010_observation_patient_category_status_search_test
+  :file_name: observation_patient_category_status_search_test.rb
+- :id: ipa_010_observation_patient_code_date_search_test
+  :file_name: observation_patient_code_date_search_test.rb
+- :id: ipa_010_observation_patient_code_search_test
+  :file_name: observation_patient_code_search_test.rb
+- :id: ipa_010_observation_read_test
+  :file_name: observation_read_test.rb
+#- :id: ipa_010_observation_provenance_revinclude_search_test
+#  :file_name: observation_provenance_revinclude_search_test.rb
+- :id: ipa_010_observation_validation_test
+  :file_name: observation_validation_test.rb
+- :id: ipa_010_observation_must_support_test
+  :file_name: observation_must_support_test.rb
+- :id: ipa_010_observation_reference_resolution_test
+  :file_name: observation_reference_resolution_test.rb
+:id: ipa_010_observation
+:file_name: observation_group.rb
 :delayed_references: []

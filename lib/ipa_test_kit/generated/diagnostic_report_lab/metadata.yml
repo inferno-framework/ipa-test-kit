@@ -1,8 +1,8 @@
 ---
 :name: ipa_diagnosticreport_lab
 :class_name: Ipav010DiagnosticreportLabSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: DiagnosticReport
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab
 :profile_name: IPA DiagnosticReport Profile for Laboratory Results Reporting
@@ -1214,7 +1214,7 @@
   - http://hl7.org/fhir/StructureDefinition/Specimen
 - :path: DiagnosticReport.result
   :profiles:
-  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation
 - :path: DiagnosticReport.imagingStudy
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/ImagingStudy

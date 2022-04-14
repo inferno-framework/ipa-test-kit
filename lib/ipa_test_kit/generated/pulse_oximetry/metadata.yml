@@ -1,8 +1,8 @@
 ---
 :name: ipa_pulse_oximetry
 :class_name: Ipav010PulseOximetrySequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: Observation
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-pulse-oximetry
 :profile_name: IPA Pulse Oximetry Profile
@@ -126,7 +126,7 @@
     :multiple_or: SHOULD
 :include_params: []
 :revincludes:
-- Provenance:target
+#- Provenance:target
 :required_concepts:
 :must_supports:
   :extensions: []
@@ -397,8 +397,8 @@
   :file_name: pulse_oximetry_patient_category_search_test.rb
 - :id: ipa_010_pulse_oximetry_read_test
   :file_name: pulse_oximetry_read_test.rb
-- :id: ipa_010_pulse_oximetry_provenance_revinclude_search_test
-  :file_name: pulse_oximetry_provenance_revinclude_search_test.rb
+#- :id: ipa_010_pulse_oximetry_provenance_revinclude_search_test
+#  :file_name: pulse_oximetry_provenance_revinclude_search_test.rb
 - :id: ipa_010_pulse_oximetry_validation_test
   :file_name: pulse_oximetry_validation_test.rb
 - :id: ipa_010_pulse_oximetry_must_support_test

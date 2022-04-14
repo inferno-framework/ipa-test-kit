@@ -90,7 +90,7 @@ module IpaTestKit
 
       CATEGORY_FIRST_PROFILES = [
         'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careplan',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab',
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation',
         'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab',
         'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note'
       ]

@@ -1,8 +1,8 @@
 ---
 :name: ipa_documentreference
 :class_name: Ipav010DocumentreferenceSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: DocumentReference
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference
 :profile_name: IPA DocumentReference Profile
@@ -200,7 +200,7 @@
     :multiple_or: SHALL
 :include_params: []
 :revincludes:
-- Provenance:target
+#- Provenance:target
 :required_concepts:
 - type
 :must_supports:
@@ -331,8 +331,8 @@
   :file_name: document_reference_patient_category_search_test.rb
 - :id: ipa_010_document_reference_read_test
   :file_name: document_reference_read_test.rb
-- :id: ipa_010_document_reference_provenance_revinclude_search_test
-  :file_name: document_reference_provenance_revinclude_search_test.rb
+#- :id: ipa_010_document_reference_provenance_revinclude_search_test
+#  :file_name: document_reference_provenance_revinclude_search_test.rb
 - :id: ipa_010_document_reference_validation_test
   :file_name: document_reference_validation_test.rb
 - :id: ipa_010_document_reference_must_support_test

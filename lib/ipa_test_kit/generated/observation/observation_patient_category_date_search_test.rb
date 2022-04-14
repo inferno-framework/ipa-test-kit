@@ -2,13 +2,13 @@ require_relative '../../search_test'
 require_relative '../../generator/group_metadata'
 
 module IpaTestKit
-  class ObservationLabPatientCategoryStatusSearchTest < Inferno::Test
+  class ObservationLabPatientCategoryDateSearchTest < Inferno::Test
     include IpaTestKit::SearchTest
 
-    title 'Server returns valid results for Observation search by patient + category + status'
+    title 'Server returns valid results for Observation search by patient + category + date'
     description %(
-A server SHOULD support searching by
-patient + category + status on the Observation resource. This test
+A server SHALL support searching by
+patient + category + date on the Observation resource. This test
 will pass if resources are returned and match the search criteria. If
 none are returned, the test is skipped.
 
@@ -16,9 +16,7 @@ none are returned, the test is skipped.
 
     )
 
-    id :ipa_010_observation_lab_patient_category_status_search_test
-    optional
-
+    id :ipa_010_observation_patient_category_date_search_test
     input :patient_ids,
       title: 'Patient IDs',
       description: 'Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements'
@@ -26,9 +24,10 @@ none are returned, the test is skipped.
     def self.properties
       @properties ||= SearchTestProperties.new(
         resource_type: 'Observation',
-        search_param_names: ['patient', 'category', 'status'],
+        search_param_names: ['patient', 'category', 'date'],
+        possible_status_search: true,
         token_search_params: ['category'],
-        multiple_or_search_params: ['status']
+        params_with_comparators: ['date']
       )
     end
 
@@ -37,7 +36,7 @@ none are returned, the test is skipped.
     end
 
     def scratch_resources
-      scratch[:observation_lab_resources] ||= {}
+      scratch[:observation_resources] ||= {}
     end
 
     run do

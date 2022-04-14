@@ -20,37 +20,38 @@ module IpaTestKit
       'CareTeam' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careteam'].freeze,
       'Condition' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-condition'].freeze,
       'Device' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-implantable-device'].freeze,
-      'DiagnosticReport' => [
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note'
-      ].freeze,
+#      'DiagnosticReport' => [
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab',
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note'
+#      ].freeze,
       'DocumentReference' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference'].freeze,
-      'Encounter' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-encounter'].freeze,
-      'Goal' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-goal'].freeze,
+#      'Encounter' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-encounter'].freeze,
+#      'Goal' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-goal'].freeze,
       'Immunization' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-immunization'].freeze,
-      'Location' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-location'].freeze,
+#      'Location' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-location'].freeze,
       'Medication' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication'].freeze,
       'MedicationRequest' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest'].freeze,
+      'MedicationStatement' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationstatement'].freeze,
       'Observation' => [
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-bmi-for-age',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-weight-for-height',
+        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation',
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-bmi-for-age',
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-weight-for-height',
         'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-pulse-oximetry',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-smokingstatus',
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-smokingstatus',
         'http://hl7.org/fhir/StructureDefinition/bp',
         'http://hl7.org/fhir/StructureDefinition/bodyheight',
         'http://hl7.org/fhir/StructureDefinition/bodyweight',
         'http://hl7.org/fhir/StructureDefinition/heartrate',
         'http://hl7.org/fhir/StructureDefinition/resprate',
-        'http://hl7.org/fhir/StructureDefinition/bodytemp',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile'
+        'http://hl7.org/fhir/StructureDefinition/bodytemp' #,
+#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile'
       ].freeze,
-      'Organization' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-organization'].freeze,
+#      'Organization' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-organization'].freeze,
       'Patient' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient'].freeze,
-      'Practitioner' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner'].freeze,
-      'PractitionerRole' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole'].freeze,
-      'Procedure' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-procedure'].freeze,
-      'Provenance' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance'].freeze
+      'Practitioner' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner'].freeze #,
+#      'PractitionerRole' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole'].freeze,
+#      'Procedure' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-procedure'].freeze,
+#      'Provenance' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance'].freeze
     }.freeze
 
     run do

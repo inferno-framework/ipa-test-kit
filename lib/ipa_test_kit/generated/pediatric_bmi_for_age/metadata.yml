@@ -1,8 +1,8 @@
 ---
 :name: pediatric_bmi_for_age
 :class_name: PediatricBmiForAgeSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: Observation
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-bmi-for-age
 :profile_name: IPA Pediatric BMI for Age Observation Profile

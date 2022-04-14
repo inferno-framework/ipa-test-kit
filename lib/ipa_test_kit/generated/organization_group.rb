@@ -15,7 +15,7 @@ module IpaTestKit
 The IPA Organization sequence verifies that the system under test is
 able to provide correct responses for Organization queries. These queries
 must contain resources conforming to the IPA Organization Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching

@@ -23,7 +23,7 @@ response will be used for subsequent tests.
 Additionally, this test will check that GET and POST search methods
 return the same number of results. Search by POST is required by the
 FHIR R4 specification, and these tests interpret search by GET as a
-requirement of IPA v3.1.1.
+requirement of IPA v0.1.0.
 
 [IPA Server CapabilityStatement](http://hl7.org/fhir/uv/ipa/STU3.1.1/CapabilityStatement-ipa-server.html)
 

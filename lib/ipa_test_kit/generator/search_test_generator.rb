@@ -256,7 +256,7 @@ module IpaTestKit
         Additionally, this test will check that GET and POST search methods
         return the same number of results. Search by POST is required by the
         FHIR R4 specification, and these tests interpret search by GET as a
-        requirement of IPA v3.1.1.
+        requirement of IPA v0.1.0.
         POST_SEARCH_DESCRIPTION
       end
 

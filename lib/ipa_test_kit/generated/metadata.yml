@@ -1,10 +1,10 @@
 ---
-:ig_version: v3.1.1
+:ig_version: v0.1.0
 :groups:
 - :name: ipa_allergyintolerance
   :class_name: Ipav010AllergyintoleranceSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: AllergyIntolerance
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-allergyintolerance
   :profile_name: IPA AllergyIntolerance Profile
@@ -153,8 +153,8 @@
   :delayed_references: []
 - :name: ipa_careplan
   :class_name: Ipav010CareplanSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: CarePlan
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careplan
   :profile_name: IPA CarePlan Profile
@@ -430,8 +430,8 @@
   :delayed_references: []
 - :name: ipa_careteam
   :class_name: Ipav010CareteamSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: CareTeam
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careteam
   :profile_name: IPA CareTeam Profile
@@ -557,8 +557,8 @@
     - Organization
 - :name: ipa_condition
   :class_name: Ipav010ConditionSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Condition
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-condition
   :profile_name: IPA Condition Profile
@@ -767,8 +767,8 @@
   :delayed_references: []
 - :name: ipa_implantable_device
   :class_name: Ipav010ImplantableDeviceSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Device
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-implantable-device
   :profile_name: IPA Implantable Device Profile
@@ -1897,8 +1897,8 @@
   :delayed_references: []
 - :name: ipa_diagnosticreport_note
   :class_name: Ipav010DiagnosticreportNoteSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: DiagnosticReport
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note
   :profile_name: IPA DiagnosticReport Profile for Report and Note exchange
@@ -3120,8 +3120,8 @@
     - Organization
 - :name: ipa_diagnosticreport_lab
   :class_name: Ipav010DiagnosticreportLabSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: DiagnosticReport
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab
   :profile_name: IPA DiagnosticReport Profile for Laboratory Results Reporting
@@ -4332,7 +4332,7 @@
     - http://hl7.org/fhir/StructureDefinition/Specimen
   - :path: DiagnosticReport.result
     :profiles:
-    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation
   - :path: DiagnosticReport.imagingStudy
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/ImagingStudy
@@ -4349,8 +4349,8 @@
     - Organization
 - :name: ipa_documentreference
   :class_name: Ipav010DocumentreferenceSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: DocumentReference
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference
   :profile_name: IPA DocumentReference Profile
@@ -4678,8 +4678,8 @@
     - Encounter
 - :name: ipa_encounter
   :class_name: Ipav010EncounterSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Encounter
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-encounter
   :profile_name: IPA Encounter Profile
@@ -5017,8 +5017,8 @@
     - Practitioner
 - :name: ipa_goal
   :class_name: Ipav010GoalSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Goal
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-goal
   :profile_name: IPA Goal Profile
@@ -5195,8 +5195,8 @@
   :delayed_references: []
 - :name: ipa_immunization
   :class_name: Ipav010ImmunizationSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Immunization
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-immunization
   :profile_name: IPA Immunization Profile
@@ -5388,8 +5388,8 @@
   :delayed_references: []
 - :name: ipa_location
   :class_name: Ipav010LocationSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Location
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-location
   :profile_name: IPA Location Profile
@@ -5622,8 +5622,8 @@
     - Organization
 - :name: ipa_medication
   :class_name: Ipav010MedicationSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Medication
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication
   :profile_name: IPA Medication Profile
@@ -5690,8 +5690,8 @@
   :delayed_references: []
 - :name: ipa_medicationrequest
   :class_name: Ipav010MedicationrequestSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: MedicationRequest
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest
   :profile_name: IPA MedicationRequest Profile
@@ -5976,8 +5976,8 @@
     - Organization
 - :name: ipa_smokingstatus
   :class_name: Ipav010SmokingstatusSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-smokingstatus
   :profile_name: IPA Smoking Status Observation Profile
@@ -6247,8 +6247,8 @@
   :delayed_references: []
 - :name: pediatric_weight_for_height
   :class_name: PediatricWeightForHeightSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-weight-for-height
   :profile_name: IPA Pediatric Weight for Height Observation Profile
@@ -6546,16 +6546,16 @@
   :id:
   :file_name:
   :delayed_references: []
-- :name: ipa_observation_lab
-  :class_name: Ipav010ObservationLabSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+- :name: ipa_observation
+  :class_name: Ipav010ObservationSequence
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
-  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab
-  :profile_name: IPA Laboratory Result Observation Profile
-  :title: Laboratory Result Observation
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation
+  :profile_name: IPA Observation Profile
+  :title: Observation
   :short_description: Verify support for the server capabilities required by the IPA
-    Laboratory Result Observation Profile.
+    Observation Profile.
   :interactions:
   - :code: create
     :expectation: MAY
@@ -7674,14 +7674,14 @@
   :required_concepts:
   :must_supports:
     :extensions: []
-    :slices:
-    - :name: Observation.category:Laboratory
-      :path: category
-      :discriminator:
-        :type: patternCodeableConcept
-        :path: ''
-        :code: laboratory
-        :system: http://terminology.hl7.org/CodeSystem/observation-category
+#    :slices:
+#    - :name: Observation.category:Laboratory
+#      :path: category
+#      :discriminator:
+#        :type: patternCodeableConcept
+#        :path: ''
+#        :code: laboratory
+#        :system: http://terminology.hl7.org/CodeSystem/observation-category
     :elements:
     - :path: status
     - :path: category
@@ -7813,8 +7813,8 @@
   :delayed_references: []
 - :name: pediatric_bmi_for_age
   :class_name: PediatricBmiForAgeSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-bmi-for-age
   :profile_name: IPA Pediatric BMI for Age Observation Profile
@@ -8114,8 +8114,8 @@
   :delayed_references: []
 - :name: ipa_pulse_oximetry
   :class_name: Ipav010PulseOximetrySequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-pulse-oximetry
   :profile_name: IPA Pulse Oximetry Profile
@@ -8502,8 +8502,8 @@
   :delayed_references: []
 - :name: head_occipital_frontal_circumference_percentile
   :class_name: HeadOccipitalFrontalCircumferencePercentileSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile
   :profile_name: IPA Pediatric Head Occipital-frontal Circumference Percentile
@@ -8804,8 +8804,8 @@
   :delayed_references: []
 - :name: bodyheight
   :class_name: BodyheightSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/StructureDefinition/bodyheight
   :profile_name: Observation Body Height Profile
@@ -9110,8 +9110,8 @@
   :delayed_references: []
 - :name: bodytemp
   :class_name: BodytempSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/StructureDefinition/bodytemp
   :profile_name: Observation Body Temperature Profile
@@ -9416,8 +9416,8 @@
   :delayed_references: []
 - :name: bp
   :class_name: BpSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/StructureDefinition/bp
   :profile_name: Observation Blood Pressure Profile
@@ -9773,8 +9773,8 @@
   :delayed_references: []
 - :name: bodyweight
   :class_name: BodyweightSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/StructureDefinition/bodyweight
   :profile_name: Observation Body Weight Profile
@@ -10079,8 +10079,8 @@
   :delayed_references: []
 - :name: heartrate
   :class_name: HeartrateSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/StructureDefinition/heartrate
   :profile_name: Observation Heart Rate Profile
@@ -10382,8 +10382,8 @@
   :delayed_references: []
 - :name: resprate
   :class_name: ResprateSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Observation
   :profile_url: http://hl7.org/fhir/StructureDefinition/resprate
   :profile_name: Observation Respiratory Rate Profile
@@ -10685,8 +10685,8 @@
   :delayed_references: []
 - :name: ipa_organization
   :class_name: Ipav010OrganizationSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Organization
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-organization
   :profile_name: IPA Organization Profile
@@ -10818,8 +10818,8 @@
   :delayed_references: []
 - :name: ipa_patient
   :class_name: Ipav010PatientSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Patient
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
   :profile_name: IPA Patient Profile
@@ -11113,8 +11113,8 @@
   :delayed_references: []
 - :name: ipa_practitioner
   :class_name: Ipav010PractitionerSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Practitioner
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
   :profile_name: IPA Practitioner Profile
@@ -11236,8 +11236,8 @@
   :delayed_references: []
 - :name: ipa_practitionerrole
   :class_name: Ipav010PractitionerroleSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: PractitionerRole
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
   :profile_name: IPA PractitionerRole Profile
@@ -11489,8 +11489,8 @@
     - Organization
 - :name: ipa_procedure
   :class_name: Ipav010ProcedureSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Procedure
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-procedure
   :profile_name: IPA Procedure Profile
@@ -12735,8 +12735,8 @@
   :delayed_references: []
 - :name: ipa_provenance
   :class_name: Ipav010ProvenanceSequence
-  :version: v3.1.1
-  :reformatted_version: v311
+  :version: v0.1.0
+  :reformatted_version: v010
   :resource: Provenance
   :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance
   :profile_name: IPA Provenance Profile

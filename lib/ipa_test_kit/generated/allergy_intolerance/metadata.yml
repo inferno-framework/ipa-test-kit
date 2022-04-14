@@ -1,8 +1,8 @@
 ---
 :name: ipa_allergyintolerance
 :class_name: Ipav010AllergyintoleranceSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: AllergyIntolerance
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-allergyintolerance
 :profile_name: IPA AllergyIntolerance Profile
@@ -152,8 +152,8 @@
   :file_name: allergy_intolerance_patient_clinical_status_search_test.rb
 - :id: ipa_010_allergy_intolerance_read_test
   :file_name: allergy_intolerance_read_test.rb
-- :id: ipa_010_allergy_intolerance_provenance_revinclude_search_test
-  :file_name: allergy_intolerance_provenance_revinclude_search_test.rb
+#- :id: ipa_010_allergy_intolerance_provenance_revinclude_search_test
+#  :file_name: allergy_intolerance_provenance_revinclude_search_test.rb
 - :id: ipa_010_allergy_intolerance_validation_test
   :file_name: allergy_intolerance_validation_test.rb
 - :id: ipa_010_allergy_intolerance_must_support_test

@@ -17,7 +17,7 @@ module IpaTestKit
       MEDICATION_REQUEST = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest'
       SMOKING_STATUS = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-smokingstatus'
       PEDIATRIC_WEIGHT_FOR_HEIGHT = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-weight-for-height'
-      OBSERVATION_LAB = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation-lab'
+      OBSERVATION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation'
       PEDIATRIC_BMI_FOR_AGE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-bmi-for-age'
       PULSE_OXIMETRY = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-pulse-oximetry'
       HEAD_CIRCUMFERENCE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile'

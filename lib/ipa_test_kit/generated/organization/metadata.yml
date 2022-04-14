@@ -1,8 +1,8 @@
 ---
 :name: ipa_organization
 :class_name: Ipav010OrganizationSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: Organization
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-organization
 :profile_name: IPA Organization Profile

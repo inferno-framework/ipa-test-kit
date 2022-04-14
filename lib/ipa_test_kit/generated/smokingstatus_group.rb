@@ -19,7 +19,7 @@ module IpaTestKit
 The IPA Smoking Status Observation sequence verifies that the system under test is
 able to provide correct responses for Observation queries. These queries
 must contain resources conforming to the IPA Smoking Status Observation Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching

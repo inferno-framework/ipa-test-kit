@@ -17,7 +17,7 @@ module IpaTestKit
 The IPA Goal sequence verifies that the system under test is
 able to provide correct responses for Goal queries. These queries
 must contain resources conforming to the IPA Goal Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching

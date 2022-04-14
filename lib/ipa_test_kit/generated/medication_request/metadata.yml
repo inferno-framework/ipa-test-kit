@@ -1,8 +1,8 @@
 ---
 :name: ipa_medicationrequest
 :class_name: Ipav010MedicationrequestSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: MedicationRequest
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest
 :profile_name: IPA MedicationRequest Profile
@@ -126,7 +126,7 @@
 :include_params:
 - MedicationRequest:medication
 :revincludes:
-- Provenance:target
+#- Provenance:target
 :required_concepts: []
 :must_supports:
   :extensions: []
@@ -288,8 +288,8 @@
   :file_name: medication_request_patient_intent_status_search_test.rb
 - :id: ipa_010_medication_request_read_test
   :file_name: medication_request_read_test.rb
-- :id: ipa_010_medication_request_provenance_revinclude_search_test
-  :file_name: medication_request_provenance_revinclude_search_test.rb
+#- :id: ipa_010_medication_request_provenance_revinclude_search_test
+#  :file_name: medication_request_provenance_revinclude_search_test.rb
 - :id: ipa_010_medication_request_validation_test
   :file_name: medication_request_validation_test.rb
 - :id: ipa_010_medication_validation_test

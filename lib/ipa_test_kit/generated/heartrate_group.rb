@@ -4,7 +4,7 @@ require_relative 'heartrate/heartrate_patient_category_status_search_test'
 require_relative 'heartrate/heartrate_patient_code_date_search_test'
 require_relative 'heartrate/heartrate_patient_category_search_test'
 require_relative 'heartrate/heartrate_read_test'
-require_relative 'heartrate/heartrate_provenance_revinclude_search_test'
+#require_relative 'heartrate/heartrate_provenance_revinclude_search_test'
 require_relative 'heartrate/heartrate_validation_test'
 require_relative 'heartrate/heartrate_must_support_test'
 require_relative 'heartrate/heartrate_reference_resolution_test'
@@ -19,7 +19,7 @@ module IpaTestKit
 The IPA Observation Heart Rate sequence verifies that the system under test is
 able to provide correct responses for Observation queries. These queries
 must contain resources conforming to the Observation Heart Rate Profile as
-specified in the IPA v3.1.1 Implementation Guide.
+specified in the IPA v0.1.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -85,7 +85,7 @@ fail if any attempted read fails.
     test from: :ipa_010_heartrate_patient_code_date_search_test
     test from: :ipa_010_heartrate_patient_category_search_test
     test from: :ipa_010_heartrate_read_test
-    test from: :ipa_010_heartrate_provenance_revinclude_search_test
+#    test from: :ipa_010_heartrate_provenance_revinclude_search_test
     test from: :ipa_010_heartrate_validation_test
     test from: :ipa_010_heartrate_must_support_test
     test from: :ipa_010_heartrate_reference_resolution_test

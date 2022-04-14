@@ -2,21 +2,25 @@ require_relative '../../search_test'
 require_relative '../../generator/group_metadata'
 
 module IpaTestKit
-  class ObservationLabPatientCodeDateSearchTest < Inferno::Test
+  class MedicationStatementPatientEffectiveSearchTest < Inferno::Test
     include IpaTestKit::SearchTest
 
-    title 'Server returns valid results for Observation search by patient + code + date'
+    title 'Server returns valid results for MedicationStatement search by patient + effective'
     description %(
 A server SHOULD support searching by
-patient + code + date on the Observation resource. This test
+patient + effective on the MedicationStatement resource. This test
 will pass if resources are returned and match the search criteria. If
 none are returned, the test is skipped.
+
+If any MedicationStatement resources use external references to
+Medications, the search will be repeated with
+`_include=MedicationStatement:medication`.
 
 [IPA Server CapabilityStatement](http://hl7.org/fhir/uv/ipa/STU3.1.1/CapabilityStatement-ipa-server.html)
 
     )
 
-    id :ipa_010_observation_lab_patient_code_date_search_test
+    id :ipa_010_medication_statement_patient_effective_search_test
     optional
 
     input :patient_ids,
@@ -25,11 +29,11 @@ none are returned, the test is skipped.
 
     def self.properties
       @properties ||= SearchTestProperties.new(
-        resource_type: 'Observation',
-        search_param_names: ['patient', 'code', 'date'],
+        resource_type: 'MedicationStatement',
+        search_param_names: ['patient', 'effective'],
         possible_status_search: true,
-        token_search_params: ['code'],
-        params_with_comparators: ['date']
+        test_medication_inclusion: true,
+        params_with_comparators: ['effective']
       )
     end
 
@@ -38,7 +42,7 @@ none are returned, the test is skipped.
     end
 
     def scratch_resources
-      scratch[:observation_lab_resources] ||= {}
+      scratch[:medication_statement_resources] ||= {}
     end
 
     run do

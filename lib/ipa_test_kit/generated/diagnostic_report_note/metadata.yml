@@ -1,8 +1,8 @@
 ---
 :name: ipa_diagnosticreport_note
 :class_name: Ipav010DiagnosticreportNoteSequence
-:version: v3.1.1
-:reformatted_version: v311
+:version: v0.1.0
+:reformatted_version: v010
 :resource: DiagnosticReport
 :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note
 :profile_name: IPA DiagnosticReport Profile for Report and Note exchange

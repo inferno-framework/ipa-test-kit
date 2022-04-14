@@ -20,7 +20,7 @@ module IpaTestKit
       * Observation.value[x]
     )
 
-    id :ipa_010_observation_lab_must_support_test
+    id :ipa_010_observation_must_support_test
 
     def resource_type
       'Observation'
@@ -31,7 +31,7 @@ module IpaTestKit
     end
 
     def scratch_resources
-      scratch[:observation_lab_resources] ||= {}
+      scratch[:observation_resources] ||= {}
     end
 
     run do
