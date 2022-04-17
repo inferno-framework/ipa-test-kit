@@ -1,14 +1,12 @@
-# Inferno Template
+# Inferno IPA Test Kit
 
-This is a template repository for an
-[Inferno](https://github.com/inferno-community/inferno-core) test kit.
+This is the Inferno IPA test kit repository.
 
 ## Instructions
 
-- Clone this repo.
 - Write your tests in the `lib` folder.
 - Put the `package.tgz` for the IG you're writing tests for in
-  `lib/your_test_kit_name/igs` and update this path in `docker-compose.yml`.
+  `lib/ipa-test-kit/igs` and update this path in `docker-compose.yml`.
   This will ensure that the validator has access to the resources needed to
   validate resources against your IG.
 - Run `setup.sh` in this repo to pull the needed docker images and set up the
