@@ -5,9 +5,9 @@ module IpaTestKit
     short_description 'Verify that the server is capable of representing missing data.'
 
     description %(
-      The [IPA Missing Data
-      Guidance](http://hl7.org/fhir/uv/ipa/STU3.1.1/general-guidance.html#missing-data)
-      gives instructions on how to represent various types of missing data.
+      The IPA missing data
+      guidance (in [Must-support](https://build.fhir.org/ig/HL7/fhir-ipa/conformance.html#must-support))
+      provides the conformance expectations for handling missing data.
 
       In the previous resource tests, each resource returned from the server was
       checked for the presence of missing data. These tests will pass if the
