@@ -12,7 +12,7 @@ class + patient on the Encounter resource. This test
 will pass if resources are returned and match the search criteria. If
 none are returned, the test is skipped.
 
-[IPA Server CapabilityStatement](http://hl7.org/fhir/uv/ipa/STU3.1.1/CapabilityStatement-ipa-server.html)
+[IPA Server CapabilityStatement](https://build.fhir.org/ig/HL7/fhir-ipa/CapabilityStatement-ipa-server.html)
 
     )
 

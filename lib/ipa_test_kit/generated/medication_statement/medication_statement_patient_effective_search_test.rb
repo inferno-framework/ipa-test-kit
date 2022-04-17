@@ -16,7 +16,7 @@ If any MedicationStatement resources use external references to
 Medications, the search will be repeated with
 `_include=MedicationStatement:medication`.
 
-[IPA Server CapabilityStatement](http://hl7.org/fhir/uv/ipa/STU3.1.1/CapabilityStatement-ipa-server.html)
+[IPA Server CapabilityStatement](https://build.fhir.org/ig/HL7/fhir-ipa/CapabilityStatement-ipa-server.html)
 
     )
 

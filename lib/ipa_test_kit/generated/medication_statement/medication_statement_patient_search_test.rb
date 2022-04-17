@@ -29,7 +29,7 @@ return the same number of results. Search by POST is required by the
 FHIR R4 specification, and these tests interpret search by GET as a
 requirement of IPA v0.1.0.
 
-[IPA Server CapabilityStatement](http://hl7.org/fhir/uv/ipa/STU3.1.1/CapabilityStatement-ipa-server.html)
+[IPA Server CapabilityStatement](https://build.fhir.org/ig/HL7/fhir-ipa/CapabilityStatement-ipa-server.html)
 
     )
 
