@@ -41,12 +41,12 @@ requirement of IPA v0.1.0.
     def self.properties
       @properties ||= SearchTestProperties.new(
         first_search: true,
-        fixed_value_search: true,
+        fixed_value_search: false,
         resource_type: 'MedicationStatement',
         search_param_names: ['patient'],
         saves_delayed_references: true,
         possible_status_search: true,
-        test_medication_inclusion: true,
+        test_medication_inclusion_ms: true,
         test_reference_variants: true,
         multiple_or_search_params: [],
         test_post_search: true

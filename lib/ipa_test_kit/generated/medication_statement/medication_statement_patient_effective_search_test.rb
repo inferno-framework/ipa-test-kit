@@ -32,7 +32,7 @@ Medications, the search will be repeated with
         resource_type: 'MedicationStatement',
         search_param_names: ['patient', 'effective'],
         possible_status_search: true,
-        test_medication_inclusion: true,
+        test_medication_inclusion_ms: true,
         params_with_comparators: ['effective']
       )
     end

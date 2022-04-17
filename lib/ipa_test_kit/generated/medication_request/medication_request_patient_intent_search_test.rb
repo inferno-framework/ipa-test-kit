@@ -46,7 +46,7 @@ requirement of IPA v0.1.0.
         search_param_names: ['patient', 'intent'],
         saves_delayed_references: true,
         possible_status_search: true,
-        test_medication_inclusion: true,
+        test_medication_inclusion_mr: true,
         test_reference_variants: true,
         multiple_or_search_params: ['intent'],
         test_post_search: true

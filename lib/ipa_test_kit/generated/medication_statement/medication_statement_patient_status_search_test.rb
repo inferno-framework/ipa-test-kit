@@ -29,7 +29,7 @@ Medications, the search will be repeated with
       @properties ||= SearchTestProperties.new(
         resource_type: 'MedicationStatement',
         search_param_names: ['patient', 'status'],
-        test_medication_inclusion: true,
+        test_medication_inclusion_ms: true,
         multiple_or_search_params: ['status']
       )
     end

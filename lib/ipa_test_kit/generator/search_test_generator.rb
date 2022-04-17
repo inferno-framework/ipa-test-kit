@@ -178,8 +178,12 @@ module IpaTestKit
         first_search? && search_param_names.include?('patient')
       end
 
-      def test_medication_inclusion?
+      def test_medication_inclusion_mr?
         resource_type == 'MedicationRequest'
+      end
+
+      def test_medication_inclusion_ms?
+        resource_type == 'MedicationStatement'
       end
 
       def test_post_search?
@@ -194,7 +198,8 @@ module IpaTestKit
           properties[:search_param_names] = search_param_names_array
           properties[:saves_delayed_references] = 'true' if saves_delayed_references?
           properties[:possible_status_search] = 'true' if possible_status_search?
-          properties[:test_medication_inclusion] = 'true' if test_medication_inclusion?
+          properties[:test_medication_inclusion_mr] = 'true' if test_medication_inclusion_mr?
+          properties[:test_medication_inclusion_ms] = 'true' if test_medication_inclusion_ms?
           properties[:token_search_params] = token_search_params_string if token_search_params.present?
           properties[:test_reference_variants] = 'true' if test_reference_variants?
           properties[:params_with_comparators] = required_comparators_string if required_comparators.present?
@@ -240,7 +245,7 @@ module IpaTestKit
       end
 
       def medication_inclusion_description
-        return '' unless test_medication_inclusion?
+        return '' unless (test_medication_inclusion_mr or test_medication_inclusion_ms)?
 
         <<~MEDICATION_INCLUSION_DESCRIPTION
         If any MedicationRequest resources use external references to

@@ -11,16 +11,15 @@ module IpaTestKit
       Statement. This test will look through the MedicationStatement resources
       found previously for the following must support elements:
 
-      * MedicationStatement.authoredOn
-      * MedicationStatement.dosageInstruction
-      * MedicationStatement.dosageInstruction.text
-      * MedicationStatement.encounter
-      * MedicationStatement.intent
-      * MedicationStatement.medication[x]
-      * MedicationStatement.reported[x]
-      * MedicationStatement.requester
       * MedicationStatement.status
+      * MedicationStatement.statusReason
+      * MedicationStatement.medication[x]
       * MedicationStatement.subject
+      * MedicationStatement.context
+      * MedicationStatement.effective[x]
+      * MedicationStatement.informationSource
+      * MedicationStatement.dosage
+      * MedicationStatement.dosage.text
     )
 
     id :ipa_010_medication_statement_must_support_test

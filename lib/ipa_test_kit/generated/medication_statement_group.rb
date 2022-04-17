@@ -1,5 +1,4 @@
 require_relative 'medication_statement/medication_statement_patient_search_test'
-#require_relative 'medication_statement/medication_statement_tests'
 require_relative 'medication_statement/medication_statement_patient_context_search_test'
 require_relative 'medication_statement/medication_statement_patient_effective_search_test'
 require_relative 'medication_statement/medication_statement_patient_status_search_test'
@@ -80,7 +79,6 @@ fail if any attempted read fails.
     end
 
     test from: :ipa_010_medication_statement_patient_search_test
-    #test from: :ipa_010_medication_statement_tests
     test from: :ipa_010_medication_statement_patient_context_search_test
     test from: :ipa_010_medication_statement_patient_effective_search_test
     test from: :ipa_010_medication_statement_patient_status_search_test

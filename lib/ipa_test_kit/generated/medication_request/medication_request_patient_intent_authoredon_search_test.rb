@@ -32,7 +32,7 @@ Medications, the search will be repeated with
         resource_type: 'MedicationRequest',
         search_param_names: ['patient', 'intent', 'authoredon'],
         possible_status_search: true,
-        test_medication_inclusion: true,
+        test_medication_inclusion_mr: true,
         params_with_comparators: ['authoredon'],
         multiple_or_search_params: ['intent']
       )

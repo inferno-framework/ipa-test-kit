@@ -16,7 +16,8 @@ module IpaTestKit
                    :first_search?,
                    :fixed_value_search?,
                    :possible_status_search?,
-                   :test_medication_inclusion?,
+                   :test_medication_inclusion_mr?,
+                   :test_medication_inclusion_ms?,
                    :test_post_search?,
                    :token_search_params,
                    :test_reference_variants?,
@@ -122,7 +123,8 @@ module IpaTestKit
       return resources_returned if all_search_variants_tested?
 
       perform_post_search(resources_returned, params) if test_post_search?
-      test_medication_inclusion(resources_returned, params, patient_id) if test_medication_inclusion?
+      test_medication_inclusion_mr(resources_returned, params, patient_id) if test_medication_inclusion_mr?
+      test_medication_inclusion_ms(resources_returned, params, patient_id) if test_medication_inclusion_ms?
       perform_reference_with_type_search(params, resources_returned.count) if test_reference_variants?
       perform_search_with_system(params, patient_id) if token_search_params.present?
 
@@ -174,7 +176,7 @@ module IpaTestKit
     def initial_search_variant_test_records
       {}.tap do |records|
         records[:post_variant] = false if test_post_search?
-        records[:medication_inclusion] = false if test_medication_inclusion?
+        records[:medication_inclusion] = false if (test_medication_inclusion_mr? && test_medication_inclusion_ms?)
         records[:reference_variants] = false if test_reference_variants?
         records[:token_variants] = false if token_search_params.present?
         records[:comparator_searches] = Set.new if params_with_comparators.present?
@@ -354,7 +356,7 @@ module IpaTestKit
       end
     end
 
-    def test_medication_inclusion(medication_requests, params, patient_id)
+    def test_medication_inclusion_mr(medication_requests, params, patient_id)
       return if search_variant_test_records[:medication_inclusion]
 
       scratch[:medication_resources] ||= {}
@@ -380,6 +382,46 @@ module IpaTestKit
       return if requests_with_external_references.blank?
 
       search_params = params.merge(_include: 'MedicationRequest:medication')
+
+      search_and_check_response(search_params)
+
+      medications = fetch_all_bundled_resources.select { |resource| resource.resourceType == 'Medication' }
+      assert medications.present?, 'No Medications were included in the search results'
+
+      medications.uniq!(&:id)
+
+      scratch[:medication_resources][:all] += medications
+      scratch[:medication_resources][patient_id] += medications
+
+      search_variant_test_records[:medication_inclusion] = true
+    end
+
+    def test_medication_inclusion_ms(medication_requests, params, patient_id)
+      return if search_variant_test_records[:medication_inclusion]
+
+      scratch[:medication_resources] ||= {}
+      scratch[:medication_resources][:all] ||= []
+      scratch[:medication_resources][patient_id] ||= []
+      scratch[:medication_resources][:contained] ||= []
+
+      requests_with_external_references =
+        medication_requests
+          .select { |request| request&.medicationReference&.present? }
+          .reject { |request| request&.medicationReference&.reference&.start_with? '#' }
+
+      contained_medications =
+        medication_requests
+          .select { |request| request&.medicationReference&.reference&.start_with? '#' }
+          .flat_map(&:contained)
+          .select { |resource| resource.resourceType == 'Medication' }
+
+      scratch[:medication_resources][:all] += contained_medications
+      scratch[:medication_resources][patient_id] += contained_medications
+      scratch[:medication_resources][:contained] += contained_medications
+
+      return if requests_with_external_references.blank?
+
+      search_params = params.merge(_include: 'MedicationStatement:medication')
 
       search_and_check_response(search_params)
 
@@ -501,7 +543,7 @@ module IpaTestKit
       end
 
       valid_resource_types = [resource_type, 'OperationOutcome'].concat(additional_resource_types)
-      valid_resource_types << 'Medication' if resource_type == 'MedicationRequest'
+      valid_resource_types << 'Medication' if (resource_type == 'MedicationRequest' || resource_type == 'MedicationStatement')
 
       all_valid_resource_types =
         resources.all? { |entry| valid_resource_types.include? entry.resourceType }
