@@ -244,14 +244,24 @@ module IpaTestKit
         FIRST_SEARCH_DESCRIPTION
       end
 
-      def medication_inclusion_description
-        return '' unless (test_medication_inclusion_mr or test_medication_inclusion_ms)?
+      def medication_inclusion_mr_description
+        return '' unless test_medication_inclusion_mr?
 
-        <<~MEDICATION_INCLUSION_DESCRIPTION
+        <<~MEDICATION_INCLUSION_MR_DESCRIPTION
         If any MedicationRequest resources use external references to
         Medications, the search will be repeated with
         `_include=MedicationRequest:medication`.
-        MEDICATION_INCLUSION_DESCRIPTION
+        MEDICATION_INCLUSION_MR_DESCRIPTION
+      end
+
+      def medication_inclusion_ms_description
+        return '' unless test_medication_inclusion_ms?
+
+        <<~MEDICATION_INCLUSION_MS_DESCRIPTION
+        If any MedicationStatement resources use external references to
+        Medications, the search will be repeated with
+        `_include=MedicationStatement:medication`.
+        MEDICATION_INCLUSION_MS_DESCRIPTION
       end
 
       def post_search_description

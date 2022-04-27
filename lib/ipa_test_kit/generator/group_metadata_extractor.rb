@@ -179,7 +179,7 @@ module IpaTestKit
       end
 
       def title
-        profile.title.gsub(/IPA\s*/, '').gsub(/\s*Profile/, '').strip
+        profile.title.gsub(/Ipa\s*/, '').gsub(/\s*Profile/, '').strip
       end
 
       def short_description
