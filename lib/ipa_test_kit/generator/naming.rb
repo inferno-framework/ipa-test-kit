@@ -2,35 +2,24 @@ module IpaTestKit
   class Generator
     module Naming
       ALLERGY_INTOLERANCE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-allergyintolerance'
-      CARE_PLAN = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careplan'
-      CARE_TEAM = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careteam'
       CONDITION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-condition'
-      IMPLANTABLE_DEVICE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-implantable-device'
-      DIAGNOSTIC_REPORT_NOTE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note'
-      DIAGNOSTIC_REPORT_LAB = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab'
       DOCUMENT_REFERENCE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference'
-      ENCOUNTER = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-encounter'
-      GOAL = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-goal'
       IMMUNIZATION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-immunization'
-      LOCATION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-location'
       MEDICATION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication'
       MEDICATION_REQUEST = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest'
-      SMOKING_STATUS = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-smokingstatus'
-      PEDIATRIC_WEIGHT_FOR_HEIGHT = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-weight-for-height'
+      MEDICATION_STATEMENT = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationstatement'
       OBSERVATION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation'
-      PEDIATRIC_BMI_FOR_AGE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/pediatric-bmi-for-age'
-      PULSE_OXIMETRY = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-pulse-oximetry'
-      HEAD_CIRCUMFERENCE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile'
-      ORGANIZATION = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-organization'
+      BMI = 'http://hl7.org/fhir/StructureDefinition/bmi'
+      OXYGEN_SAT = 'http://hl7.org/fhir/StructureDefinition/oxygensat'
+      HEAD_CIRCUMFERENCE = 'http://hl7.org/fhir/StructureDefinition/headcircum'
       PATIENT = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient'
       PRACTITIONER = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner'
       PRACTITIONER_ROLE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole'
-      PROCEDURE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-procedure'
       PROVENANCE = 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance'
 
       class << self
         def resources_with_multiple_profiles
-          ['Observation', 'DiagnosticReport']
+          ['Observation']
         end
 
         def resource_has_multiple_profiles?(resource)
@@ -45,7 +34,6 @@ module IpaTestKit
 
           group_metadata.name
             .delete_prefix('ipa_')
-            .gsub('diagnosticreport', 'diagnostic_report')
             .underscore
         end
 

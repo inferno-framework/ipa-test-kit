@@ -4,7 +4,7 @@ require_relative 'resprate/resprate_patient_category_status_search_test'
 require_relative 'resprate/resprate_patient_code_date_search_test'
 require_relative 'resprate/resprate_patient_category_search_test'
 require_relative 'resprate/resprate_read_test'
-#require_relative 'resprate/resprate_provenance_revinclude_search_test'
+require_relative 'resprate/resprate_provenance_revinclude_search_test'
 require_relative 'resprate/resprate_validation_test'
 require_relative 'resprate/resprate_must_support_test'
 require_relative 'resprate/resprate_reference_resolution_test'
@@ -85,7 +85,7 @@ fail if any attempted read fails.
     test from: :ipa_010_resprate_patient_code_date_search_test
     test from: :ipa_010_resprate_patient_category_search_test
     test from: :ipa_010_resprate_read_test
-#    test from: :ipa_010_resprate_provenance_revinclude_search_test
+    test from: :ipa_010_resprate_provenance_revinclude_search_test
     test from: :ipa_010_resprate_validation_test
     test from: :ipa_010_resprate_must_support_test
     test from: :ipa_010_resprate_reference_resolution_test

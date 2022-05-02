@@ -1,7 +1,7 @@
 require_relative '../../read_test'
 
 module IpaTestKit
-  class ObservationLabReadTest < Inferno::Test
+  class ObservationReadTest < Inferno::Test
     include IpaTestKit::ReadTest
 
     title 'Server returns correct Observation resource from Observation read interaction'

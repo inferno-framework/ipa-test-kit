@@ -200,7 +200,7 @@
     :multiple_or: SHALL
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts:
 - type
 :must_supports:
@@ -292,6 +292,7 @@
 - :path: DocumentReference.author
   :profiles:
   - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
   - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-organization
   - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
 - :path: DocumentReference.authenticator
@@ -331,8 +332,8 @@
   :file_name: document_reference_patient_category_search_test.rb
 - :id: ipa_010_document_reference_read_test
   :file_name: document_reference_read_test.rb
-#- :id: ipa_010_document_reference_provenance_revinclude_search_test
-#  :file_name: document_reference_provenance_revinclude_search_test.rb
+- :id: ipa_010_document_reference_provenance_revinclude_search_test
+  :file_name: document_reference_provenance_revinclude_search_test.rb
 - :id: ipa_010_document_reference_validation_test
   :file_name: document_reference_validation_test.rb
 - :id: ipa_010_document_reference_must_support_test
@@ -345,6 +346,7 @@
 - :path: author
   :resources:
   - Practitioner
+  - PractitionerRole
   - Organization
 - :path: custodian
   :resources:

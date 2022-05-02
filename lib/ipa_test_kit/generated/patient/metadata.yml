@@ -133,7 +133,7 @@
     :multiple_or: MAY
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts: []
 :must_supports:
   :extensions:
@@ -307,8 +307,8 @@
   :file_name: patient_gender_name_search_test.rb
 - :id: ipa_010_patient_read_test
   :file_name: patient_read_test.rb
-#- :id: ipa_010_patient_provenance_revinclude_search_test
-#  :file_name: patient_provenance_revinclude_search_test.rb
+- :id: ipa_010_patient_provenance_revinclude_search_test
+  :file_name: patient_provenance_revinclude_search_test.rb
 - :id: ipa_010_patient_validation_test
   :file_name: patient_validation_test.rb
 - :id: ipa_010_patient_must_support_test

@@ -86,7 +86,7 @@
     :multiple_or: MAY
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts: []
 :must_supports:
   :extensions: []
@@ -197,8 +197,8 @@
   :file_name: immunization_patient_status_search_test.rb
 - :id: ipa_010_immunization_read_test
   :file_name: immunization_read_test.rb
-#- :id: ipa_010_immunization_provenance_revinclude_search_test
-#  :file_name: immunization_provenance_revinclude_search_test.rb
+- :id: ipa_010_immunization_provenance_revinclude_search_test
+  :file_name: immunization_provenance_revinclude_search_test.rb
 - :id: ipa_010_immunization_validation_test
   :file_name: immunization_validation_test.rb
 - :id: ipa_010_immunization_must_support_test

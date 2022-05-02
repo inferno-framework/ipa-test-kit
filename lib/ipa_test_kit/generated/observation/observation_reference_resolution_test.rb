@@ -1,7 +1,7 @@
 require_relative '../../reference_resolution_test'
 
 module IpaTestKit
-  class ObservationLabReferenceResolutionTest < Inferno::Test
+  class ObservationReferenceResolutionTest < Inferno::Test
     include IpaTestKit::ReferenceResolutionTest
 
     title 'Every reference within Observation resources can be read'

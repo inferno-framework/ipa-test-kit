@@ -1124,19 +1124,11 @@
     :multiple_or: SHOULD
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts:
 :must_supports:
   :extensions: []
   :slices: []
-#  :slices:
-#  - :name: Observation.category:Laboratory
-#    :path: category
-#    :discriminator:
-#      :type: patternCodeableConcept
-#      :path: ''
-#      :code: laboratory
-#      :system: http://terminology.hl7.org/CodeSystem/observation-category
   :elements:
   - :path: status
   - :path: category
@@ -1275,8 +1267,8 @@
   :file_name: observation_patient_code_search_test.rb
 - :id: ipa_010_observation_read_test
   :file_name: observation_read_test.rb
-#- :id: ipa_010_observation_provenance_revinclude_search_test
-#  :file_name: observation_provenance_revinclude_search_test.rb
+- :id: ipa_010_observation_provenance_revinclude_search_test
+  :file_name: observation_provenance_revinclude_search_test.rb
 - :id: ipa_010_observation_validation_test
   :file_name: observation_validation_test.rb
 - :id: ipa_010_observation_must_support_test

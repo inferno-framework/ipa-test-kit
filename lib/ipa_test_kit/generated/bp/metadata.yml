@@ -125,7 +125,7 @@
     :multiple_or: SHOULD
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts:
 :must_supports:
   :extensions: []
@@ -366,8 +366,8 @@
   :file_name: bp_patient_category_search_test.rb
 - :id: ipa_010_bp_read_test
   :file_name: bp_read_test.rb
-#- :id: ipa_010_bp_provenance_revinclude_search_test
-#  :file_name: bp_provenance_revinclude_search_test.rb
+- :id: ipa_010_bp_provenance_revinclude_search_test
+  :file_name: bp_provenance_revinclude_search_test.rb
 - :id: ipa_010_bp_validation_test
   :file_name: bp_validation_test.rb
 - :id: ipa_010_bp_must_support_test

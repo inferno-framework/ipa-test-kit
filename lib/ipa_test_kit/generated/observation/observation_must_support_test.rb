@@ -1,7 +1,7 @@
 require_relative '../../must_support_test'
 
 module IpaTestKit
-  class ObservationLabMustSupportTest < Inferno::Test
+  class ObservationMustSupportTest < Inferno::Test
     include IpaTestKit::MustSupportTest
 
     title 'All must support elements are provided in the Observation resources returned'

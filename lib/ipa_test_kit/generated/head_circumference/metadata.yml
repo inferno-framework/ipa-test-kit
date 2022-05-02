@@ -1,14 +1,13 @@
 ---
-:name: head_occipital_frontal_circumference_percentile
-:class_name: HeadOccipitalFrontalCircumferencePercentileSequence
+:name: headcircum
+:class_name: HeadCircumferenceSequence
 :version: v0.1.0
 :reformatted_version: v010
 :resource: Observation
-:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile
-:profile_name: IPA Pediatric Head Occipital-frontal Circumference Percentile Profile
-:title: Pediatric Head Occipital-frontal Circumference Percentile
-:short_description: Verify support for the server capabilities required by the IPA
-  Pediatric Head Occipital-frontal Circumference Percentile Profile.
+:profile_url: http://hl7.org/fhir/StructureDefinition/headcircum
+:profile_name: Observation Head Circumference Profile
+:title: Observation Head Circumference
+:short_description: Verify support for the server capabilities required by the Observation Head Circumference Profile.
 :interactions:
 - :code: create
   :expectation: MAY
@@ -119,13 +118,13 @@
     :full_path: Observation.code
     :comparators: {}
     :values:
-    - 8289-1
+    - 9843-4
     :type: CodeableConcept
     :contains_multiple: false
     :multiple_or: SHOULD
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts:
 :must_supports:
   :extensions: []
@@ -153,7 +152,7 @@
   - :path: category.coding.code
     :fixed_value: vital-signs
   - :path: code.coding.code
-    :fixed_value: 8289-1
+    :fixed_value: 9843-4
   - :path: subject
   - :path: effective[x]
   - :path: value[x]
@@ -162,7 +161,6 @@
   - :path: value[x].system
     :fixed_value: http://unitsofmeasure.org
   - :path: value[x].code
-    :fixed_value: "%"
 :mandatory_elements:
 - Observation.status
 - Observation.category
@@ -171,6 +169,9 @@
 - Observation.category.coding.system
 - Observation.category.coding.code
 - Observation.code
+- Observation.code.coding
+- Observation.code.coding.system
+- Observation.code.coding.code
 - Observation.subject
 - Observation.effective[x]
 - Observation.value[x].value
@@ -262,7 +263,7 @@
   - http://hl7.org/fhir/StructureDefinition/ImagingStudy
 - :path: Observation.subject
   :profiles:
-  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - ttp://hl7.org/fhir/StructureDefinition/Patient
 - :path: Observation.focus
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Resource
@@ -310,8 +311,8 @@
   :file_name: head_circumference_patient_category_search_test.rb
 - :id: ipa_010_head_circumference_read_test
   :file_name: head_circumference_read_test.rb
-#- :id: ipa_010_head_circumference_provenance_revinclude_search_test
-#  :file_name: head_circumference_provenance_revinclude_search_test.rb
+- :id: ipa_010_head_circumference_provenance_revinclude_search_test
+  :file_name: head_circumference_provenance_revinclude_search_test.rb
 - :id: ipa_010_head_circumference_validation_test
   :file_name: head_circumference_validation_test.rb
 - :id: ipa_010_head_circumference_must_support_test

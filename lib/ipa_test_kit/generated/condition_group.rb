@@ -4,7 +4,7 @@ require_relative 'condition/condition_patient_category_search_test'
 require_relative 'condition/condition_patient_clinical_status_search_test'
 require_relative 'condition/condition_patient_code_search_test'
 require_relative 'condition/condition_read_test'
-#require_relative 'condition/condition_provenance_revinclude_search_test'
+require_relative 'condition/condition_provenance_revinclude_search_test'
 require_relative 'condition/condition_validation_test'
 require_relative 'condition/condition_must_support_test'
 require_relative 'condition/condition_reference_resolution_test'
@@ -83,7 +83,7 @@ fail if any attempted read fails.
     test from: :ipa_010_condition_patient_clinical_status_search_test
     test from: :ipa_010_condition_patient_code_search_test
     test from: :ipa_010_condition_read_test
-    #test from: :ipa_010_condition_provenance_revinclude_search_test
+    test from: :ipa_010_condition_provenance_revinclude_search_test
     test from: :ipa_010_condition_validation_test
     test from: :ipa_010_condition_must_support_test
     test from: :ipa_010_condition_reference_resolution_test

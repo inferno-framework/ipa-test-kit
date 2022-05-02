@@ -6,7 +6,7 @@ require_relative 'document_reference/document_reference_patient_category_date_se
 require_relative 'document_reference/document_reference_patient_status_search_test'
 require_relative 'document_reference/document_reference_patient_category_search_test'
 require_relative 'document_reference/document_reference_read_test'
-#require_relative 'document_reference/document_reference_provenance_revinclude_search_test'
+require_relative 'document_reference/document_reference_provenance_revinclude_search_test'
 require_relative 'document_reference/document_reference_validation_test'
 require_relative 'document_reference/document_reference_must_support_test'
 require_relative 'document_reference/document_reference_reference_resolution_test'
@@ -91,7 +91,7 @@ fail if any attempted read fails.
     test from: :ipa_010_document_reference_patient_status_search_test
     test from: :ipa_010_document_reference_patient_category_search_test
     test from: :ipa_010_document_reference_read_test
-#    test from: :ipa_010_document_reference_provenance_revinclude_search_test
+    test from: :ipa_010_document_reference_provenance_revinclude_search_test
     test from: :ipa_010_document_reference_validation_test
     test from: :ipa_010_document_reference_must_support_test
     test from: :ipa_010_document_reference_reference_resolution_test
