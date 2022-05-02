@@ -3,7 +3,7 @@ require_relative 'lib/ipa_test_kit/version'
 Gem::Specification.new do |spec|
   spec.name          = 'ipa_test_kit'
   spec.version       = IpaTestKit::VERSION
-  spec.authors       = ['Stephen MacVicar']
+  spec.authors       = ['Inferno Core Team']
   spec.email         = ['inferno@groups.mitre.org']
   spec.summary       = 'IPA Inferno tests'
   spec.description   = 'IPA Inferno tests'
