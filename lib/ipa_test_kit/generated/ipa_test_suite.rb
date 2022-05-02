@@ -19,7 +19,7 @@ require_relative 'bodyweight_group'
 require_relative 'heartrate_group'
 require_relative 'resprate_group'
 require_relative 'practitioner_group'
-require_relative 'practitioner_role_group'
+#require_relative 'practitioner_role_group'
 require_relative 'provenance_group'
 
 module IpaTestKit
@@ -81,7 +81,8 @@ module IpaTestKit
     group from: :ipa_010_heartrate
     group from: :ipa_010_resprate
     group from: :ipa_010_practitioner
-    group from: :ipa_010_practitioner_role
+    # still working on the PractitionerRole tests
+    #group from: :ipa_010_practitioner_role
     group from: :ipa_010_provenance
   end
 end
