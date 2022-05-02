@@ -120,7 +120,7 @@
     :multiple_or: MAY
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts:
 - clinicalStatus
 - verificationStatus
@@ -218,8 +218,8 @@
   :file_name: condition_patient_code_search_test.rb
 - :id: ipa_010_condition_read_test
   :file_name: condition_read_test.rb
-#- :id: ipa_010_condition_provenance_revinclude_search_test
-#  :file_name: condition_provenance_revinclude_search_test.rb
+- :id: ipa_010_condition_provenance_revinclude_search_test
+  :file_name: condition_provenance_revinclude_search_test.rb
 - :id: ipa_010_condition_validation_test
   :file_name: condition_validation_test.rb
 - :id: ipa_010_condition_must_support_test

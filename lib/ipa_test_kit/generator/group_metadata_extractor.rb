@@ -89,10 +89,7 @@ module IpaTestKit
       ### BEGIN SPECIAL CASES ###
 
       CATEGORY_FIRST_PROFILES = [
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-careplan',
-#        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-lab',
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-diagnosticreport-note'
+        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation',
       ]
 
       def category_first_profile?
@@ -179,7 +176,7 @@ module IpaTestKit
       end
 
       def title
-        profile.title.gsub(/Ipa\s*/, '').gsub(/\s*Profile/, '').strip
+        profile.title.gsub(/IPA\s*/, '').gsub(/\s*Profile/, '').strip
       end
 
       def short_description

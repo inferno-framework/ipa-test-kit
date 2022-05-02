@@ -5,10 +5,10 @@ module IpaTestKit
     include IpaTestKit::ValidationTest
 
     id :ipa_010_head_circumference_validation_test
-    title 'Observation resources returned during previous tests conform to the IPA Pediatric Head Occipital-frontal Circumference Percentile Profile'
+    title 'Observation resources returned during previous tests conform to the Observation Head Circumference Profile'
     description %(
 This test verifies resources returned from the first search conform to
-the [IPA Pediatric Head Occipital-frontal Circumference Percentile Profile](http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile).
+the [Observation Head Circumference Profile](http://hl7.org/fhir/StructureDefinition/headcircum).
 
 It verifies the presence of mandatory elements and that elements with
 required bindings contain appropriate values. CodeableConcept element
@@ -28,7 +28,7 @@ fail if their code/system are not found in the valueset.
     end
 
     run do
-      perform_validation_test(scratch_resources[:all] || [], 'http://hl7.org/fhir/uv/ipa/StructureDefinition/head-occipital-frontal-circumference-percentile')
+      perform_validation_test(scratch_resources[:all] || [], 'http://hl7.org/fhir/StructureDefinition/headcircum')
     end
   end
 end

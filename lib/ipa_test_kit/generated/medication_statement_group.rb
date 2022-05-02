@@ -3,7 +3,7 @@ require_relative 'medication_statement/medication_statement_patient_context_sear
 require_relative 'medication_statement/medication_statement_patient_effective_search_test'
 require_relative 'medication_statement/medication_statement_patient_status_search_test'
 require_relative 'medication_statement/medication_statement_read_test'
-#require_relative 'medication_statement/medication_statement_provenance_revinclude_search_test'
+require_relative 'medication_statement/medication_statement_provenance_revinclude_search_test'
 require_relative 'medication_statement/medication_statement_validation_test'
 require_relative 'medication_statement/medication_validation_test'
 require_relative 'medication_statement/medication_statement_must_support_test'
@@ -83,7 +83,7 @@ fail if any attempted read fails.
     test from: :ipa_010_medication_statement_patient_effective_search_test
     test from: :ipa_010_medication_statement_patient_status_search_test
     test from: :ipa_010_medication_statement_read_test
-#    test from: :ipa_010_medication_statement_provenance_revinclude_search_test
+    test from: :ipa_010_medication_statement_provenance_revinclude_search_test
     test from: :ipa_010_medication_statement_validation_test
     test from: :ipa_010_medication_validation_test
     test from: :ipa_010_medication_statement_must_support_test

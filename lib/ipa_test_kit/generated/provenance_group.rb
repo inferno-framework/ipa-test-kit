@@ -1,19 +1,17 @@
 require_relative 'provenance/provenance_read_test'
 require_relative 'provenance/provenance_validation_test'
-require_relative 'provenance/provenance_must_support_test'
 require_relative 'provenance/provenance_reference_resolution_test'
 
 module IpaTestKit
   class ProvenanceGroup < Inferno::TestGroup
     title 'Provenance Tests'
-    short_description 'Verify support for the server capabilities required by the IPA Provenance Profile.'
+    short_description 'Verify support for the server capabilities required by the Provenance Resource.'
     description %(
 # Background
 
-The IPA Provenance sequence verifies that the system under test is
+The Provenance sequence verifies that the system under test is
 able to provide correct responses for Provenance queries. These queries
-must contain resources conforming to the IPA Provenance Profile as
-specified in the IPA v0.1.0 Implementation Guide.
+must contain resources conforming to the Provenance Resource.
 
 # Testing Methodology
 
@@ -27,7 +25,7 @@ elements.
 
 ## Profile Validation
 Each resource returned from the first search is expected to conform to
-the [IPA Provenance Profile](http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance). Each element is checked against
+the [Provenance Resource](http://hl7.org/fhir/StructureDefinition/Provenance). Each element is checked against
 teminology binding and cardinality requirements.
 
 Elements with a required binding are validated against their bound
@@ -50,7 +48,6 @@ fail if any attempted read fails.
 
     test from: :ipa_010_provenance_read_test
     test from: :ipa_010_provenance_validation_test
-    test from: :ipa_010_provenance_must_support_test
     test from: :ipa_010_provenance_reference_resolution_test
   end
 end

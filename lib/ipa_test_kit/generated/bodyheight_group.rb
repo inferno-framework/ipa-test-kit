@@ -4,7 +4,7 @@ require_relative 'bodyheight/bodyheight_patient_category_status_search_test'
 require_relative 'bodyheight/bodyheight_patient_code_date_search_test'
 require_relative 'bodyheight/bodyheight_patient_category_search_test'
 require_relative 'bodyheight/bodyheight_read_test'
-#require_relative 'bodyheight/bodyheight_provenance_revinclude_search_test'
+require_relative 'bodyheight/bodyheight_provenance_revinclude_search_test'
 require_relative 'bodyheight/bodyheight_validation_test'
 require_relative 'bodyheight/bodyheight_must_support_test'
 require_relative 'bodyheight/bodyheight_reference_resolution_test'
@@ -85,7 +85,7 @@ fail if any attempted read fails.
     test from: :ipa_010_bodyheight_patient_code_date_search_test
     test from: :ipa_010_bodyheight_patient_category_search_test
     test from: :ipa_010_bodyheight_read_test
-#    test from: :ipa_010_bodyheight_provenance_revinclude_search_test
+    test from: :ipa_010_bodyheight_provenance_revinclude_search_test
     test from: :ipa_010_bodyheight_validation_test
     test from: :ipa_010_bodyheight_must_support_test
     test from: :ipa_010_bodyheight_reference_resolution_test

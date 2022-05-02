@@ -5,10 +5,10 @@ module IpaTestKit
     include IpaTestKit::ValidationTest
 
     id :ipa_010_provenance_validation_test
-    title 'Provenance resources returned during previous tests conform to the IPA Provenance Profile'
+    title 'Provenance resources returned during previous tests conform to the Provenance Resource'
     description %(
 This test verifies resources returned from the first search conform to
-the [IPA Provenance Profile](http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance).
+the [Provenance Resource](http://hl7.org/fhir/StructureDefinition/Provenance).
 
 It verifies the presence of mandatory elements and that elements with
 required bindings contain appropriate values. CodeableConcept element
@@ -28,7 +28,7 @@ fail if their code/system are not found in the valueset.
     end
 
     run do
-      perform_validation_test(scratch_resources[:all] || [], 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-provenance')
+      perform_validation_test(scratch_resources[:all] || [], 'http://hl7.org/fhir/StructureDefinition/Provenance')
     end
   end
 end

@@ -106,7 +106,7 @@
 :include_params:
 - MedicationStatement:medication
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts: []
 :must_supports:
   :extensions: []
@@ -212,8 +212,8 @@
   :file_name: medication_statement_patient_status_search_test.rb
 - :id: ipa_010_medication_statement_read_test
   :file_name: medication_statement_read_test.rb
-#- :id: ipa_010_medication_statement_provenance_revinclude_search_test
-#  :file_name: medication_statement_provenance_revinclude_search_test.rb
+- :id: ipa_010_medication_statement_provenance_revinclude_search_test
+  :file_name: medication_statement_provenance_revinclude_search_test.rb
 - :id: ipa_010_medication_statement_validation_test
   :file_name: medication_statement_validation_test.rb
 - :id: ipa_010_medication_validation_test

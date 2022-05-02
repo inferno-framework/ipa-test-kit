@@ -4,7 +4,7 @@ require_relative 'observation/observation_patient_category_status_search_test'
 require_relative 'observation/observation_patient_code_date_search_test'
 require_relative 'observation/observation_patient_code_search_test'
 require_relative 'observation/observation_read_test'
-#require_relative 'observation/observation_provenance_revinclude_search_test'
+require_relative 'observation/observation_provenance_revinclude_search_test'
 require_relative 'observation/observation_validation_test'
 require_relative 'observation/observation_must_support_test'
 require_relative 'observation/observation_reference_resolution_test'
@@ -85,7 +85,7 @@ fail if any attempted read fails.
     test from: :ipa_010_observation_patient_code_date_search_test
     test from: :ipa_010_observation_patient_code_search_test
     test from: :ipa_010_observation_read_test
-#    test from: :ipa_010_observation_provenance_revinclude_search_test
+    test from: :ipa_010_observation_provenance_revinclude_search_test
     test from: :ipa_010_observation_validation_test
     test from: :ipa_010_observation_must_support_test
     test from: :ipa_010_observation_reference_resolution_test
