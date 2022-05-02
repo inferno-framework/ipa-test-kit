@@ -36,7 +36,7 @@ require_relative 'practitioner_group'
 
 module IpaTestKit
   class IpaTestSuite < Inferno::TestSuite
-    title 'IPA'
+    title 'International Patient Access (IPA)'
     version VERSION
 
     VALIDATION_MESSAGE_FILTERS = [
