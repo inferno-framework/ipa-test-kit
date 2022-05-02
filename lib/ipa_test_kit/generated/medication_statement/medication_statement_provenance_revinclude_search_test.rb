@@ -5,11 +5,11 @@ module IpaTestKit
   class MedicationStatementProvenanceRevincludeSearchTest < Inferno::Test
     include IpaTestKit::SearchTest
 
-    title 'Server returns Provenance resources from MedicationStatement search by patient + intent + revInclude:Provenance:target'
+    title 'Server returns Provenance resources from MedicationStatement search by patient + revInclude:Provenance:target'
     description %(
       A server SHALL be capable of supporting _revIncludes:Provenance:target.
 
-      This test will perform a search by patient + intent + revInclude:Provenance:target and
+      This test will perform a search by patient + revInclude:Provenance:target and
       will pass if a Provenance resource is found in the response.
     %)
 
@@ -21,9 +21,9 @@ module IpaTestKit
 
     def properties
       @properties ||= SearchTestProperties.new(
-        fixed_value_search: true,
+        fixed_value_search: false,
         resource_type: 'MedicationStatement',
-        search_param_names: ['patient', 'intent'],
+        search_param_names: ['patient'],
         possible_status_search: true
       )
     end

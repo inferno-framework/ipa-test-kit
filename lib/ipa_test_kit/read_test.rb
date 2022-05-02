@@ -47,7 +47,7 @@ module IpaTestKit
     end
 
     def no_resources_skip_message
-      "No #{resource_type} resources appeart to be available. " \
+      "No #{resource_type} resources appear to be available. " \
       'Please use patients with more information.'
     end
 

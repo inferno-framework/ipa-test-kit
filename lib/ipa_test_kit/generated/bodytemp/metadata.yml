@@ -125,7 +125,7 @@
     :multiple_or: SHOULD
 :include_params: []
 :revincludes:
-#- Provenance:target
+- Provenance:target
 :required_concepts:
 :must_supports:
   :extensions: []
@@ -315,8 +315,8 @@
   :file_name: bodytemp_patient_category_search_test.rb
 - :id: ipa_010_bodytemp_read_test
   :file_name: bodytemp_read_test.rb
-#- :id: ipa_010_bodytemp_provenance_revinclude_search_test
-#  :file_name: bodytemp_provenance_revinclude_search_test.rb
+- :id: ipa_010_bodytemp_provenance_revinclude_search_test
+  :file_name: bodytemp_provenance_revinclude_search_test.rb
 - :id: ipa_010_bodytemp_validation_test
   :file_name: bodytemp_validation_test.rb
 - :id: ipa_010_bodytemp_must_support_test

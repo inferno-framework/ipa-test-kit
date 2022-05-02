@@ -2,24 +2,16 @@ module IpaTestKit
   module ResourceList
     RESOURCE_LIST = [
       'AllergyIntolerance',
-      'CarePlan',
-      'CareTeam',
       'Condition',
-      'Device',
-      'DiagnosticReport',
       'DocumentReference',
-      'Encounter',
-      'Goal',
       'Immunization',
-      'Location',
       'Medication',
       'MedicationRequest',
+      'MedicationStatement',
       'Observation',
-      'Organization',
       'Patient',
       'Practitioner',
       'PractitionerRole',
-      'Procedure',
       'Provenance'
     ].freeze
   end

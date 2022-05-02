@@ -2,7 +2,7 @@ require_relative '../../search_test'
 require_relative '../../generator/group_metadata'
 
 module IpaTestKit
-  class ObservationLabProvenanceRevincludeSearchTest < Inferno::Test
+  class ObservationProvenanceRevincludeSearchTest < Inferno::Test
     include IpaTestKit::SearchTest
 
     title 'Server returns Provenance resources from Observation search by patient + category + revInclude:Provenance:target'

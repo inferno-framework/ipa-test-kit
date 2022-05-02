@@ -2,7 +2,7 @@ require_relative '../../search_test'
 require_relative '../../generator/group_metadata'
 
 module IpaTestKit
-  class ObservationLabPatientCategoryDateSearchTest < Inferno::Test
+  class ObservationPatientCategoryDateSearchTest < Inferno::Test
     include IpaTestKit::SearchTest
 
     title 'Server returns valid results for Observation search by patient + category + date'

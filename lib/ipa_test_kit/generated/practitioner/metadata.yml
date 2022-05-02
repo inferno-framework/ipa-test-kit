@@ -62,25 +62,13 @@
 :required_concepts: []
 :must_supports:
   :extensions: []
-  :slices:
-  - :name: Practitioner.identifier:NPI
-    :path: identifier
-    :discriminator:
-      :type: patternIdentifier
-      :path: ''
-      :system: http://hl7.org/fhir/sid/us-npi
+  :slices: []
   :elements:
-  - :path: identifier
-  - :path: identifier.system
-  - :path: identifier.value
+  - :path: active
   - :path: name
-  - :path: name.family
 :mandatory_elements:
-- Practitioner.identifier
-- Practitioner.identifier.system
-- Practitioner.identifier.value
+- Practitioner.active
 - Practitioner.name
-- Practitioner.name.family
 - Practitioner.qualification.code
 :bindings:
 - :type: code
