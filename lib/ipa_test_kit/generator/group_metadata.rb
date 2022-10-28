@@ -39,7 +39,7 @@ module IpaTestKit
 
       ATTRIBUTES.each { |name| attr_accessor name }
 
-      def initialize(**params)
+      def initialize(params)
         params.each do |key, value|
           raise "Unknown attribute #{key}" unless ATTRIBUTES.include? key
 
