@@ -20,12 +20,11 @@ module IpaTestKit
       ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'ipa_test_kit', 'igs', '*.tgz'))
 
       ig_packages.each do |ig_package|
-        binding.pry
         new(ig_package).generate
       end
     end
 
-    attr_accessor :ig_resources, :ig_metadata, :ig_file_name
+    attr_accessor :ig_resources, :ig_metadata, :ig_file_name, :base_search_params
 
     def initialize(ig_file_name)
       self.ig_file_name = ig_file_name
@@ -34,6 +33,7 @@ module IpaTestKit
     def generate
       puts "Generating tests for IG #{File.basename(ig_file_name)}"
       load_ig_package
+      load_base_search_params
       extract_metadata
       generate_resource_list
       generate_search_tests
@@ -50,8 +50,14 @@ module IpaTestKit
       generate_suites
     end
 
+    def load_base_search_params
+
+      self.base_search_params = JSON.parse(File.read(File.join(Dir.pwd, 'lib', 'ipa_test_kit', 'igs', 'search-parameters.json')))
+
+    end
+
     def extract_metadata
-      self.ig_metadata = IGMetadataExtractor.new(ig_resources).extract
+      self.ig_metadata = IGMetadataExtractor.new(ig_resources, base_search_params).extract
 
       FileUtils.mkdir_p(base_output_dir)
       File.open(File.join(base_output_dir, 'metadata.yml'), 'w') do |file|

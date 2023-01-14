@@ -7,13 +7,14 @@ require_relative 'terminology_binding_metadata_extractor'
 module IpaTestKit
   class Generator
     class GroupMetadataExtractor
-      attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources
+      attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources, :base_search_params
 
-      def initialize(resource_capabilities, profile_url, ig_metadata, ig_resources)
+      def initialize(resource_capabilities, profile_url, ig_metadata, ig_resources, base_search_params)
         self.resource_capabilities = resource_capabilities
         self.profile_url = profile_url
         self.ig_metadata = ig_metadata
         self.ig_resources = ig_resources
+        self.base_search_params = base_search_params
       end
 
       def group_metadata
@@ -221,7 +222,7 @@ module IpaTestKit
 
       def search_metadata_extractor
         @search_metadata_extractor ||=
-          SearchMetadataExtractor.new(resource_capabilities, ig_resources, resource, profile_elements)
+          SearchMetadataExtractor.new(resource_capabilities, ig_resources, resource, profile_elements, base_search_params)
       end
 
       def searches

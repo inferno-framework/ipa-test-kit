@@ -4,10 +4,11 @@ require_relative 'group_metadata_extractor'
 module IpaTestKit
   class Generator
     class IGMetadataExtractor
-      attr_accessor :ig_resources, :metadata
+      attr_accessor :ig_resources, :metadata, :base_search_params
 
-      def initialize(ig_resources)
+      def initialize(ig_resources, base_search_params)
         self.ig_resources = ig_resources
+        self.base_search_params = base_search_params
         add_missing_supported_profiles
         remove_extra_supported_profiles
         self.metadata = IGMetadata.new
@@ -64,7 +65,7 @@ module IpaTestKit
         metadata.groups =
           resources_in_capability_statement.flat_map do |resource|
             resource.supportedProfile&.map do |supported_profile|
-              GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources).group_metadata
+              GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources, base_search_params).group_metadata
             end
           end
 
