@@ -2,19 +2,23 @@ module IpaTestKit
   class Generator
     class ResourceListGenerator
       class << self
-        def generate(ig_metadata)
+        def generate(ig_metadata, base_output_dir)
           @ig_metadata = ig_metadata
 
-          FileUtils.mkdir_p(output_file_directory)
-          File.open(output_file_name, 'w') { |f| f.write(output) }
+          FileUtils.mkdir_p(base_output_dir)
+          File.open(File.join(base_output_dir, base_output_file_name), 'w') { |f| f.write(output) }
         end
 
-        def resource_list
+        def resource_list          
           @ig_metadata.groups.map(&:resource).uniq
         end
 
         def resource_list_string
           resource_list.map { |resource| "      '#{resource}'" }.join(",\n")
+        end
+
+        def module_name
+          "Ipa#{@ig_metadata.reformatted_version.upcase}"
         end
 
         def read_interaction(group_metadata)
@@ -26,19 +30,11 @@ module IpaTestKit
         end
 
         def output
-          @output ||= ERB.new(template).result(binding)
+          ERB.new(template).result(binding)
         end
 
         def base_output_file_name
           "resource_list.rb"
-        end
-
-        def output_file_directory
-          File.join(__dir__, '..', 'generated')
-        end
-
-        def output_file_name
-          File.join(output_file_directory, base_output_file_name)
         end
       end
     end

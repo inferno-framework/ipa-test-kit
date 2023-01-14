@@ -5,19 +5,20 @@ module IpaTestKit
   class Generator
     class ProvenanceRevincludeSearchTestGenerator
       class << self
-        def generate(ig_metadata)
+        def generate(ig_metadata, base_output_dir)
           ig_metadata.groups
-            .reject { |group| SpecialCases.exclude_resource? group.resource }
+            .reject { |group| SpecialCases.exclude_group? group }
             .select { |group| group.revincludes.include? 'Provenance:target' }
-            .each { |group| new(group, group.searches.first).generate }
+            .each { |group| new(group, group.searches.first, base_output_dir).generate }
         end
       end
 
-      attr_accessor :group_metadata, :search_metadata
+      attr_accessor :group_metadata, :search_metadata, :base_output_dir
 
-      def initialize(group_metadata, search_metadata)
+      def initialize(group_metadata, search_metadata, base_output_dir)
         self.group_metadata = group_metadata
         self.search_metadata = search_metadata
+        self.base_output_dir = base_output_dir
       end
 
       def template
@@ -33,7 +34,7 @@ module IpaTestKit
       end
 
       def output_file_directory
-        File.join(__dir__, '..', 'generated', profile_identifier)
+        File.join(base_output_dir, profile_identifier)
       end
 
       def output_file_name
@@ -45,7 +46,7 @@ module IpaTestKit
       end
 
       def test_id
-        "ipa_010_#{profile_identifier}_#{search_identifier}_search_test"
+        "ipa_#{group_metadata.reformatted_version}_#{profile_identifier}_#{search_identifier}_search_test"
       end
 
       def search_identifier
@@ -58,6 +59,10 @@ module IpaTestKit
 
       def class_name
         "#{Naming.upper_camel_case_for_profile(group_metadata)}#{search_title}SearchTest"
+      end
+
+      def module_name
+        "Ipa#{group_metadata.reformatted_version.upcase}"
       end
 
       def resource_type

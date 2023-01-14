@@ -5,17 +5,18 @@ module IpaTestKit
   class Generator
     class MustSupportTestGenerator
       class << self
-        def generate(ig_metadata)
+        def generate(ig_metadata, base_output_dir)
           ig_metadata.groups
-            .reject { |group| SpecialCases.exclude_resource? group.resource }
-            .each { |group| new(group).generate }
+            .reject { |group| SpecialCases.exclude_group? group }
+            .each { |group| new(group, base_output_dir).generate }
         end
       end
 
-      attr_accessor :group_metadata
+      attr_accessor :group_metadata, :base_output_dir
 
-      def initialize(group_metadata)
+      def initialize(group_metadata, base_output_dir)
         self.group_metadata = group_metadata
+        self.base_output_dir = base_output_dir
       end
 
       def template
@@ -31,7 +32,7 @@ module IpaTestKit
       end
 
       def output_file_directory
-        File.join(__dir__, '..', 'generated', profile_identifier)
+        File.join(base_output_dir, profile_identifier)
       end
 
       def output_file_name
@@ -47,11 +48,15 @@ module IpaTestKit
       end
 
       def test_id
-        "ipa_010_#{profile_identifier}_must_support_test"
+        "ipa_#{group_metadata.reformatted_version}_#{profile_identifier}_must_support_test"
       end
 
       def class_name
         "#{Naming.upper_camel_case_for_profile(group_metadata)}MustSupportTest"
+      end
+
+      def module_name
+        "Ipa#{group_metadata.reformatted_version.upcase}"
       end
 
       def resource_type
@@ -63,12 +68,37 @@ module IpaTestKit
       end
 
       def must_support_list_string
-        slice_names = group_metadata.must_supports[:slices].map { |slice| slice[:name] }
-        element_names = group_metadata.must_supports[:elements].map { |slice| "#{resource_type}.#{slice[:path]}" }
-        extension_names = group_metadata.must_supports[:extensions].map { |slice| slice[:id] }
+        build_must_support_list_string(false)
+      end
+
+      def uscdi_list_string
+        build_must_support_list_string(true)
+      end
+
+      def build_must_support_list_string(uscdi_only)
+        slice_names = group_metadata.must_supports[:slices]
+          .select { |slice| slice[:uscdi_only].presence == uscdi_only.presence }
+          .map { |slice| slice[:name] }
+
+        element_names = group_metadata.must_supports[:elements]
+          .select { |element| element[:uscdi_only].presence == uscdi_only.presence }
+          .map { |element| "#{resource_type}.#{element[:path]}" }
+
+        extension_names = group_metadata.must_supports[:extensions]
+          .select { |extension| extension[:uscdi_only].presence == uscdi_only.presence }
+          .map { |extension| extension[:id] }
+
+        group_metadata.must_supports[:choices]&.each do |choice|
+          next unless choice[:uscdi_only].presence == uscdi_only.presence && choice.key?(:paths)
+
+          choice[:paths].each { |path| element_names.delete("#{resource_type}.#{path}") }
+          element_names << choice[:paths].map { |path| "#{resource_type}.#{path}" }.join(' or ')
+        end
+
         (slice_names + element_names + extension_names)
+          .uniq
           .sort
-          .map { |name| "      * #{name}" }
+          .map { |name| "#{' ' * 8}* #{name}" }
           .join("\n")
       end
 

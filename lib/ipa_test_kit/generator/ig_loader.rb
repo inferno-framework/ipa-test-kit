@@ -1,5 +1,6 @@
 require 'active_support/all'
 require 'fhir_models'
+require 'pathname'
 require 'rubygems/package'
 require 'zlib'
 require_relative 'ig_resources'
@@ -7,6 +8,12 @@ require_relative 'ig_resources'
 module IpaTestKit
   class Generator
     class IGLoader
+      attr_accessor :ig_file_name
+
+      def initialize(ig_file_name)
+        self.ig_file_name = ig_file_name
+      end
+
       def ig_resources
         @ig_resources ||= IGResources.new
       end
@@ -17,7 +24,9 @@ module IpaTestKit
       end
 
       def load_ig
-        tar = Gem::Package::TarReader.new(Zlib::GzipReader.open(File.join(__dir__, '..', 'igs', 'package.tgz')))
+        tar = Gem::Package::TarReader.new(
+          Zlib::GzipReader.open(ig_file_name)
+        )
 
         tar.each do |entry|
           next if entry.directory?
@@ -43,7 +52,11 @@ module IpaTestKit
       end
 
       def load_standalone_resources
-        Dir.glob(File.join(__dir__, '..', 'igs', '*.json')).each do |file_path|
+        ig_directory = ig_file_name.chomp('.tgz')
+
+        return ig_resources unless File.exist? ig_directory
+
+        Dir.glob(File.join(ig_directory, '*.json')).each do |file_path|
           begin
             resource = FHIR.from_contents(File.read(file_path))
             next if resource.nil?

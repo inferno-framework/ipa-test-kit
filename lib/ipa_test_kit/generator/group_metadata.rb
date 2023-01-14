@@ -9,6 +9,7 @@ module IpaTestKit
         :resource,
         :profile_url,
         :profile_name,
+        :profile_version,
         :title,
         :short_description,
         :interactions,
@@ -28,19 +29,21 @@ module IpaTestKit
         :delayed_references
       ].freeze
 
-      NON_USCDI_RESOURCES = [
-        'Encounter',
-        'Location',
-        'Organization',
-        'Practitioner',
-        'PractitionerRole',
-        'Provenance'
-      ].freeze
+      NON_USCDI_RESOURCES = {
+        'Encounter' => ['v311', 'v400'],
+        'Location' => ['v311', 'v400', 'v501'],
+        'Organization' => ['v311', 'v400', 'v501'],
+        'Practitioner' => ['v311', 'v400', 'v501'],
+        'PractitionerRole' => ['v311', 'v400', 'v501'],
+        'Provenance' => ['v311', 'v400', 'v501'],
+        'RelatedPerson' => ['v501']
+      }.freeze
+
 
       ATTRIBUTES.each { |name| attr_accessor name }
 
-      def initialize(params)
-        params.each do |key, value|
+      def initialize(metadata)
+        metadata.each do |key, value|
           raise "Unknown attribute #{key}" unless ATTRIBUTES.include? key
 
           instance_variable_set(:"@#{key}", value)
@@ -58,7 +61,7 @@ module IpaTestKit
       end
 
       def non_uscdi_resource?
-        NON_USCDI_RESOURCES.include? resource
+        NON_USCDI_RESOURCES.key?(resource) && NON_USCDI_RESOURCES[resource].include?(reformatted_version)
       end
 
       def add_test(id:, file_name:)
@@ -77,7 +80,7 @@ module IpaTestKit
       end
 
       def to_hash
-        ATTRIBUTES.each_with_object({}) { |key, hash| hash[key] = send(key) }
+        ATTRIBUTES.each_with_object({}) { |key, hash| hash[key] = send(key) unless send(key).nil? }
       end
 
       def add_delayed_references(delayed_profiles, ig_resources)

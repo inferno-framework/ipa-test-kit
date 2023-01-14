@@ -8,7 +8,8 @@ module IpaTestKit
 
       def initialize(ig_resources)
         self.ig_resources = ig_resources
-        add_vital_signs_profiles
+        add_missing_supported_profiles
+        remove_extra_supported_profiles
         self.metadata = IGMetadata.new
       end
 
@@ -26,19 +27,37 @@ module IpaTestKit
         ig_resources.capability_statement.rest.first.resource
       end
 
-      # The IPA Server Capability Statement does not list support for the
-      # required vital signs profiles, so they need to be added
-      def add_vital_signs_profiles
+      def add_missing_supported_profiles
+        case ig_resources.ig.version
+        when '3.1.1'
+          # The US Core v3.1.1 Server Capability Statement does not list support for the
+          # required vital signs profiles, so they need to be added
+          ig_resources.capability_statement.rest.first.resource
+            .find { |resource| resource.type == 'Observation' }
+            .supportedProfile.concat [
+              'http://hl7.org/fhir/StructureDefinition/bodyheight',
+              'http://hl7.org/fhir/StructureDefinition/bodytemp',
+              'http://hl7.org/fhir/StructureDefinition/bp',
+              'http://hl7.org/fhir/StructureDefinition/bodyweight',
+              'http://hl7.org/fhir/StructureDefinition/heartrate',
+              'http://hl7.org/fhir/StructureDefinition/resprate'
+            ]
+        when '5.0.1'
+          # The US Core v5.0.1 Server Capability Statement does not have supported-profile for Encounter
+          ig_resources.capability_statement.rest.first.resource
+            .find { |resource| resource.type == 'Encounter' }
+            .supportedProfile.concat [
+              'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
+            ]
+        end
+      end
+
+      def remove_extra_supported_profiles
         ig_resources.capability_statement.rest.first.resource
-          .find { |resource| resource.type == 'Observation' }
-          .supportedProfile.concat [
-            'http://hl7.org/fhir/StructureDefinition/bodyheight',
-            'http://hl7.org/fhir/StructureDefinition/bodytemp',
-            'http://hl7.org/fhir/StructureDefinition/bp',
-            'http://hl7.org/fhir/StructureDefinition/bodyweight',
-            'http://hl7.org/fhir/StructureDefinition/heartrate',
-            'http://hl7.org/fhir/StructureDefinition/resprate'
-          ]
+            .find { |resource| resource.type == 'Observation' }
+            .supportedProfile.delete_if do |profile_url|
+              SpecialCases::PROFILES_TO_EXCLUDE.include?(profile_url)
+            end
       end
 
       def add_metadata_from_resources
