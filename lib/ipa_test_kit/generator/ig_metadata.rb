@@ -4,12 +4,12 @@ module IpaTestKit
       attr_accessor :ig_version, :groups
 
       def reformatted_version
-        @reformatted_version ||= ig_version.delete('.')
+        @reformatted_version ||= ig_version.delete('.').delete('-')
       end
 
       def ordered_groups
         @ordered_groups ||=
-          [patient_group] + non_delayed_groups + delayed_groups
+          ([patient_group] + non_delayed_groups + delayed_groups).reject{|group| group.nil?}
       end
 
       def patient_group

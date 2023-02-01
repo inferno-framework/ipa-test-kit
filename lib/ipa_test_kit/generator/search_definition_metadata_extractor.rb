@@ -3,13 +3,14 @@ require_relative 'value_extractor'
 module IpaTestKit
   class Generator
     class SearchDefinitionMetadataExtractor
-      attr_accessor :ig_resources, :name, :resource, :profile_elements
+      attr_accessor :ig_resources, :name, :resource, :profile_elements, :base_search_params
 
-      def initialize(name, ig_resources, resource, profile_elements)
+      def initialize(name, ig_resources, resource, profile_elements, base_search_params)
         self.name = name
         self.ig_resources = ig_resources
         self.resource = resource
         self.profile_elements = profile_elements
+        self.base_search_params = base_search_params
       end
 
       def search_definition
@@ -27,7 +28,12 @@ module IpaTestKit
       end
 
       def param
-        @param ||= ig_resources.search_param_by_resource_and_name(resource, name)
+        @param ||= ig_resources.search_param_by_resource_and_name(resource, name) || search_base_param_by_resource_and_name(resource, name)
+      end
+
+      def search_base_param_by_resource_and_name(resource, name)
+        search_param = base_search_params['entry'].find{|entry| entry['resource']['code'] == name && (entry['resource']['base'].include?(resource) || entry['resource']['base'].include?('Resource'))}
+        FHIR::SearchParameter.new(search_param['resource'])
       end
 
       def param_hash
@@ -37,18 +43,19 @@ module IpaTestKit
       def full_paths
         @full_paths ||=
           begin
-            binding.pry if param.nil?
-            path = param.expression.gsub(/.where\((.*)/, '')
+            path = param.expression.gsub(/\.where\(resolve\(\)[^\)]*\)/, '')
+            path = path.gsub(/.where\((.*)/, '')
             path = path[1..-2] if path.start_with?('(') && path.end_with?(')')
             path.scan(/[. ]as[( ]([^)]*)[)]?/).flatten.map do |as_type|
               path.gsub!(/[. ]as[( ](#{as_type}[^)]*)[)]?/, as_type.upcase_first) if as_type.present?
             end
-            path.split('|')
+            path.gsub!("Resource.", "#{resource}.")
+            path.split('|').map(&:strip)
           end
       end
 
       def paths
-        @paths ||= full_paths.map { |a_path| a_path.gsub("#{resource}.", '') }
+        @paths ||= full_paths.map { |a_path| a_path.gsub("#{resource}.", '')}
       end
 
       def profile_element
@@ -111,7 +118,7 @@ module IpaTestKit
       end
 
       def multiple_or_expectation
-        param_hash['_multipleOr']['extension'].first['valueCode']
+        param_hash['_multipleOr']&.[]('extension')&.first&.[]('valueCode')
       end
 
       def values

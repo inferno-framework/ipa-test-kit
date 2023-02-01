@@ -46,7 +46,7 @@ module IpaTestKit
       end
 
       def title
-        "US Core #{ig_metadata.ig_version}"
+        "International Patient Access (#{ig_metadata.ig_version})"
       end
 
       def validator_env_name
@@ -54,14 +54,7 @@ module IpaTestKit
       end
 
       def ig_link
-        case ig_metadata.ig_version
-        when 'v5.0.1'
-          'http://hl7.org/fhir/us/core/STU5.0.1'
-        when 'v4.0.0'
-          'http://hl7.org/fhir/us/core/STU4'
-        when 'v3.1.1'
-          'http://hl7.org/fhir/us/core/STU3.1.1'
-        end
+        'http://build.fhir.org/ig/HL7/fhir-ipa/'
       end
 
       def generate
@@ -91,21 +84,6 @@ module IpaTestKit
         "ipa_#{ig_metadata.reformatted_version}_capability_statement"
       end
 
-      def clinical_notes_guidance_file_name
-        if ig_metadata.ig_version == 'v3.1.1'
-          "../../custom_groups/#{ig_metadata.ig_version}/clinical_notes_guidance_group"
-        else
-          '../../custom_groups/v4.0.0/clinical_notes_guidance_group'
-        end
-      end
-
-      def clinical_notes_guidance_group_id
-        if ig_metadata.reformatted_version == 'v311'
-          "ipa_#{ig_metadata.reformatted_version}_clinical_notes_guidance"
-        else
-          'ipa_v400_clinical_notes_guidance'
-        end
-      end
     end
   end
 end

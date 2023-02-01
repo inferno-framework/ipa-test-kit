@@ -14,12 +14,44 @@ module IpaTestKit
     def perform_must_support_test(resources)
       skip_if resources.blank?, "No #{resource_type} resources were found"
 
-      if (missing_elements(resources) + missing_slices(resources)).length.zero?
+      missing_elements(resources)
+      missing_slices(resources)
+      missing_extensions(resources)
+
+      handle_must_support_choices if metadata.must_supports[:choices].present?
+
+      if (missing_elements + missing_slices + missing_extensions).length.zero?
         pass
       end
 
       skip "Could not find #{missing_must_support_strings.join(', ')} in the #{resources.length} " \
            "provided #{resource_type} resource(s)"
+    end
+
+    def handle_must_support_choices
+      missing_elements.delete_if do |element|
+        choices = metadata.must_supports[:choices].find { |choice| choice[:paths]&.include?(element[:path]) }
+        is_any_choice_supported?(choices)
+      end
+
+      missing_extensions.delete_if do |extension|
+        choices = metadata.must_supports[:choices].find { |choice| choice[:extension_ids]&.include?(extension[:id]) }
+        is_any_choice_supported?(choices)
+      end
+
+      missing_slices.delete_if do |slice|
+        choices = metadata.must_supports[:choices].find { |choice| choice[:slice_names]&.include?(slice[:name]) }
+        is_any_choice_supported?(choices)
+      end
+    end
+
+    def is_any_choice_supported? (choices)
+      choices.present? &&
+      (
+        choices[:paths]&.any? { |path| missing_elements.none? { |element| element[:path] == path } } ||
+        choices[:extension_ids]&.any? { |extension_id| missing_extensions.none? { |extension| extension[:id] == extension_id} } ||
+        choices[:slice_names]&.any? { |slice_name| missing_slices.none? { |slice| slice[:name] == slice_name} }
+      )
     end
 
     def missing_must_support_strings
@@ -36,8 +68,16 @@ module IpaTestKit
       end
     end
 
+    def exclude_uscdi_only_test?
+      config.options[:exclude_uscdi_only_test] == true
+    end
+
     def must_support_extensions
-      metadata.must_supports[:extensions]
+      if exclude_uscdi_only_test?
+        metadata.must_supports[:extensions].reject{ |extension| extension[:uscdi_only] }
+      else
+        metadata.must_supports[:extensions]
+      end
     end
 
     def missing_extensions(resources = [])
@@ -50,7 +90,11 @@ module IpaTestKit
     end
 
     def must_support_elements
-      metadata.must_supports[:elements]
+      if exclude_uscdi_only_test?
+        metadata.must_supports[:elements].reject{ |element| element[:uscdi_only] }
+      else
+        metadata.must_supports[:elements]
+      end
     end
 
     def missing_elements(resources = [])
@@ -64,16 +108,23 @@ module IpaTestKit
 
               (value_without_extensions.present? || value_without_extensions == false) &&
                 (element_definition[:fixed_value].blank? || value == element_definition[:fixed_value])
+
             end
 
             # Note that false.present? => false, which is why we need to add this extra check
             value_found.present? || value_found == false
           end
         end
+
+      @missing_elements
     end
 
     def must_support_slices
-      metadata.must_supports[:slices]
+      if exclude_uscdi_only_test?
+        metadata.must_supports[:slices].reject{ |slice| slice[:uscdi_only] }
+      else
+        metadata.must_supports[:slices]
+      end
     end
 
     def missing_slices(resources = [])
@@ -94,6 +145,11 @@ module IpaTestKit
           find_a_value_at(element, coding_path) do |coding|
             coding.code == discriminator[:code] && coding.system == discriminator[:system]
           end
+        when 'patternCoding'
+          coding_path = discriminator[:path].present? ? discriminator[:path] : ''
+          find_a_value_at(element, coding_path) do |coding|
+            coding.code == discriminator[:code] && coding.system == discriminator[:system]
+          end
         when 'patternIdentifier'
           find_a_value_at(element, discriminator[:path]) { |identifier| identifier.system == discriminator[:system] }
         when 'value'
@@ -107,11 +163,20 @@ module IpaTestKit
             rescue ArgumentError
               false
             end
+          when 'DateTime'
+            begin
+              DateTime.parse(element)
+            rescue ArgumentError
+              false
+            end
           when 'String'
             element.is_a? String
           else
             element.is_a? FHIR.const_get(discriminator[:code])
           end
+        when 'requiredBinding'
+          coding_path = discriminator[:path].present? ? "#{discriminator[:path]}.coding" : 'coding'
+          find_a_value_at(element, coding_path) {|coding| discriminator[:values].include?(coding.code) }
         end
       end
     end

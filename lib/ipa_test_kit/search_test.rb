@@ -16,8 +16,7 @@ module IpaTestKit
                    :first_search?,
                    :fixed_value_search?,
                    :possible_status_search?,
-                   :test_medication_inclusion_mr?,
-                   :test_medication_inclusion_ms?,
+                   :test_medication_inclusion?,
                    :test_post_search?,
                    :token_search_params,
                    :test_reference_variants?,
@@ -32,7 +31,7 @@ module IpaTestKit
             if fixed_value_search?
               fixed_value_search_param_values.map { |value| fixed_value_search_params(value, patient_id) }
             else
-              [search_params_with_values(patient_id)]
+              [search_params_with_values(search_param_names, patient_id)]
             end
           new_params.reject! do |params|
             params.any? { |_key, value| value.blank? }
@@ -74,7 +73,7 @@ module IpaTestKit
       scratch_provenance_resources[:all] ||= []
       scratch_provenance_resources[:all].concat(provenance_resources)
 
-      save_delayed_references(provenance_resources, 'Provenance')
+      # save_delayed_references(provenance_resources, 'Provenance')
 
       skip_if provenance_resources.empty?, no_resources_skip_message('Provenance')
     end
@@ -107,6 +106,7 @@ module IpaTestKit
 
       perform_comparator_searches(params, patient_id) if params_with_comparators.present?
 
+      filter_conditions(resources_returned) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
       filter_devices(resources_returned) if resource_type == 'Device'
 
       if first_search?
@@ -123,8 +123,7 @@ module IpaTestKit
       return resources_returned if all_search_variants_tested?
 
       perform_post_search(resources_returned, params) if test_post_search?
-      test_medication_inclusion_mr(resources_returned, params, patient_id) if test_medication_inclusion_mr?
-      test_medication_inclusion_ms(resources_returned, params, patient_id) if test_medication_inclusion_ms?
+      # test_medication_inclusion(resources_returned, params, patient_id) if test_medication_inclusion?
       perform_reference_with_type_search(params, resources_returned.count) if test_reference_variants?
       perform_search_with_system(params, patient_id) if token_search_params.present?
 
@@ -137,6 +136,10 @@ module IpaTestKit
       check_search_response
 
       post_search_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
+
+      filter_conditions(post_search_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_devices(post_search_resources) if resource_type == 'Device'
+
       get_resource_count = get_search_resources.length
       post_resource_count = post_search_resources.length
 
@@ -154,6 +157,19 @@ module IpaTestKit
 
       resources.select! do |resource|
         resource&.type&.coding&.any? { |coding| codes_to_include.include?(coding.code) }
+      end
+    end
+
+    def filter_conditions(resources)
+      # HL7 JIRA FHIR-37917. US Core v5.0.1 does not required patient+category.
+      # In order to distinguish which resources matches the current profile, Inferno has to manually filter
+      # the result of first search, which is searching by patient.
+      resources.select! do |resource|
+        resource.category.any? do |category|
+          category.coding.any? do |coding|
+            metadata.search_definitions[:category][:values].include? coding.code
+          end
+        end
       end
     end
 
@@ -176,7 +192,7 @@ module IpaTestKit
     def initial_search_variant_test_records
       {}.tap do |records|
         records[:post_variant] = false if test_post_search?
-        records[:medication_inclusion] = false if (test_medication_inclusion_mr? && test_medication_inclusion_ms?)
+        records[:medication_inclusion] = false# if test_medication_inclusion?
         records[:reference_variants] = false if test_reference_variants?
         records[:token_variants] = false if token_search_params.present?
         records[:comparator_searches] = Set.new if params_with_comparators.present?
@@ -221,14 +237,15 @@ module IpaTestKit
         next if search_variant_test_records[:comparator_searches].include? name
 
         required_comparators(name).each do |comparator|
-          path = search_param_path(name)
-          date_element = find_a_value_at(scratch_resources_for_patient(patient_id), path)
+          paths = search_param_paths(name).first
+          date_element = find_a_value_at(scratch_resources_for_patient(patient_id), paths)
           params_with_comparator = params.merge(name => date_comparator_value(comparator, date_element))
 
           search_and_check_response(params_with_comparator)
 
-          fetch_all_bundled_resources
-            .each { |resource| check_resource_against_params(resource, params_with_comparator) }
+          fetch_all_bundled_resources.each do |resource|
+            check_resource_against_params(resource, params_with_comparator) if resource.resourceType == resource_type
+          end
         end
 
         search_variant_test_records[:comparator_searches] << name
@@ -242,10 +259,12 @@ module IpaTestKit
       new_search_params = params.merge('patient' => "Patient/#{params['patient']}")
       search_and_check_response(new_search_params)
 
-      new_resource_count =
-        fetch_all_bundled_resources
-          .select { |resource| resource.resourceType == resource_type }
-          .count
+      reference_with_type_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
+
+      filter_conditions(reference_with_type_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_devices(reference_with_type_resources) if resource_type == 'Device'
+
+      new_resource_count = reference_with_type_resources.count
 
       assert new_resource_count == resource_count,
              "Expected search by `#{params['patient']}` to to return the same results as searching " \
@@ -258,9 +277,7 @@ module IpaTestKit
     def perform_search_with_system(params, patient_id)
       return if search_variant_test_records[:token_variants]
 
-      new_search_params = token_search_params.each_with_object({}) do |name, search_params|
-        search_params[name] = search_param_value(name, patient_id, include_system: true)
-      end
+      new_search_params = search_params_with_values(token_search_params, patient_id, include_system: true)
       return if new_search_params.any? { |_name, value| value.blank? }
 
       search_params = params.merge(new_search_params)
@@ -310,7 +327,7 @@ module IpaTestKit
       definition = metadata.search_definitions[param_name]
       return [] if definition.blank?
 
-      definition[:multiple_or] == 'SHALL' ? [definition[:values].join(',')] : [definition[:values]]
+      definition[:multiple_or] == 'SHALL' ? [definition[:values].join(',')] : Array.wrap(definition[:values])
     end
 
 
@@ -319,7 +336,7 @@ module IpaTestKit
 
       all_search_params.each do |patient_id, params_list|
         next unless params_list.present?
-        
+
         search_params = params_list.first
         existing_values = {}
         missing_values = {}
@@ -356,7 +373,7 @@ module IpaTestKit
       end
     end
 
-    def test_medication_inclusion_mr(medication_requests, params, patient_id)
+    def test_medication_inclusion(medication_requests, params, patient_id)
       return if search_variant_test_records[:medication_inclusion]
 
       scratch[:medication_resources] ||= {}
@@ -382,46 +399,6 @@ module IpaTestKit
       return if requests_with_external_references.blank?
 
       search_params = params.merge(_include: 'MedicationRequest:medication')
-
-      search_and_check_response(search_params)
-
-      medications = fetch_all_bundled_resources.select { |resource| resource.resourceType == 'Medication' }
-      assert medications.present?, 'No Medications were included in the search results'
-
-      medications.uniq!(&:id)
-
-      scratch[:medication_resources][:all] += medications
-      scratch[:medication_resources][patient_id] += medications
-
-      search_variant_test_records[:medication_inclusion] = true
-    end
-
-    def test_medication_inclusion_ms(medication_requests, params, patient_id)
-      return if search_variant_test_records[:medication_inclusion]
-
-      scratch[:medication_resources] ||= {}
-      scratch[:medication_resources][:all] ||= []
-      scratch[:medication_resources][patient_id] ||= []
-      scratch[:medication_resources][:contained] ||= []
-
-      requests_with_external_references =
-        medication_requests
-          .select { |request| request&.medicationReference&.present? }
-          .reject { |request| request&.medicationReference&.reference&.start_with? '#' }
-
-      contained_medications =
-        medication_requests
-          .select { |request| request&.medicationReference&.reference&.start_with? '#' }
-          .flat_map(&:contained)
-          .select { |resource| resource.resourceType == 'Medication' }
-
-      scratch[:medication_resources][:all] += contained_medications
-      scratch[:medication_resources][patient_id] += contained_medications
-      scratch[:medication_resources][:contained] += contained_medications
-
-      return if requests_with_external_references.blank?
-
-      search_params = params.merge(_include: 'MedicationStatement:medication')
 
       search_and_check_response(search_params)
 
@@ -465,11 +442,29 @@ module IpaTestKit
       end
     end
 
-    def search_params_with_values(patient_id)
-      search_param_names.each_with_object({}) do |name, params|
-        value = patient_id_param?(name) ? patient_id : search_param_value(name, patient_id)
-        params[name] = value
+    def search_params_with_values(search_param_names, patient_id, include_system: false)
+      resources = scratch_resources_for_patient(patient_id)
+
+      if resources.empty?
+        return search_param_names.each_with_object({}) do |name, params|
+          value = patient_id_param?(name) ? patient_id : nil
+          params[name] = value
+        end
       end
+
+      params_with_partial_value = resources.each_with_object({}) do |resource, outer_params|
+        results_from_one_resource = search_param_names.each_with_object({}) do |name, params|
+          value = patient_id_param?(name) ? patient_id : search_param_value(name, resource, include_system: include_system)
+          params[name] = value
+        end
+
+        outer_params.merge!(results_from_one_resource)
+
+        # stop if all parameter values are found
+        return outer_params if outer_params.all? { |_key, value| value.present? }
+      end
+
+      params_with_partial_value
     end
 
     def patient_id_list
@@ -486,9 +481,13 @@ module IpaTestKit
       name == 'patient' || (name == '_id' && resource_type == 'Patient')
     end
 
-    def search_param_path(name)
-      path = metadata.search_definitions[name.to_sym][:path]
-      path == 'class' ? 'local_class' : path
+    def search_param_paths(name)
+      paths = metadata.search_definitions[name.to_sym][:paths]
+      if paths.first =='class'
+        paths[0] = 'local_class'
+      end
+
+      paths
     end
 
     def all_search_params_present?(params)
@@ -508,8 +507,13 @@ module IpaTestKit
     end
 
     def no_resources_skip_message(resource_type = self.resource_type)
-      "No #{resource_type} resources appear to be available. " \
-      "Please use patients with more information"
+      msg = "No #{resource_type} resources appear to be available"
+
+      if (resource_type == 'Device' && implantable_device_codes.present?)
+        msg.concat(" with the following Device Type Code filter: #{implantable_device_codes}")
+      end
+
+      msg + ". Please use patients with more information"
     end
 
     def fetch_all_bundled_resources(
@@ -543,13 +547,18 @@ module IpaTestKit
       end
 
       valid_resource_types = [resource_type, 'OperationOutcome'].concat(additional_resource_types)
-      valid_resource_types << 'Medication' if (resource_type == 'MedicationRequest' || resource_type == 'MedicationStatement')
+      valid_resource_types << 'Medication' if resource_type == 'MedicationRequest'
 
-      all_valid_resource_types =
-        resources.all? { |entry| valid_resource_types.include? entry.resourceType }
+      invalid_resource_types =
+        resources.reject { |entry| valid_resource_types.include? entry.resourceType }
+                 .map(&:resourceType)
+                 .uniq
 
-      assert all_valid_resource_types,
-             "All resources returned must be of the type: #{valid_resource_types.join(', ')}"
+      if invalid_resource_types.any?
+        info "Received resource type(s) #{invalid_resource_types.join(', ')} in search bundle, " \
+             "but only expected resource types #{valid_resource_types.join(', ')}. " + \
+             "This is unusual but allowed if the server believes additional resource types are relevant."
+      end
 
       resources
     end
@@ -558,55 +567,89 @@ module IpaTestKit
       "Could not resolve next bundle: #{link}"
     end
 
-    def search_param_value(name, patient_id, include_system: false)
-      path = search_param_path(name)
-      element = find_a_value_at(scratch_resources_for_patient(patient_id), path)
-      search_value =
-        case element
-        when FHIR::Period
-          if element.start.present?
-            'gt' + (DateTime.xmlschema(element.start) - 1).xmlschema
-          else
-            end_datetime = get_fhir_datetime_range(element.end)[:end]
-            'lt' + (end_datetime + 1).xmlschema
-          end
-        when FHIR::Reference
-          element.reference
-        when FHIR::CodeableConcept
-          if include_system
-            coding =
-              find_a_value_at(element, 'coding') { |coding| coding.code.present? && coding.system.present? }
-            coding.present? ? "#{coding.system}|#{coding.code}" : nil
-          else
-            find_a_value_at(element, 'coding.code')
-          end
-        when FHIR::Identifier
-          if include_system
-            identifier = find_a_value_at(scratch_resources_for_patient(patient_id), path) do |identifier|
-              identifier.value.present? && identifier.system.present?
+    def search_param_value(name, resource, include_system: false)
+      paths = search_param_paths(name)
+      search_value = nil
+      paths.each do |path|
+        element = find_a_value_at(resource, path) { |element| element_has_valid_value?(element, include_system) }
+
+        search_value =
+          case element
+          when FHIR::Period
+            if element.start.present?
+              'gt' + (DateTime.xmlschema(element.start) - 1).xmlschema
+            else
+              end_datetime = get_fhir_datetime_range(element.end)[:end]
+              'lt' + (end_datetime + 1).xmlschema
             end
-            identifier.present? ? "#{identifier.system}|#{identifier.value}" : nil
-          else
-            element.value
-          end
-        when FHIR::Coding
-          if include_system
-            coding = find_a_value_at(scratch_resources_for_patient(patient_id), path) do |coding|
-              coding.code.present? && coding.system.present?
+          when FHIR::Reference
+            element.reference
+          when FHIR::CodeableConcept
+            if include_system
+              coding =
+                find_a_value_at(element, 'coding') { |coding| coding.code.present? && coding.system.present? }
+              "#{coding.system}|#{coding.code}"
+            else
+              find_a_value_at(element, 'coding.code')
             end
-            coding.present? ? "#{coding.system}|#{coding.code}" : nil
+          when FHIR::Identifier
+            include_system ? "#{element.system}|#{element.value}" : element.value
+          when FHIR::Coding
+            include_system ? "#{element.system}|#{element.code}" : element.code
+          when FHIR::HumanName
+            element.family || element.given&.first || element.text
+          when FHIR::Address
+            element.text || element.city || element.state || element.postalCode || element.country
           else
-            element.code
+            if metadata.version != 'v3.1.1' &&
+               metadata.search_definitions[name.to_sym][:type] == 'date' &&
+               params_with_comparators&.include?(name)
+              # convert date search to greath-than comparator search with correct precision
+              # For all date search parameters:
+              #   Patient.birthDate does not mandate comparators so cannot be converted
+              #   Goal.target-date has day precision
+              #   All others have second + time offset precision
+              if /^\d{4}(-\d{2})?$/.match?(element) || # YYYY or YYYY-MM
+                (/^\d{4}-\d{2}-\d{2}$/.match?(element) && resource_type != "Goal") # YYY-MM-DD AND Resource is NOT Goal
+                "gt#{(DateTime.xmlschema(element)-1).xmlschema}"
+              else
+                element
+              end
+            else
+              element
+            end
           end
-        when FHIR::HumanName
-          element.family || element.given&.first || element.text
-        when FHIR::Address
-          element.text || element.city || element.state || element.postalCode || element.country
-        else
-          element
-        end
+
+          break if search_value.present?
+      end
+
       escaped_value = search_value&.gsub(',', '\\,')
       escaped_value
+    end
+
+    def element_has_valid_value?(element, include_system)
+      case element
+      when FHIR::Reference
+        element.reference.present?
+      when FHIR::CodeableConcept
+        if include_system
+          coding =
+            find_a_value_at(element, 'coding') { |coding| coding.code.present? && coding.system.present? }
+          coding.present?
+        else
+          find_a_value_at(element, 'coding.code').present?
+        end
+      when FHIR::Identifier
+        include_system ? element.value.present? && element.system.present? : element.value.present?
+      when FHIR::Coding
+        include_system ? element.code.present? && element.system.present? : element.code.present?
+      when FHIR::HumanName
+        (element.family || element.given&.first || element.text).present?
+      when FHIR::Address
+        (element.text || element.city || element.state || element.postalCode || element.country).present?
+      else
+        true
+      end
     end
 
     def save_resource_reference(resource_type, reference)
@@ -616,6 +659,7 @@ module IpaTestKit
     end
 
     def save_delayed_references(resources, containing_resource_type = self.resource_type)
+      return if containing_resource_type == 'Provenance'
       resources.each do |resource|
         references_to_save(containing_resource_type).each do |reference_to_save|
           resolve_path(resource, reference_to_save[:path])
@@ -634,89 +678,100 @@ module IpaTestKit
     #### RESULT CHECKING ####
 
     def check_resource_against_params(resource, params)
-      params.each do |name, search_value|
-        path = search_param_path(name)
-        type = metadata.search_definitions[name.to_sym][:type]
-        values_found =
-          resolve_path(resource, path)
-            .map do |value|
-              if value.is_a? FHIR::Reference
-                value.reference
+
+      params.each do |name, escaped_search_value|
+        #unescape search value
+        search_value = escaped_search_value&.gsub('\\,', ',')
+        paths = search_param_paths(name)
+
+        match_found = false
+        values_found = []
+
+        paths.each do |path|
+          type = metadata.search_definitions[name.to_sym][:type]
+          values_found =
+            resolve_path(resource, path)
+              .map do |value|
+                if value.is_a? FHIR::Reference
+                  value.reference
+                else
+                  value
+                end
+              end
+
+          match_found =
+            case type
+            when 'Period', 'date', 'instant', 'dateTime'
+              values_found.any? { |date| validate_date_search(search_value, date) }
+            when 'HumanName'
+              # When a string search parameter refers to the types HumanName and Address,
+              # the search covers the elements of type string, and does not cover elements such as use and period
+              # https://www.hl7.org/fhir/search.html#string
+              search_value_downcase = search_value.downcase
+              values_found.any? do |name|
+                name&.text&.downcase&.start_with?(search_value_downcase) ||
+                  name&.family&.downcase&.start_with?(search_value_downcase) ||
+                  name&.given&.any? { |given| given.downcase.start_with?(search_value_downcase) } ||
+                  name&.prefix&.any? { |prefix| prefix.downcase.start_with?(search_value_downcase) } ||
+                  name&.suffix&.any? { |suffix| suffix.downcase.start_with?(search_value_downcase) }
+              end
+            when 'Address'
+              search_value_downcase = search_value.downcase
+              values_found.any? do |address|
+                address&.text&.downcase&.start_with?(search_value_downcase) ||
+                address&.city&.downcase&.start_with?(search_value_downcase) ||
+                address&.state&.downcase&.start_with?(search_value_downcase) ||
+                address&.postalCode&.downcase&.start_with?(search_value_downcase) ||
+                address&.country&.downcase&.start_with?(search_value_downcase)
+              end
+            when 'CodeableConcept'
+              # FHIR token search (https://www.hl7.org/fhir/search.html#token): "When in doubt, servers SHOULD
+              # treat tokens in a case-insensitive manner, on the grounds that including undesired data has
+              # less safety implications than excluding desired behavior".
+              codings = values_found.flat_map(&:coding)
+              if search_value.include? '|'
+                system = search_value.split('|').first
+                code = search_value.split('|').last
+                codings&.any? { |coding| coding.system == system && coding.code&.casecmp?(code) }
               else
-                value
+                codings&.any? { |coding| coding.code&.casecmp?(search_value) }
+              end
+            when 'Coding'
+              if search_value.include? '|'
+                system = search_value.split('|').first
+                code = search_value.split('|').last
+                values_found.any? { |coding| coding.system == system && coding.code&.casecmp?(code) }
+              else
+                values_found.any? { |coding| coding.code&.casecmp?(search_value) }
+              end
+            when 'Identifier'
+              if search_value.include? '|'
+                values_found.any? { |identifier| "#{identifier.system}|#{identifier.value}" == search_value }
+              else
+                values_found.any? { |identifier| identifier.value == search_value }
+              end
+            when 'string'
+              searched_values = search_value.downcase.split(/(?<!\\\\),/).map{ |string| string.gsub('\\,', ',') }
+              values_found.any? do |value_found|
+                searched_values.any? { |searched_value| value_found.downcase.starts_with? searched_value }
+              end
+            else
+              # searching by patient requires special case because we are searching by a resource identifier
+              # references can also be URLs, so we may need to resolve those URLs
+              if ['subject', 'patient'].include? name.to_s
+                id = search_value.split('Patient/').last
+                possible_values = [id, "Patient/#{id}", "#{url}/Patient/#{id}"]
+                values_found.any? do |reference|
+                  possible_values.include? reference
+                end
+              else
+                search_values = search_value.split(/(?<!\\\\),/).map { |string| string.gsub('\\,', ',') }
+                values_found.any? { |value_found| search_values.include? value_found }
               end
             end
 
-        match_found =
-          case type
-          when 'Period', 'date', 'instant', 'dateTime'
-            values_found.any? { |date| validate_date_search(search_value, date) }
-          when 'HumanName'
-            # When a string search parameter refers to the types HumanName and Address,
-            # the search covers the elements of type string, and does not cover elements such as use and period
-            # https://www.hl7.org/fhir/search.html#string
-            search_value_downcase = search_value.downcase
-            values_found.any? do |name|
-              name&.text&.downcase&.start_with?(search_value_downcase) ||
-                name&.family&.downcase&.start_with?(search_value_downcase) ||
-                name&.given&.any? { |given| given.downcase.start_with?(search_value_downcase) } ||
-                name&.prefix&.any? { |prefix| prefix.downcase.start_with?(search_value_downcase) } ||
-                name&.suffix&.any? { |suffix| suffix.downcase.start_with?(search_value_downcase) }
-            end
-          when 'Address'
-            search_value_downcase = search_value.downcase
-            values_found.any? do |address|
-              address&.text&.downcase&.start_with?(search_value_downcase) ||
-              address&.city&.downcase&.start_with?(search_value_downcase) ||
-              address&.state&.downcase&.start_with?(search_value_downcase) ||
-              address&.postalCode&.downcase&.start_with?(search_value_downcase) ||
-              address&.country&.downcase&.start_with?(search_value_downcase)
-            end
-          when 'CodeableConcept'
-            # FHIR token search (https://www.hl7.org/fhir/search.html#token): "When in doubt, servers SHOULD 
-            # treat tokens in a case-insensitive manner, on the grounds that including undesired data has 
-            # less safety implications than excluding desired behavior". 
-            codings = values_found.flat_map(&:coding)
-            if search_value.include? '|'
-              system = search_value.split('|').first
-              code = search_value.split('|').last
-              codings&.any? { |coding| coding.system == system && coding.code&.casecmp?(code) }
-            else
-              codings&.any? { |coding| coding.code&.casecmp?(search_value) }
-            end
-          when 'Coding'
-            if search_value.include? '|'
-              system = search_value.split('|').first
-              code = search_value.split('|').last
-              values_found.any? { |coding| coding.system == system && coding.code&.casecmp?(code) }
-            else
-              values_found.any? { |coding| coding.code&.casecmp?(search_value) }
-            end
-          when 'Identifier'
-            if search_value.include? '|'
-              values_found.any? { |identifier| "#{identifier.system}|#{identifier.value}" == search_value }
-            else
-              values_found.any? { |identifier| identifier.value == search_value }
-            end
-          when 'string'
-            searched_values = search_value.downcase.split(/(?<!\\\\),/).map{ |string| string.gsub('\\,', ',') }
-            values_found.any? do |value_found|
-              searched_values.any? { |searched_value| value_found.downcase.starts_with? searched_value }
-            end
-          else
-            # searching by patient requires special case because we are searching by a resource identifier
-            # references can also be URL's, so we made need to resolve those url's
-            if ['subject', 'patient'].include? name.to_s
-              id = search_value.split('Patient/').last
-              possible_values = [id, 'Patient/' + id, "#{url}/Patient/\#{id}"]
-              values_found.any? do |reference|
-                possible_values.include? reference
-              end
-            else
-              search_values = search_value.split(/(?<!\\\\),/).map { |string| string.gsub('\\,', ',') }
-              values_found.any? { |value_found| search_values.include? value_found }
-            end
-          end
+          break if match_found
+        end
 
         assert match_found,
                "#{resource_type}/#{resource.id} did not match the search parameters:\n" \

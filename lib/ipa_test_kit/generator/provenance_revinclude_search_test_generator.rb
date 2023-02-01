@@ -9,6 +9,7 @@ module IpaTestKit
           ig_metadata.groups
             .reject { |group| SpecialCases.exclude_group? group }
             .select { |group| group.revincludes.include? 'Provenance:target' }
+            .select { |group| group.searches.any? }
             .each { |group| new(group, group.searches.first, base_output_dir).generate }
         end
       end
@@ -93,6 +94,7 @@ module IpaTestKit
       end
 
       def search_param_name_string
+        binding.pry if search_metadata.nil?
         search_metadata[:names].join(' + ') + ' + revInclude:Provenance:target'
       end
 

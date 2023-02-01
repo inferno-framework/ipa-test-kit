@@ -1,0 +1,2476 @@
+---
+:ig_version: v1.0.0-preview
+:groups:
+- :name: ipa_allergyintolerance
+  :class_name: Ipav100previewAllergyintoleranceSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: AllergyIntolerance
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-allergyintolerance
+  :profile_name: IPA-AllergyIntolerance
+  :profile_version: 1.0.0-preview
+  :title: IPA-AllergyIntolerance
+  :short_description: Verify support for the server capabilities required by the IPA-AllergyIntolerance.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - clinical-status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :patient:
+      :paths:
+      - patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :clinical-status:
+      :paths:
+      - clinicalStatus
+      :full_paths:
+      - AllergyIntolerance.clinicalStatus
+      :comparators: {}
+      :values:
+      - active
+      - inactive
+      - resolved
+      :type: CodeableConcept
+      :contains_multiple: false
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts:
+  - clinicalStatus
+  - verificationStatus
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: clinicalStatus
+    - :path: verificationStatus
+    - :path: code
+    - :path: patient
+      :types:
+      - Reference
+  :mandatory_elements:
+  - AllergyIntolerance.code
+  - AllergyIntolerance.patient
+  - AllergyIntolerance.reaction.manifestation
+  :bindings:
+  - :type: CodeableConcept
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/allergyintolerance-clinical
+    :path: clinicalStatus
+  - :type: CodeableConcept
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/allergyintolerance-verification
+    :path: verificationStatus
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/allergy-intolerance-type
+    :path: type
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/allergy-intolerance-category
+    :path: category
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/allergy-intolerance-criticality
+    :path: criticality
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/reaction-event-severity
+    :path: reaction.severity
+  :references:
+  - :path: AllergyIntolerance.patient
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: AllergyIntolerance.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+  - :path: AllergyIntolerance.recorder
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: AllergyIntolerance.asserter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+  :delayed_references: []
+- :name: ipa_condition
+  :class_name: Ipav100previewConditionSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Condition
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-condition
+  :profile_name: IPA-Condition
+  :profile_version: 1.0.0-preview
+  :title: Condition IPA-
+  :short_description: Verify support for the server capabilities required by the IPA-Condition.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - clinical-status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - category
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - category
+    - clinical-status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - code
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - onset-date
+    :names_not_must_support_or_mandatory:
+    - onset-date
+    :must_support_or_mandatory: false
+  :search_definitions:
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :clinical-status:
+      :paths:
+      - clinicalStatus
+      :full_paths:
+      - Condition.clinicalStatus
+      :comparators: {}
+      :values:
+      - active
+      - recurrence
+      - relapse
+      - inactive
+      - remission
+      - resolved
+      :type: CodeableConcept
+      :contains_multiple: false
+    :category:
+      :paths:
+      - category
+      :full_paths:
+      - Condition.category
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: true
+    :code:
+      :paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :full_paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - Condition.code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: false
+    :onset-date:
+      :paths:
+      - onsetDateTime
+      - onsetPeriod
+      :full_paths:
+      - Condition.onsetDateTime
+      - Condition.onsetPeriod
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: date
+      :contains_multiple: false
+  :include_params: &1 []
+  :revincludes: &2
+  - Provenance:target
+  :required_concepts:
+  - clinicalStatus
+  - verificationStatus
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: clinicalStatus
+    - :path: verificationStatus
+    - :path: category
+    - :path: code
+    - :path: subject
+      :types:
+      - Reference
+  :mandatory_elements:
+  - Condition.code
+  - Condition.subject
+  :bindings:
+  - :type: CodeableConcept
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/condition-clinical
+    :path: clinicalStatus
+  - :type: CodeableConcept
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/condition-ver-status
+    :path: verificationStatus
+  :references:
+  - :path: Condition.subject
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: Condition.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+  - :path: Condition.recorder
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: Condition.asserter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: Condition.stage.assessment
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/ClinicalImpression
+    - http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+    - http://hl7.org/fhir/StructureDefinition/Observation
+  - :path: Condition.evidence.detail
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Resource
+  :delayed_references: []
+- :name: ipa_problem_list_item
+  :class_name: Ipav100previewProblemListItemSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Condition
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-problem-list-item
+  :profile_name: IPA-problem-list-item
+  :profile_version: 1.0.0-preview
+  :title: Condition IPA-problem-list-item
+  :short_description: Verify support for the server capabilities required by the IPA-problem-list-item.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - clinical-status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - category
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - category
+    - clinical-status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - code
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - onset-date
+    :names_not_must_support_or_mandatory:
+    - onset-date
+    :must_support_or_mandatory: false
+  :search_definitions:
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :clinical-status:
+      :paths:
+      - clinicalStatus
+      :full_paths:
+      - Condition.clinicalStatus
+      :comparators: {}
+      :values:
+      - active
+      - recurrence
+      - relapse
+      - inactive
+      - remission
+      - resolved
+      :type: CodeableConcept
+      :contains_multiple: false
+    :category:
+      :paths:
+      - category
+      :full_paths:
+      - Condition.category
+      :comparators: {}
+      :values:
+      - problem-list-item
+      :type: CodeableConcept
+      :contains_multiple: true
+    :code:
+      :paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :full_paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - Condition.code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: false
+    :onset-date:
+      :paths:
+      - onsetDateTime
+      - onsetPeriod
+      :full_paths:
+      - Condition.onsetDateTime
+      - Condition.onsetPeriod
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: date
+      :contains_multiple: false
+  :include_params: *1
+  :revincludes: *2
+  :required_concepts:
+  - clinicalStatus
+  - verificationStatus
+  :must_supports:
+    :extensions: []
+    :slices:
+    - :name: Condition.category:problem-list-item
+      :path: category
+      :discriminator:
+        :type: patternCodeableConcept
+        :path: ''
+        :code: problem-list-item
+        :system: http://terminology.hl7.org/CodeSystem/condition-category
+    :elements:
+    - :path: clinicalStatus
+    - :path: verificationStatus
+    - :path: category
+    - :path: code
+    - :path: subject
+      :types:
+      - Reference
+  :mandatory_elements:
+  - Condition.category
+  - Condition.code
+  - Condition.subject
+  :bindings:
+  - :type: CodeableConcept
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/condition-clinical
+    :path: clinicalStatus
+  - :type: CodeableConcept
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/condition-ver-status
+    :path: verificationStatus
+  :references:
+  - :path: Condition.subject
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: Condition.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+  - :path: Condition.recorder
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: Condition.asserter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: Condition.stage.assessment
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/ClinicalImpression
+    - http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+    - http://hl7.org/fhir/StructureDefinition/Observation
+  - :path: Condition.evidence.detail
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Resource
+  :delayed_references: []
+- :name: ipa_documentreference
+  :class_name: Ipav100previewDocumentreferenceSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: DocumentReference
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference
+  :profile_name: IPA-DocumentReference
+  :profile_version: 1.0.0-preview
+  :title: IPA-DocumentReference
+  :short_description: Verify support for the server capabilities required by the IPA-DocumentReference.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations:
+  - :code: docref
+    :expectation: SHALL
+  :searches:
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :names:
+    - _id
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHALL
+    :names:
+    - patient
+    - category
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHALL
+    :names:
+    - patient
+    - category
+    - date
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHALL
+    :names:
+    - patient
+    - type
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - contenttype
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - type
+    - date
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - type
+    - period
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :_id:
+      :paths:
+      - id
+      :full_paths:
+      - DocumentReference.id
+      :comparators: {}
+      :values: []
+      :type: http://hl7.org/fhirpath/System.String
+      :contains_multiple: false
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :category:
+      :paths:
+      - category
+      :full_paths:
+      - DocumentReference.category
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: true
+    :date:
+      :paths:
+      - date
+      :full_paths:
+      - DocumentReference.date
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: instant
+      :contains_multiple: false
+    :type:
+      :paths:
+      - AllergyIntolerance.type
+      - Composition.type
+      - DocumentManifest.type
+      - type
+      - Encounter.type
+      - EpisodeOfCare.type
+      :full_paths:
+      - AllergyIntolerance.type
+      - Composition.type
+      - DocumentManifest.type
+      - DocumentReference.type
+      - Encounter.type
+      - EpisodeOfCare.type
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: false
+    :contenttype:
+      :paths:
+      - content.attachment.contentType
+      :full_paths:
+      - DocumentReference.content.attachment.contentType
+      :comparators: {}
+      :values: []
+      :type: code
+      :contains_multiple: false
+    :status:
+      :paths:
+      - status
+      :full_paths:
+      - DocumentReference.status
+      :comparators: {}
+      :values:
+      - current
+      - superseded
+      - entered-in-error
+      :type: code
+      :contains_multiple: false
+    :period:
+      :paths:
+      - context.period
+      :full_paths:
+      - DocumentReference.context.period
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: Period
+      :contains_multiple: false
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: status
+    - :path: type
+    - :path: category
+    - :path: subject
+      :types:
+      - Reference
+    - :path: date
+    - :path: author
+      :types:
+      - Reference
+    - :path: content
+    - :path: content.attachment
+    - :path: content.attachment.contentType
+    - :path: content.attachment.data
+    - :path: content.attachment.url
+    - :path: content.format
+    - :path: context
+    - :path: context.encounter
+      :types:
+      - Reference
+    - :path: context.period
+    :choices:
+    - :paths:
+      - content.attachment.data
+      - content.attachment.url
+  :mandatory_elements:
+  - DocumentReference.status
+  - DocumentReference.subject
+  - DocumentReference.relatesTo.code
+  - DocumentReference.relatesTo.target
+  - DocumentReference.content
+  - DocumentReference.content.attachment
+  - DocumentReference.content.attachment.contentType
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/document-reference-status
+    :path: status
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/composition-status
+    :path: docStatus
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/document-relationship-type
+    :path: relatesTo.code
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/mimetypes
+    :path: content.attachment.contentType
+  :references:
+  - :path: DocumentReference.subject
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: DocumentReference.author
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: DocumentReference.authenticator
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: DocumentReference.custodian
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: DocumentReference.relatesTo.target
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/DocumentReference
+  - :path: DocumentReference.context.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+    - http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
+  - :path: DocumentReference.context.sourcePatientInfo
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Patient
+  - :path: DocumentReference.context.related
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Resource
+  :delayed_references:
+  - :path: author
+    :resources:
+    - Practitioner
+    - PractitionerRole
+- :name: ipa_immunization
+  :class_name: Ipav100previewImmunizationSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Immunization
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-immunization
+  :profile_name: IPA-Immunization
+  :profile_version: 1.0.0-preview
+  :title: IPA-Immunization
+  :short_description: Verify support for the server capabilities required by the IPA-Immunization.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - date
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :date:
+      :paths:
+      - AllergyIntolerance.recordedDate
+      - CarePlan.period
+      - CareTeam.period
+      - ClinicalImpression.date
+      - Composition.date
+      - Consent.dateTime
+      - DiagnosticReport.effective
+      - Encounter.period
+      - EpisodeOfCare.period
+      - FamilyMemberHistory.date
+      - Flag.period
+      - occurrence
+      - List.date
+      - Observation.effective
+      - Procedure.performed
+      - "(RiskAssessment.occurrenceDateTime"
+      - SupplyRequest.authoredOn
+      :full_paths:
+      - AllergyIntolerance.recordedDate
+      - CarePlan.period
+      - CareTeam.period
+      - ClinicalImpression.date
+      - Composition.date
+      - Consent.dateTime
+      - DiagnosticReport.effective
+      - Encounter.period
+      - EpisodeOfCare.period
+      - FamilyMemberHistory.date
+      - Flag.period
+      - Immunization.occurrence
+      - List.date
+      - Observation.effective
+      - Procedure.performed
+      - "(RiskAssessment.occurrenceDateTime"
+      - SupplyRequest.authoredOn
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: date
+      :contains_multiple: false
+    :status:
+      :paths:
+      - status
+      :full_paths:
+      - Immunization.status
+      :comparators: {}
+      :values:
+      - completed
+      - entered-in-error
+      - not-done
+      :type: code
+      :contains_multiple: false
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: status
+    - :path: statusReason
+    - :path: vaccineCode
+    - :path: patient
+      :types:
+      - Reference
+    - :path: occurrence[x]
+  :mandatory_elements:
+  - Immunization.status
+  - Immunization.vaccineCode
+  - Immunization.patient
+  - Immunization.occurrence[x]
+  - Immunization.performer.actor
+  - Immunization.protocolApplied.doseNumber[x]
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/immunization-status
+    :path: status
+  :references:
+  - :path: Immunization.patient
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: Immunization.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+  - :path: Immunization.location
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Location
+  - :path: Immunization.manufacturer
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: Immunization.performer.actor
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: Immunization.reasonReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Condition
+    - http://hl7.org/fhir/StructureDefinition/Observation
+    - http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+  - :path: Immunization.reaction.detail
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Observation
+  - :path: Immunization.protocolApplied.authority
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  :delayed_references: []
+- :name: ipa_medication
+  :class_name: Ipav100previewMedicationSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Medication
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication
+  :profile_name: IPA-Medication
+  :profile_version: 1.0.0-preview
+  :title: IPA-Medication
+  :short_description: Verify support for the server capabilities required by the IPA-Medication.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  :operations: []
+  :searches: []
+  :search_definitions: {}
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: code
+  :mandatory_elements:
+  - Medication.code
+  - Medication.ingredient.item[x]
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/medication-status
+    :path: status
+  :references:
+  - :path: Medication.manufacturer
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  :delayed_references: []
+- :name: ipa_medicationrequest
+  :class_name: Ipav100previewMedicationrequestSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: MedicationRequest
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest
+  :profile_name: IPA-MedicationRequest
+  :profile_version: 1.0.0-preview
+  :title: IPA-MedicationRequest
+  :short_description: Verify support for the server capabilities required by the IPA-MedicationRequest.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - intent
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :names:
+    - category
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory:
+    - category
+    :must_support_or_mandatory: false
+  - :names:
+    - code
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory:
+    - code
+    :must_support_or_mandatory: false
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - intent
+    - authoredon
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - intent
+    - status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :category:
+      :paths:
+      - category
+      :full_paths:
+      - MedicationRequest.category
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: true
+    :code:
+      :paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - Condition.code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :full_paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - Condition.code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :comparators: {}
+      :values: []
+      :type: token
+      :contains_multiple: false
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :intent:
+      :paths:
+      - intent
+      :full_paths:
+      - MedicationRequest.intent
+      :comparators: {}
+      :values: []
+      :type: code
+      :contains_multiple: false
+    :authoredon:
+      :paths:
+      - authoredOn
+      :full_paths:
+      - MedicationRequest.authoredOn
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: dateTime
+      :contains_multiple: false
+    :status:
+      :paths:
+      - MedicationAdministration.status
+      - MedicationDispense.status
+      - status
+      - MedicationStatement.status
+      :full_paths:
+      - MedicationAdministration.status
+      - MedicationDispense.status
+      - MedicationRequest.status
+      - MedicationStatement.status
+      :comparators: {}
+      :values:
+      - active
+      - on-hold
+      - cancelled
+      - completed
+      - entered-in-error
+      - stopped
+      - draft
+      - unknown
+      :type: code
+      :contains_multiple: false
+  :include_params:
+  - MedicationRequest:medication
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: status
+    - :path: intent
+    - :path: reported[x]
+      :types:
+      - Reference
+    - :path: medication[x]
+      :types:
+      - Reference
+    - :path: subject
+      :types:
+      - Reference
+    - :path: encounter
+      :types:
+      - Reference
+    - :path: authoredOn
+    - :path: requester
+      :types:
+      - Reference
+    - :path: dosageInstruction
+    - :path: dosageInstruction.text
+  :mandatory_elements:
+  - MedicationRequest.status
+  - MedicationRequest.intent
+  - MedicationRequest.medication[x]
+  - MedicationRequest.subject
+  - MedicationRequest.substitution.allowed[x]
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/medicationrequest-status
+    :path: status
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/medicationrequest-intent
+    :path: intent
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/request-priority
+    :path: priority
+  :references:
+  - :path: MedicationRequest.subject
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: MedicationRequest.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+  - :path: MedicationRequest.supportingInformation
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Resource
+  - :path: MedicationRequest.requester
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: MedicationRequest.performer
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Organization
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/Device
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+    - http://hl7.org/fhir/StructureDefinition/CareTeam
+  - :path: MedicationRequest.recorder
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+  - :path: MedicationRequest.reasonReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Condition
+    - http://hl7.org/fhir/StructureDefinition/Observation
+  - :path: MedicationRequest.basedOn
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/CarePlan
+    - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+    - http://hl7.org/fhir/StructureDefinition/ServiceRequest
+    - http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation
+  - :path: MedicationRequest.insurance
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Coverage
+    - http://hl7.org/fhir/StructureDefinition/ClaimResponse
+  - :path: MedicationRequest.dispenseRequest.performer
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: MedicationRequest.priorPrescription
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+  - :path: MedicationRequest.detectedIssue
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/DetectedIssue
+  - :path: MedicationRequest.eventHistory
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Provenance
+  :delayed_references:
+  - :path: requester
+    :resources:
+    - Practitioner
+    - PractitionerRole
+- :name: ipa_medicationstatement
+  :class_name: Ipav100previewMedicationstatementSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: MedicationStatement
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationstatement
+  :profile_name: IPA-MedicationStatement
+  :profile_version: 1.0.0-preview
+  :title: IPA-MedicationStatement
+  :short_description: Verify support for the server capabilities required by the IPA-MedicationStatement.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :names:
+    - patient
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :status:
+      :paths:
+      - MedicationAdministration.status
+      - MedicationDispense.status
+      - MedicationRequest.status
+      - status
+      :full_paths:
+      - MedicationAdministration.status
+      - MedicationDispense.status
+      - MedicationRequest.status
+      - MedicationStatement.status
+      :comparators: {}
+      :values:
+      - active
+      - completed
+      - entered-in-error
+      - intended
+      - stopped
+      - on-hold
+      - unknown
+      - not-taken
+      :type: code
+      :contains_multiple: false
+  :include_params:
+  - MedicationStatement:medication
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: status
+    - :path: statusReason
+    - :path: medication[x]
+      :types:
+      - Reference
+    - :path: subject
+      :types:
+      - Reference
+    - :path: context
+      :types:
+      - Reference
+    - :path: effective[x]
+    - :path: informationSource
+      :types:
+      - Reference
+    - :path: dosage
+    - :path: dosage.text
+  :mandatory_elements:
+  - MedicationStatement.status
+  - MedicationStatement.medication[x]
+  - MedicationStatement.subject
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/medication-statement-status
+    :path: status
+  :references:
+  - :path: MedicationStatement.basedOn
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+    - http://hl7.org/fhir/StructureDefinition/CarePlan
+    - http://hl7.org/fhir/StructureDefinition/ServiceRequest
+  - :path: MedicationStatement.partOf
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/MedicationAdministration
+    - http://hl7.org/fhir/StructureDefinition/MedicationDispense
+    - http://hl7.org/fhir/StructureDefinition/MedicationStatement
+    - http://hl7.org/fhir/StructureDefinition/Procedure
+    - http://hl7.org/fhir/StructureDefinition/Observation
+  - :path: MedicationStatement.subject
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: MedicationStatement.context
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+    - http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
+  - :path: MedicationStatement.informationSource
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+    - http://hl7.org/fhir/StructureDefinition/Organization
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: MedicationStatement.derivedFrom
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Resource
+  - :path: MedicationStatement.reasonReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Condition
+    - http://hl7.org/fhir/StructureDefinition/Observation
+    - http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+  :delayed_references:
+  - :path: informationSource
+    :resources:
+    - Practitioner
+    - PractitionerRole
+- :name: ipa_observation
+  :class_name: Ipav100previewObservationSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Observation
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation
+  :profile_name: IPA-Observation
+  :profile_version: 1.0.0-preview
+  :title: Observation IPA-
+  :short_description: Verify support for the server capabilities required by the IPA-Observation.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :expectation: SHALL
+    :names:
+    - patient
+    - code
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHALL
+    :names:
+    - patient
+    - category
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHALL
+    :names:
+    - patient
+    - category
+    - date
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - category
+    - status
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - patient
+    - code
+    - date
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :patient:
+      :paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :full_paths:
+      - AllergyIntolerance.patient
+      - CarePlan.subject
+      - CareTeam.subject
+      - ClinicalImpression.subject
+      - Composition.subject
+      - Condition.subject
+      - Consent.patient
+      - DetectedIssue.patient
+      - DeviceRequest.subject
+      - DeviceUseStatement.subject
+      - DiagnosticReport.subject
+      - DocumentManifest.subject
+      - DocumentReference.subject
+      - Encounter.subject
+      - EpisodeOfCare.patient
+      - FamilyMemberHistory.patient
+      - Flag.subject
+      - Goal.subject
+      - ImagingStudy.subject
+      - Immunization.patient
+      - List.subject
+      - MedicationAdministration.subject
+      - MedicationDispense.subject
+      - MedicationRequest.subject
+      - MedicationStatement.subject
+      - NutritionOrder.patient
+      - Observation.subject
+      - Procedure.subject
+      - RiskAssessment.subject
+      - ServiceRequest.subject
+      - SupplyDelivery.patient
+      - VisionPrescription.patient
+      :comparators: {}
+      :values: []
+      :type: Reference
+      :contains_multiple: false
+    :category:
+      :paths:
+      - category
+      :full_paths:
+      - Observation.category
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: true
+    :code:
+      :paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - Condition.code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - code
+      - Procedure.code
+      - ServiceRequest.code
+      :full_paths:
+      - AllergyIntolerance.code
+      - AllergyIntolerance.reaction.substance
+      - Condition.code
+      - "(DeviceRequest.codeCodeableConcept"
+      - DiagnosticReport.code
+      - FamilyMemberHistory.condition.code
+      - List.code
+      - Medication.code
+      - "(MedicationAdministration.medicationCodeableConcept"
+      - "(MedicationDispense.medicationCodeableConcept"
+      - "(MedicationRequest.medicationCodeableConcept"
+      - "(MedicationStatement.medicationCodeableConcept"
+      - Observation.code
+      - Procedure.code
+      - ServiceRequest.code
+      :comparators: {}
+      :values: []
+      :type: CodeableConcept
+      :contains_multiple: false
+    :date:
+      :paths:
+      - AllergyIntolerance.recordedDate
+      - CarePlan.period
+      - CareTeam.period
+      - ClinicalImpression.date
+      - Composition.date
+      - Consent.dateTime
+      - DiagnosticReport.effective
+      - Encounter.period
+      - EpisodeOfCare.period
+      - FamilyMemberHistory.date
+      - Flag.period
+      - Immunization.occurrence
+      - List.date
+      - effective
+      - Procedure.performed
+      - "(RiskAssessment.occurrenceDateTime"
+      - SupplyRequest.authoredOn
+      :full_paths:
+      - AllergyIntolerance.recordedDate
+      - CarePlan.period
+      - CareTeam.period
+      - ClinicalImpression.date
+      - Composition.date
+      - Consent.dateTime
+      - DiagnosticReport.effective
+      - Encounter.period
+      - EpisodeOfCare.period
+      - FamilyMemberHistory.date
+      - Flag.period
+      - Immunization.occurrence
+      - List.date
+      - Observation.effective
+      - Procedure.performed
+      - "(RiskAssessment.occurrenceDateTime"
+      - SupplyRequest.authoredOn
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: date
+      :contains_multiple: false
+    :status:
+      :paths:
+      - status
+      :full_paths:
+      - Observation.status
+      :comparators: {}
+      :values:
+      - registered
+      - preliminary
+      - final
+      - amended
+      - corrected
+      - cancelled
+      - entered-in-error
+      - unknown
+      :type: code
+      :contains_multiple: false
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: status
+    - :path: category
+    - :path: code
+    - :path: subject
+      :types:
+      - Reference
+    - :path: effective[x]
+    - :path: value[x]
+    - :path: dataAbsentReason
+  :mandatory_elements:
+  - Observation.status
+  - Observation.code
+  - Observation.subject
+  - Observation.component.code
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/observation-status
+    :path: status
+  :references:
+  - :path: Observation.basedOn
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/CarePlan
+    - http://hl7.org/fhir/StructureDefinition/DeviceRequest
+    - http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation
+    - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+    - http://hl7.org/fhir/StructureDefinition/NutritionOrder
+    - http://hl7.org/fhir/StructureDefinition/ServiceRequest
+  - :path: Observation.partOf
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/MedicationAdministration
+    - http://hl7.org/fhir/StructureDefinition/MedicationDispense
+    - http://hl7.org/fhir/StructureDefinition/MedicationStatement
+    - http://hl7.org/fhir/StructureDefinition/Procedure
+    - http://hl7.org/fhir/StructureDefinition/Immunization
+    - http://hl7.org/fhir/StructureDefinition/ImagingStudy
+  - :path: Observation.subject
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - :path: Observation.focus
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Resource
+  - :path: Observation.encounter
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Encounter
+  - :path: Observation.performer
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+    - http://hl7.org/fhir/StructureDefinition/Organization
+    - http://hl7.org/fhir/StructureDefinition/CareTeam
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  - :path: Observation.specimen
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Specimen
+  - :path: Observation.device
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Device
+    - http://hl7.org/fhir/StructureDefinition/DeviceMetric
+  - :path: Observation.hasMember
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Observation
+    - http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse
+    - http://hl7.org/fhir/StructureDefinition/MolecularSequence
+  - :path: Observation.derivedFrom
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/DocumentReference
+    - http://hl7.org/fhir/StructureDefinition/ImagingStudy
+    - http://hl7.org/fhir/StructureDefinition/Media
+    - http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse
+    - http://hl7.org/fhir/StructureDefinition/Observation
+    - http://hl7.org/fhir/StructureDefinition/MolecularSequence
+  :delayed_references: []
+- :name: ipa_patient
+  :class_name: Ipav100previewPatientSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Patient
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  :profile_name: IPA-Patient
+  :profile_version: 1.0.0-preview
+  :title: IPA-Patient
+  :short_description: Verify support for the server capabilities required by the IPA-Patient.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  - :code: search-type
+    :expectation: SHALL
+  :operations: []
+  :searches:
+  - :names:
+    - _id
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :names:
+    - birthdate
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :names:
+    - family
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory:
+    - family
+    :must_support_or_mandatory: false
+  - :names:
+    - gender
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :names:
+    - given
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory:
+    - given
+    :must_support_or_mandatory: false
+  - :names:
+    - identifier
+    :expectation: SHALL
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :names:
+    - name
+    :expectation: SHOULD
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - family
+    - gender
+    :names_not_must_support_or_mandatory:
+    - family
+    :must_support_or_mandatory: false
+  - :expectation: SHOULD
+    :names:
+    - birthdate
+    - family
+    :names_not_must_support_or_mandatory:
+    - family
+    :must_support_or_mandatory: false
+  - :expectation: SHOULD
+    :names:
+    - birthdate
+    - name
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  - :expectation: SHOULD
+    :names:
+    - gender
+    - name
+    :names_not_must_support_or_mandatory: []
+    :must_support_or_mandatory: true
+  :search_definitions:
+    :_id:
+      :paths:
+      - id
+      :full_paths:
+      - Patient.id
+      :comparators: {}
+      :values: []
+      :type: http://hl7.org/fhirpath/System.String
+      :contains_multiple: false
+    :birthdate:
+      :paths:
+      - birthDate
+      - Person.birthDate
+      - RelatedPerson.birthDate
+      :full_paths:
+      - Patient.birthDate
+      - Person.birthDate
+      - RelatedPerson.birthDate
+      :comparators:
+        :eq: MAY
+        :ne: MAY
+        :gt: MAY
+        :ge: MAY
+        :lt: MAY
+        :le: MAY
+        :sa: MAY
+        :eb: MAY
+        :ap: MAY
+      :values: []
+      :type: date
+      :contains_multiple: false
+    :family:
+      :paths:
+      - name.family
+      - Practitioner.name.family
+      :full_paths:
+      - Patient.name.family
+      - Practitioner.name.family
+      :comparators: {}
+      :values: []
+      :type: string
+      :contains_multiple: false
+    :gender:
+      :paths:
+      - gender
+      - Person.gender
+      - Practitioner.gender
+      - RelatedPerson.gender
+      :full_paths:
+      - Patient.gender
+      - Person.gender
+      - Practitioner.gender
+      - RelatedPerson.gender
+      :comparators: {}
+      :values: []
+      :type: code
+      :contains_multiple: false
+    :given:
+      :paths:
+      - name.given
+      - Practitioner.name.given
+      :full_paths:
+      - Patient.name.given
+      - Practitioner.name.given
+      :comparators: {}
+      :values: []
+      :type: string
+      :contains_multiple: false
+    :identifier:
+      :paths:
+      - identifier
+      :full_paths:
+      - Patient.identifier
+      :comparators: {}
+      :values: []
+      :type: Identifier
+      :contains_multiple: true
+    :name:
+      :paths:
+      - name
+      :full_paths:
+      - Patient.name
+      :comparators: {}
+      :values: []
+      :type: HumanName
+      :contains_multiple: true
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: identifier
+    - :path: identifier.value
+    - :path: active
+    - :path: name
+    - :path: gender
+    - :path: birthDate
+    - :path: link
+  :mandatory_elements:
+  - Patient.identifier
+  - Patient.identifier.value
+  - Patient.name
+  - Patient.communication.language
+  - Patient.link.other
+  - Patient.link.type
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/identifier-use
+    :path: identifier.use
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/administrative-gender
+    :path: gender
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/administrative-gender
+    :path: contact.gender
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/link-type
+    :path: link.type
+  :references:
+  - :path: Patient.identifier.assigner
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: Patient.contact.organization
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: Patient.generalPractitioner
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+    - http://hl7.org/fhir/StructureDefinition/Practitioner
+    - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+  - :path: Patient.managingOrganization
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: Patient.link.other
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Patient
+    - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+  :delayed_references: []
+- :name: ipa_practitioner
+  :class_name: Ipav100previewPractitionerSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: Practitioner
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+  :profile_name: IPA-Practitioner
+  :profile_version: 1.0.0-preview
+  :title: IPA-Practitioner
+  :short_description: Verify support for the server capabilities required by the IPA-Practitioner.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  :operations: []
+  :searches: []
+  :search_definitions: {}
+  :include_params: []
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: name
+  :mandatory_elements:
+  - Practitioner.name
+  - Practitioner.qualification.code
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/administrative-gender
+    :path: gender
+  :references:
+  - :path: Practitioner.qualification.issuer
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  :delayed_references: []
+- :name: ipa_practitionerrole
+  :class_name: Ipav100previewPractitionerroleSequence
+  :version: v1.0.0-preview
+  :reformatted_version: v100preview
+  :resource: PractitionerRole
+  :profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+  :profile_name: IPA-PractitionerRole
+  :profile_version: 1.0.0-preview
+  :title: IPA-PractitionerRole
+  :short_description: Verify support for the server capabilities required by the IPA-PractitionerRole.
+  :interactions:
+  - :code: read
+    :expectation: SHALL
+  :operations: []
+  :searches: []
+  :search_definitions: {}
+  :include_params:
+  - PractitionerRole:endpoint
+  - PractitionerRole:practitioner
+  :revincludes:
+  - Provenance:target
+  :required_concepts: []
+  :must_supports:
+    :extensions: []
+    :slices: []
+    :elements:
+    - :path: practitioner
+      :types:
+      - Reference
+  :mandatory_elements:
+  - PractitionerRole.notAvailable.description
+  :bindings:
+  - :type: code
+    :strength: required
+    :system: http://hl7.org/fhir/ValueSet/days-of-week
+    :path: availableTime.daysOfWeek
+  :references:
+  - :path: PractitionerRole.practitioner
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+  - :path: PractitionerRole.organization
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: PractitionerRole.location
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Location
+  - :path: PractitionerRole.healthcareService
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/HealthcareService
+  - :path: PractitionerRole.endpoint
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Endpoint
+  :delayed_references:
+  - :path: practitioner
+    :resources:
+    - Practitioner

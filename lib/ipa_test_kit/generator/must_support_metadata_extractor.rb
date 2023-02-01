@@ -287,7 +287,6 @@ module IpaTestKit
       def handle_special_cases
         remove_vital_sign_component
         remove_blood_pressure_value
-        remove_observation_data_absent_reason
         add_must_support_choices
 
         case profile.version
@@ -331,18 +330,6 @@ module IpaTestKit
           end
           @must_supports[:slices].delete_if do |slice|
             slice[:path].start_with?('value[x]')
-          end
-        end
-      end
-
-      # ONC and US Core 4.0.0 both clarified that health IT developers that always provide HL7 FHIR "observation" values
-      # are not required to demonstrate Health IT Module support for "dataAbsentReason" elements.
-      # Remove MS check for dataAbsentReason and component.dataAbsentReason from vital sign profiles and observation lab profile
-      # Smoking status profile does not have MS on dataAbsentReason. It is safe to use profile.type == 'Observation'
-      def remove_observation_data_absent_reason
-        if profile.type == 'Observation'
-          @must_supports[:elements].delete_if do |element|
-            ['dataAbsentReason', 'component.dataAbsentReason'].include?(element[:path])
           end
         end
       end

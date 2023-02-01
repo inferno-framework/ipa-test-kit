@@ -103,6 +103,7 @@ module IpaTestKit
     end
 
     def generate_groups
+      binding.pry if ig_metadata.nil?
       GroupGenerator.generate(ig_metadata, base_output_dir)
     end
 

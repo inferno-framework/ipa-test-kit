@@ -14,7 +14,7 @@ module IpaTestKit
 
       class << self
         def exclude_group?(group)
-          RESOURCES_TO_EXCLUDE.include?(group.resource)
+          RESOURCES_TO_EXCLUDE.include?(group&.resource)
         end
       end
     end

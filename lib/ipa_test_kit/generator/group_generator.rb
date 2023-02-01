@@ -7,6 +7,7 @@ module IpaTestKit
       class << self
         def generate(ig_metadata, base_output_dir)
           ig_metadata.ordered_groups
+            .reject { |group| group.nil?}
             .reject { |group| SpecialCases.exclude_group? group }
             .each { |group| new(group, base_output_dir).generate }
         end
@@ -107,20 +108,7 @@ module IpaTestKit
       end
 
       def add_special_tests
-        return if group_metadata.reformatted_version == 'v311'
 
-        case group_metadata.resource
-        when 'Device'
-          group_metadata.add_test(
-            id: 'ipa_v400_device_udi_pi_test',
-            file_name: '../../custom_groups/v4.0.0/device_udi_pi_test.rb'
-          )
-        when 'DocumentReference'
-          group_metadata.add_test(
-            id: 'ipa_v400_document_reference_custodian_test',
-            file_name: '../../custom_groups/v4.0.0/document_reference_custodian_test.rb'
-          )
-        end
       end
 
       def test_id_list
