@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ipa_test_kit (0.2.0)
+    ipa_test_kit (0.3.0.dev)
       inferno_core (>= 0.4.2)
       tls_test_kit (~> 0.2.0)
 
