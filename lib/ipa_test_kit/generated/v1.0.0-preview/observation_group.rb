@@ -17,10 +17,10 @@ module IpaTestKit
       description %(
   # Background
 
-The US Core Observation IPA- sequence verifies that the system under test is
+The IPA Observation IPA- sequence verifies that the system under test is
 able to provide correct responses for Observation queries. These queries
 must contain resources conforming to the IPA-Observation as
-specified in the US Core v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0-preview Implementation Guide.
 
 # Testing Methodology
 ## Searching

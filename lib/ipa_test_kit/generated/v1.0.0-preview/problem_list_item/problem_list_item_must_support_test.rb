@@ -7,8 +7,8 @@ module IpaTestKit
 
       title 'All must support elements are provided in the Condition resources returned'
       description %(
-        US Core Responders SHALL be capable of populating all data elements as
-        part of the query results as specified by the US Core Server Capability
+        IPA Responders SHALL be capable of populating all data elements as
+        part of the query results as specified by the IPA Core Server Capability
         Statement. This test will look through the Condition resources
         found previously for the following must support elements:
 

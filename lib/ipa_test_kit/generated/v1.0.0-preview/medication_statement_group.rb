@@ -14,10 +14,10 @@ module IpaTestKit
       description %(
   # Background
 
-The US Core IPA-MedicationStatement sequence verifies that the system under test is
+The IPA IPA-MedicationStatement sequence verifies that the system under test is
 able to provide correct responses for MedicationStatement queries. These queries
 must contain resources conforming to the IPA-MedicationStatement as
-specified in the US Core v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0-preview Implementation Guide.
 
 # Testing Methodology
 ## Searching

@@ -19,10 +19,10 @@ module IpaTestKit
       description %(
   # Background
 
-The US Core IPA-MedicationRequest sequence verifies that the system under test is
+The IPA IPA-MedicationRequest sequence verifies that the system under test is
 able to provide correct responses for MedicationRequest queries. These queries
 must contain resources conforming to the IPA-MedicationRequest as
-specified in the US Core v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0-preview Implementation Guide.
 
 # Testing Methodology
 ## Searching

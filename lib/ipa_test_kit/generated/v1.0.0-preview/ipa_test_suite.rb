@@ -19,8 +19,8 @@ module IpaTestKit
     class IpaTestSuite < Inferno::TestSuite
       title 'International Patient Access (v1.0.0-preview)'
       description %(
-        The IPA Test Kit tests systems for their conformance to the [US Core
-        Implementation Guide](http://build.fhir.org/ig/HL7/fhir-ipa/).
+        The IPA Test Kit tests systems for their conformance to the
+        IPA Implementation Guide.
 
         Resources are validated with the FHIR Java validator using `tx.fhir.org`
         as the terminology server.

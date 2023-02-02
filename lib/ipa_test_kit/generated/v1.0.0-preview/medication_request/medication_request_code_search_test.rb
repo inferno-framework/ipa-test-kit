@@ -17,7 +17,9 @@ If any MedicationRequest resources use external references to
 Medications, the search will be repeated with
 `_include=MedicationRequest:medication`.
 
-[US Core Server CapabilityStatement](http://hl7.org/fhir/us/core//CapabilityStatement-us-core-server.html)
+# TODO: Fix this
+# [US Core Server CapabilityStatement](http://hl7.org/fhir/us/core//CapabilityStatement-us-core-server.html)
+
 
       )
 

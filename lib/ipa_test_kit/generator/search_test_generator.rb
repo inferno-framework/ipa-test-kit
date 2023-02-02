@@ -239,8 +239,8 @@ module IpaTestKit
         <<~REFERENCE_SEARCH_DESCRIPTION
         This test verifies that the server supports searching by reference using
         the form `patient=[id]` as well as `patient=Patient/[id]`. The two
-        different forms are expected to return the same number of results. US
-        Core requires that both forms are supported by US Core responders.
+        different forms are expected to return the same number of results. IPA
+        requires that both forms are supported by IPA Core responders.
         REFERENCE_SEARCH_DESCRIPTION
       end
 
@@ -270,7 +270,7 @@ module IpaTestKit
         Additionally, this test will check that GET and POST search methods
         return the same number of results. Search by POST is required by the
         FHIR R4 specification, and these tests interpret search by GET as a
-        requirement of US Core #{group_metadata.version}.
+        requirement of IPA #{group_metadata.version}.
         POST_SEARCH_DESCRIPTION
       end
 
@@ -286,7 +286,9 @@ module IpaTestKit
         #{first_search_description}
         #{post_search_description}
 
-        [US Core Server CapabilityStatement](http://hl7.org/fhir/us/core/#{url_version}/CapabilityStatement-us-core-server.html)
+        # TODO: Fix this
+        # [US Core Server CapabilityStatement](http://hl7.org/fhir/us/core/#{url_version}/CapabilityStatement-us-core-server.html)
+
         DESCRIPTION
       end
     end
