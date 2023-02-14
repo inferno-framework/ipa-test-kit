@@ -15,17 +15,17 @@ require_relative 'patient/patient_validation_test'
 require_relative 'patient/patient_must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class PatientGroup < Inferno::TestGroup
-      title 'IPA-Patient Tests'
+      title 'Patient Tests'
       short_description 'Verify support for the server capabilities required by the IPA-Patient.'
       description %(
   # Background
 
-The IPA IPA-Patient sequence verifies that the system under test is
+The IPA Patient sequence verifies that the system under test is
 able to provide correct responses for Patient queries. These queries
 must contain resources conforming to the IPA-Patient as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -78,28 +78,28 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_patient
+      id :ipa_v100_patient
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'patient', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_patient__id_search_test
-      test from: :ipa_v100preview_patient_birthdate_search_test
-      test from: :ipa_v100preview_patient_family_search_test
-      test from: :ipa_v100preview_patient_gender_search_test
-      test from: :ipa_v100preview_patient_given_search_test
-      test from: :ipa_v100preview_patient_identifier_search_test
-      test from: :ipa_v100preview_patient_name_search_test
-      test from: :ipa_v100preview_patient_family_gender_search_test
-      test from: :ipa_v100preview_patient_birthdate_family_search_test
-      test from: :ipa_v100preview_patient_birthdate_name_search_test
-      test from: :ipa_v100preview_patient_gender_name_search_test
-      test from: :ipa_v100preview_patient_read_test
-      test from: :ipa_v100preview_patient_provenance_revinclude_search_test
-      test from: :ipa_v100preview_patient_validation_test
-      test from: :ipa_v100preview_patient_must_support_test
+      test from: :ipa_v100_patient__id_search_test
+      test from: :ipa_v100_patient_birthdate_search_test
+      test from: :ipa_v100_patient_family_search_test
+      test from: :ipa_v100_patient_gender_search_test
+      test from: :ipa_v100_patient_given_search_test
+      test from: :ipa_v100_patient_identifier_search_test
+      test from: :ipa_v100_patient_name_search_test
+      test from: :ipa_v100_patient_family_gender_search_test
+      test from: :ipa_v100_patient_birthdate_family_search_test
+      test from: :ipa_v100_patient_birthdate_name_search_test
+      test from: :ipa_v100_patient_gender_name_search_test
+      test from: :ipa_v100_patient_read_test
+      test from: :ipa_v100_patient_provenance_revinclude_search_test
+      test from: :ipa_v100_patient_validation_test
+      test from: :ipa_v100_patient_must_support_test
     end
   end
 end

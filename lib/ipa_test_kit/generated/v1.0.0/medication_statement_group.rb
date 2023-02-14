@@ -7,17 +7,17 @@ require_relative 'medication_statement/medication_statement_must_support_test'
 require_relative 'medication_statement/medication_statement_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class MedicationStatementGroup < Inferno::TestGroup
-      title 'IPA-MedicationStatement Tests'
+      title 'MedicationStatement Tests'
       short_description 'Verify support for the server capabilities required by the IPA-MedicationStatement.'
       description %(
   # Background
 
-The IPA IPA-MedicationStatement sequence verifies that the system under test is
+The IPA MedicationStatement sequence verifies that the system under test is
 able to provide correct responses for MedicationStatement queries. These queries
 must contain resources conforming to the IPA-MedicationStatement as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -69,20 +69,20 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_medication_statement
+      id :ipa_v100_medication_statement
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'medication_statement', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_medication_statement_patient_search_test
-      test from: :ipa_v100preview_medication_statement_patient_status_search_test
-      test from: :ipa_v100preview_medication_statement_read_test
-      test from: :ipa_v100preview_medication_statement_provenance_revinclude_search_test
-      test from: :ipa_v100preview_medication_statement_validation_test
-      test from: :ipa_v100preview_medication_statement_must_support_test
-      test from: :ipa_v100preview_medication_statement_reference_resolution_test
+      test from: :ipa_v100_medication_statement_patient_search_test
+      test from: :ipa_v100_medication_statement_patient_status_search_test
+      test from: :ipa_v100_medication_statement_read_test
+      test from: :ipa_v100_medication_statement_provenance_revinclude_search_test
+      test from: :ipa_v100_medication_statement_validation_test
+      test from: :ipa_v100_medication_statement_must_support_test
+      test from: :ipa_v100_medication_statement_reference_resolution_test
     end
   end
 end

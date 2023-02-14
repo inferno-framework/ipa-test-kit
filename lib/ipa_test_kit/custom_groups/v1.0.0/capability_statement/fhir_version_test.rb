@@ -1,5 +1,5 @@
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class FHIRVersionTest < Inferno::Test
       id :ipa_010_fhir_version
       title 'Server is using FHIR R4'

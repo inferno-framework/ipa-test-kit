@@ -1,7 +1,7 @@
 require 'inferno/dsl/oauth_credentials'
 
 require_relative '../../version'
-require_relative '../../custom_groups/v1.0.0-preview/capability_statement_group'
+require_relative '../../custom_groups/v1.0.0/capability_statement_group'
 require_relative '../../provenance_validator'
 require_relative 'patient_group'
 require_relative 'allergy_intolerance_group'
@@ -15,12 +15,17 @@ require_relative 'observation_group'
 require_relative 'practitioner_group'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class IpaTestSuite < Inferno::TestSuite
-      title 'International Patient Access (v1.0.0-preview)'
+      title 'International Patient Access (v1.0.0)'
       description %(
-        The IPA Test Kit tests systems for their conformance to the
-        IPA Implementation Guide.
+        This test suite evaluates the ability of a system to support applications
+        acting on behalf of patients to access clinical records using a FHIR R4 API
+        in accordance to the [International Patient Access Implementation Guide (IPA IG)](https://www.hl7.org/fhir/uv/ipa/).
+        
+        It accomplishes this by simulating requests performed by a realistic IPA Requestor
+        and validating responses based on requirements specified within the IPA IG and
+        the base FHIR specification.
 
         Resources are validated with the FHIR Java validator using `tx.fhir.org`
         as the terminology server.
@@ -37,7 +42,7 @@ module IpaTestKit
       end
 
       validator do
-        url ENV.fetch('V100PREVIEW_VALIDATOR_URL', 'http://validator_service:4567')
+        url ENV.fetch('IPA_V100_VALIDATOR_URL', 'http://validator_service:4567')
         exclude_message do |message|
           VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
         end
@@ -47,7 +52,7 @@ module IpaTestKit
         end
       end
 
-      id :ipa_v100preview
+      id :ipa_v100
 
 
       input :url,
@@ -63,18 +68,18 @@ module IpaTestKit
         oauth_credentials :smart_credentials
       end
 
-      group from: :ipa_v100preview_capability_statement
+      group from: :ipa_v100_capability_statement
   
-      group from: :ipa_v100preview_patient
-      group from: :ipa_v100preview_allergy_intolerance
-      group from: :ipa_v100preview_condition
-      group from: :ipa_v100preview_problem_list_item
-      group from: :ipa_v100preview_document_reference
-      group from: :ipa_v100preview_immunization
-      group from: :ipa_v100preview_medication_request
-      group from: :ipa_v100preview_medication_statement
-      group from: :ipa_v100preview_observation
-      group from: :ipa_v100preview_practitioner
+      group from: :ipa_v100_patient
+      group from: :ipa_v100_allergy_intolerance
+      group from: :ipa_v100_condition
+      group from: :ipa_v100_problem_list_item
+      group from: :ipa_v100_document_reference
+      group from: :ipa_v100_immunization
+      group from: :ipa_v100_medication_request
+      group from: :ipa_v100_medication_statement
+      group from: :ipa_v100_observation
+      group from: :ipa_v100_practitioner
 
     end
   end

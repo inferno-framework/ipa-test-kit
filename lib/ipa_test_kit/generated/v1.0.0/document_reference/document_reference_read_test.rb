@@ -1,14 +1,14 @@
 require_relative '../../../read_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class DocumentReferenceReadTest < Inferno::Test
       include IpaTestKit::ReadTest
 
       title 'Server returns correct DocumentReference resource from DocumentReference read interaction'
       description 'A server SHALL support the DocumentReference read interaction.'
 
-      id :ipa_v100preview_document_reference_read_test
+      id :ipa_v100_document_reference_read_test
 
       def resource_type
         'DocumentReference'

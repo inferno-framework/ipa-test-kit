@@ -11,17 +11,17 @@ require_relative 'problem_list_item/problem_list_item_must_support_test'
 require_relative 'problem_list_item/problem_list_item_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ProblemListItemGroup < Inferno::TestGroup
-      title 'Condition IPA-problem-list-item Tests'
+      title 'Condition (Problem List Item) Tests'
       short_description 'Verify support for the server capabilities required by the IPA-problem-list-item.'
       description %(
   # Background
 
-The IPA Condition IPA-problem-list-item sequence verifies that the system under test is
+The IPA Condition (Problem List Item) sequence verifies that the system under test is
 able to provide correct responses for Condition queries. These queries
 must contain resources conforming to the IPA-problem-list-item as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -73,24 +73,24 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_problem_list_item
+      id :ipa_v100_problem_list_item
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'problem_list_item', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_problem_list_item_patient_search_test
-      test from: :ipa_v100preview_problem_list_item_patient_clinical_status_search_test
-      test from: :ipa_v100preview_problem_list_item_patient_category_search_test
-      test from: :ipa_v100preview_problem_list_item_patient_category_clinical_status_search_test
-      test from: :ipa_v100preview_problem_list_item_patient_code_search_test
-      test from: :ipa_v100preview_problem_list_item_patient_onset_date_search_test
-      test from: :ipa_v100preview_problem_list_item_read_test
-      test from: :ipa_v100preview_problem_list_item_provenance_revinclude_search_test
-      test from: :ipa_v100preview_problem_list_item_validation_test
-      test from: :ipa_v100preview_problem_list_item_must_support_test
-      test from: :ipa_v100preview_problem_list_item_reference_resolution_test
+      test from: :ipa_v100_problem_list_item_patient_search_test
+      test from: :ipa_v100_problem_list_item_patient_clinical_status_search_test
+      test from: :ipa_v100_problem_list_item_patient_category_search_test
+      test from: :ipa_v100_problem_list_item_patient_category_clinical_status_search_test
+      test from: :ipa_v100_problem_list_item_patient_code_search_test
+      test from: :ipa_v100_problem_list_item_patient_onset_date_search_test
+      test from: :ipa_v100_problem_list_item_read_test
+      test from: :ipa_v100_problem_list_item_provenance_revinclude_search_test
+      test from: :ipa_v100_problem_list_item_validation_test
+      test from: :ipa_v100_problem_list_item_must_support_test
+      test from: :ipa_v100_problem_list_item_reference_resolution_test
     end
   end
 end

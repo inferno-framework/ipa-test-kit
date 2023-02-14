@@ -1,7 +1,7 @@
 require_relative '../../../must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class MedicationStatementMustSupportTest < Inferno::Test
       include IpaTestKit::MustSupportTest
 
@@ -23,7 +23,7 @@ module IpaTestKit
         * MedicationStatement.subject
       )
 
-      id :ipa_v100preview_medication_statement_must_support_test
+      id :ipa_v100_medication_statement_must_support_test
 
       def resource_type
         'MedicationStatement'

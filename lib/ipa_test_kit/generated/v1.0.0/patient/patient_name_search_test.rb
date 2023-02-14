@@ -2,7 +2,7 @@ require_relative '../../../search_test'
 require_relative '../../../generator/group_metadata'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class PatientNameSearchTest < Inferno::Test
       include IpaTestKit::SearchTest
 
@@ -19,7 +19,7 @@ none are returned, the test is skipped.
 
       )
 
-      id :ipa_v100preview_patient_name_search_test
+      id :ipa_v100_patient_name_search_test
       optional
   
       def self.properties

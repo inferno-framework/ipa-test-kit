@@ -1,7 +1,7 @@
 require_relative '../../../must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class PatientMustSupportTest < Inferno::Test
       include IpaTestKit::MustSupportTest
 
@@ -21,7 +21,7 @@ module IpaTestKit
         * Patient.name
       )
 
-      id :ipa_v100preview_patient_must_support_test
+      id :ipa_v100_patient_must_support_test
 
       def resource_type
         'Patient'

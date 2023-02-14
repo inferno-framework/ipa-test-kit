@@ -1,14 +1,14 @@
 require_relative '../../../read_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ImmunizationReadTest < Inferno::Test
       include IpaTestKit::ReadTest
 
       title 'Server returns correct Immunization resource from Immunization read interaction'
       description 'A server SHALL support the Immunization read interaction.'
 
-      id :ipa_v100preview_immunization_read_test
+      id :ipa_v100_immunization_read_test
 
       def resource_type
         'Immunization'

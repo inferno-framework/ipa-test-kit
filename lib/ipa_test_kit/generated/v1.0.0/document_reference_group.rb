@@ -14,17 +14,17 @@ require_relative 'document_reference/document_reference_must_support_test'
 require_relative 'document_reference/document_reference_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class DocumentReferenceGroup < Inferno::TestGroup
-      title 'IPA-DocumentReference Tests'
+      title 'DocumentReference Tests'
       short_description 'Verify support for the server capabilities required by the IPA-DocumentReference.'
       description %(
   # Background
 
-The IPA IPA-DocumentReference sequence verifies that the system under test is
+The IPA DocumentReference sequence verifies that the system under test is
 able to provide correct responses for DocumentReference queries. These queries
 must contain resources conforming to the IPA-DocumentReference as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -80,27 +80,27 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_document_reference
+      id :ipa_v100_document_reference
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'document_reference', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_document_reference_patient_search_test
-      test from: :ipa_v100preview_document_reference__id_search_test
-      test from: :ipa_v100preview_document_reference_patient_category_search_test
-      test from: :ipa_v100preview_document_reference_patient_category_date_search_test
-      test from: :ipa_v100preview_document_reference_patient_type_search_test
-      test from: :ipa_v100preview_document_reference_patient_contenttype_search_test
-      test from: :ipa_v100preview_document_reference_patient_status_search_test
-      test from: :ipa_v100preview_document_reference_patient_type_date_search_test
-      test from: :ipa_v100preview_document_reference_patient_type_period_search_test
-      test from: :ipa_v100preview_document_reference_read_test
-      test from: :ipa_v100preview_document_reference_provenance_revinclude_search_test
-      test from: :ipa_v100preview_document_reference_validation_test
-      test from: :ipa_v100preview_document_reference_must_support_test
-      test from: :ipa_v100preview_document_reference_reference_resolution_test
+      test from: :ipa_v100_document_reference_patient_search_test
+      test from: :ipa_v100_document_reference__id_search_test
+      test from: :ipa_v100_document_reference_patient_category_search_test
+      test from: :ipa_v100_document_reference_patient_category_date_search_test
+      test from: :ipa_v100_document_reference_patient_type_search_test
+      test from: :ipa_v100_document_reference_patient_contenttype_search_test
+      test from: :ipa_v100_document_reference_patient_status_search_test
+      test from: :ipa_v100_document_reference_patient_type_date_search_test
+      test from: :ipa_v100_document_reference_patient_type_period_search_test
+      test from: :ipa_v100_document_reference_read_test
+      test from: :ipa_v100_document_reference_provenance_revinclude_search_test
+      test from: :ipa_v100_document_reference_validation_test
+      test from: :ipa_v100_document_reference_must_support_test
+      test from: :ipa_v100_document_reference_reference_resolution_test
     end
   end
 end

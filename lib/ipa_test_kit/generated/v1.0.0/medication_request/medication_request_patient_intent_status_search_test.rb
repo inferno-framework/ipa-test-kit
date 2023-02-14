@@ -2,7 +2,7 @@ require_relative '../../../search_test'
 require_relative '../../../generator/group_metadata'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class MedicationRequestPatientIntentStatusSearchTest < Inferno::Test
       include IpaTestKit::SearchTest
 
@@ -23,7 +23,7 @@ Medications, the search will be repeated with
 
       )
 
-      id :ipa_v100preview_medication_request_patient_intent_status_search_test
+      id :ipa_v100_medication_request_patient_intent_status_search_test
       optional
   
       input :patient_ids,

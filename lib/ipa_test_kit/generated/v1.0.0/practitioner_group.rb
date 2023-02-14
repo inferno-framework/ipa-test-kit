@@ -3,17 +3,17 @@ require_relative 'practitioner/practitioner_validation_test'
 require_relative 'practitioner/practitioner_must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class PractitionerGroup < Inferno::TestGroup
-      title 'IPA-Practitioner Tests'
+      title 'Practitioner Tests'
       short_description 'Verify support for the server capabilities required by the IPA-Practitioner.'
       description %(
   # Background
 
-The IPA IPA-Practitioner sequence verifies that the system under test is
+The IPA Practitioner sequence verifies that the system under test is
 able to provide correct responses for Practitioner queries. These queries
 must contain resources conforming to the IPA-Practitioner as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 
@@ -42,16 +42,16 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_practitioner
+      id :ipa_v100_practitioner
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'practitioner', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_practitioner_read_test
-      test from: :ipa_v100preview_practitioner_validation_test
-      test from: :ipa_v100preview_practitioner_must_support_test
+      test from: :ipa_v100_practitioner_read_test
+      test from: :ipa_v100_practitioner_validation_test
+      test from: :ipa_v100_practitioner_must_support_test
     end
   end
 end

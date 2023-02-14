@@ -50,7 +50,7 @@ module IpaTestKit
       end
 
       def validator_env_name
-        "#{ig_metadata.reformatted_version.upcase}_VALIDATOR_URL"
+        "IPA_#{ig_metadata.reformatted_version.upcase}_VALIDATOR_URL"
       end
 
       def ig_link

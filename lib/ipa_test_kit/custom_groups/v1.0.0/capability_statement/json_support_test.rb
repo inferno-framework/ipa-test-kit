@@ -1,5 +1,5 @@
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class JSONSupportTest < Inferno::Test
       id :ipa_010_json_support
       title 'FHIR server capability states JSON support'

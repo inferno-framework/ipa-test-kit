@@ -2,7 +2,7 @@ require_relative '../../../reference_resolution_test'
 require_relative '../resource_list'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ObservationReferenceResolutionTest < Inferno::Test
       include IpaTestKit::ReferenceResolutionTest
       include ResourceList
@@ -20,7 +20,7 @@ module IpaTestKit
         * Observation.subject
       )
 
-      id :ipa_v100preview_observation_reference_resolution_test
+      id :ipa_v100_observation_reference_resolution_test
 
       def resource_type
         'Observation'

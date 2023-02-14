@@ -2,7 +2,7 @@ require_relative '../../../reference_resolution_test'
 require_relative '../resource_list'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ImmunizationReferenceResolutionTest < Inferno::Test
       include IpaTestKit::ReferenceResolutionTest
       include ResourceList
@@ -20,7 +20,7 @@ module IpaTestKit
         * Immunization.patient
       )
 
-      id :ipa_v100preview_immunization_reference_resolution_test
+      id :ipa_v100_immunization_reference_resolution_test
 
       def resource_type
         'Immunization'

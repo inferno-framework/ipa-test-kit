@@ -2,7 +2,7 @@ require_relative '../../../reference_resolution_test'
 require_relative '../resource_list'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class MedicationRequestReferenceResolutionTest < Inferno::Test
       include IpaTestKit::ReferenceResolutionTest
       include ResourceList
@@ -24,7 +24,7 @@ module IpaTestKit
         * MedicationRequest.subject
       )
 
-      id :ipa_v100preview_medication_request_reference_resolution_test
+      id :ipa_v100_medication_request_reference_resolution_test
 
       def resource_type
         'MedicationRequest'

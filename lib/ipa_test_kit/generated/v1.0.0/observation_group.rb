@@ -10,17 +10,17 @@ require_relative 'observation/observation_must_support_test'
 require_relative 'observation/observation_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ObservationGroup < Inferno::TestGroup
-      title 'Observation IPA- Tests'
+      title 'Observation Tests'
       short_description 'Verify support for the server capabilities required by the IPA-Observation.'
       description %(
   # Background
 
-The IPA Observation IPA- sequence verifies that the system under test is
+The IPA Observation sequence verifies that the system under test is
 able to provide correct responses for Observation queries. These queries
 must contain resources conforming to the IPA-Observation as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -74,23 +74,23 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_observation
+      id :ipa_v100_observation
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'observation', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_observation_patient_code_search_test
-      test from: :ipa_v100preview_observation_patient_category_search_test
-      test from: :ipa_v100preview_observation_patient_category_date_search_test
-      test from: :ipa_v100preview_observation_patient_category_status_search_test
-      test from: :ipa_v100preview_observation_patient_code_date_search_test
-      test from: :ipa_v100preview_observation_read_test
-      test from: :ipa_v100preview_observation_provenance_revinclude_search_test
-      test from: :ipa_v100preview_observation_validation_test
-      test from: :ipa_v100preview_observation_must_support_test
-      test from: :ipa_v100preview_observation_reference_resolution_test
+      test from: :ipa_v100_observation_patient_code_search_test
+      test from: :ipa_v100_observation_patient_category_search_test
+      test from: :ipa_v100_observation_patient_category_date_search_test
+      test from: :ipa_v100_observation_patient_category_status_search_test
+      test from: :ipa_v100_observation_patient_code_date_search_test
+      test from: :ipa_v100_observation_read_test
+      test from: :ipa_v100_observation_provenance_revinclude_search_test
+      test from: :ipa_v100_observation_validation_test
+      test from: :ipa_v100_observation_must_support_test
+      test from: :ipa_v100_observation_reference_resolution_test
     end
   end
 end

@@ -1,14 +1,14 @@
 require_relative '../../../read_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class PractitionerReadTest < Inferno::Test
       include IpaTestKit::ReadTest
 
       title 'Server returns correct Practitioner resource from Practitioner read interaction'
       description 'A server SHALL support the Practitioner read interaction.'
 
-      id :ipa_v100preview_practitioner_read_test
+      id :ipa_v100_practitioner_read_test
 
       def resource_type
         'Practitioner'

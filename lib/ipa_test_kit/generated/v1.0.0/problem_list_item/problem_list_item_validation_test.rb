@@ -1,11 +1,11 @@
 require_relative '../../../validation_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ProblemListItemValidationTest < Inferno::Test
       include IpaTestKit::ValidationTest
 
-      id :ipa_v100preview_problem_list_item_validation_test
+      id :ipa_v100_problem_list_item_validation_test
       title 'Condition resources returned during previous tests conform to the IPA-problem-list-item'
       description %(
 This test verifies resources returned from the first search conform to
@@ -32,7 +32,7 @@ fail if their code/system are not found in the valueset.
       run do
         perform_validation_test(scratch_resources[:all] || [],
                                 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-problem-list-item',
-                                '1.0.0-preview',
+                                '1.0.0',
                                 skip_if_empty: true)
       end
     end

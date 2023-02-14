@@ -1,7 +1,7 @@
 require_relative '../../../must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class AllergyIntoleranceMustSupportTest < Inferno::Test
       include IpaTestKit::MustSupportTest
 
@@ -18,7 +18,7 @@ module IpaTestKit
         * AllergyIntolerance.verificationStatus
       )
 
-      id :ipa_v100preview_allergy_intolerance_must_support_test
+      id :ipa_v100_allergy_intolerance_must_support_test
 
       def resource_type
         'AllergyIntolerance'

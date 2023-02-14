@@ -2,7 +2,7 @@ require_relative '../../../search_test'
 require_relative '../../../generator/group_metadata'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class MedicationStatementProvenanceRevincludeSearchTest < Inferno::Test
       include IpaTestKit::SearchTest
 
@@ -14,7 +14,7 @@ module IpaTestKit
         will pass if a Provenance resource is found in the response.
       %)
 
-      id :ipa_v100preview_medication_statement_provenance_revinclude_search_test
+      id :ipa_v100_medication_statement_provenance_revinclude_search_test
   
       input :patient_ids,
         title: 'Patient IDs',

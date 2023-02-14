@@ -1,7 +1,7 @@
 require_relative '../../../must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ProblemListItemMustSupportTest < Inferno::Test
       include IpaTestKit::MustSupportTest
 
@@ -20,7 +20,7 @@ module IpaTestKit
         * Condition.verificationStatus
       )
 
-      id :ipa_v100preview_problem_list_item_must_support_test
+      id :ipa_v100_problem_list_item_must_support_test
 
       def resource_type
         'Condition'

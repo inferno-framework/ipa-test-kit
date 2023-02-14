@@ -1,7 +1,7 @@
 require_relative '../../../must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class DocumentReferenceMustSupportTest < Inferno::Test
       include IpaTestKit::MustSupportTest
 
@@ -28,7 +28,7 @@ module IpaTestKit
         * DocumentReference.type
       )
 
-      id :ipa_v100preview_document_reference_must_support_test
+      id :ipa_v100_document_reference_must_support_test
 
       def resource_type
         'DocumentReference'

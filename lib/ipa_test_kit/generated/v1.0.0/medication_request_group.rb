@@ -12,17 +12,17 @@ require_relative 'medication_request/medication_request_must_support_test'
 require_relative 'medication_request/medication_request_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class MedicationRequestGroup < Inferno::TestGroup
-      title 'IPA-MedicationRequest Tests'
+      title 'MedicationRequest Tests'
       short_description 'Verify support for the server capabilities required by the IPA-MedicationRequest.'
       description %(
   # Background
 
-The IPA IPA-MedicationRequest sequence verifies that the system under test is
+The IPA MedicationRequest sequence verifies that the system under test is
 able to provide correct responses for MedicationRequest queries. These queries
 must contain resources conforming to the IPA-MedicationRequest as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -74,25 +74,25 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_medication_request
+      id :ipa_v100_medication_request
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'medication_request', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_medication_request_patient_intent_search_test
-      test from: :ipa_v100preview_medication_request_category_search_test
-      test from: :ipa_v100preview_medication_request_code_search_test
-      test from: :ipa_v100preview_medication_request_patient_search_test
-      test from: :ipa_v100preview_medication_request_patient_intent_authoredon_search_test
-      test from: :ipa_v100preview_medication_request_patient_intent_status_search_test
-      test from: :ipa_v100preview_medication_request_read_test
-      test from: :ipa_v100preview_medication_request_provenance_revinclude_search_test
-      test from: :ipa_v100preview_medication_request_validation_test
-      test from: :ipa_v100preview_medication_validation_test
-      test from: :ipa_v100preview_medication_request_must_support_test
-      test from: :ipa_v100preview_medication_request_reference_resolution_test
+      test from: :ipa_v100_medication_request_patient_intent_search_test
+      test from: :ipa_v100_medication_request_category_search_test
+      test from: :ipa_v100_medication_request_code_search_test
+      test from: :ipa_v100_medication_request_patient_search_test
+      test from: :ipa_v100_medication_request_patient_intent_authoredon_search_test
+      test from: :ipa_v100_medication_request_patient_intent_status_search_test
+      test from: :ipa_v100_medication_request_read_test
+      test from: :ipa_v100_medication_request_provenance_revinclude_search_test
+      test from: :ipa_v100_medication_request_validation_test
+      test from: :ipa_v100_medication_validation_test
+      test from: :ipa_v100_medication_request_must_support_test
+      test from: :ipa_v100_medication_request_reference_resolution_test
     end
   end
 end

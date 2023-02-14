@@ -10,8 +10,13 @@ module IpaTestKit
     class <%= class_name %> < Inferno::TestSuite
       title '<%= title %>'
       description %(
-        The IPA Test Kit tests systems for their conformance to the
-        IPA Implementation Guide.
+        This test suite evaluates the ability of a system to support applications
+        acting on behalf of patients to access clinical records using a FHIR R4 API
+        in accordance to the [International Patient Access Implementation Guide (IPA IG)](https://www.hl7.org/fhir/uv/ipa/).
+        
+        It accomplishes this by simulating requests performed by a realistic IPA Requestor
+        and validating responses based on requirements specified within the IPA IG and
+        the base FHIR specification.
 
         Resources are validated with the FHIR Java validator using `tx.fhir.org`
         as the terminology server.

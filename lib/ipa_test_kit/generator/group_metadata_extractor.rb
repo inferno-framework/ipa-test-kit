@@ -188,10 +188,10 @@ module IpaTestKit
       end
 
       def title
-        title = profile.title.gsub(/US\s*Core\s*/, '').gsub(/\s*Profile/, '').strip
+        title = profile.title.gsub(/IPA\-/, ' ').strip
 
         if (Naming.resources_with_multiple_profiles.include?(resource)) && !title.start_with?(resource) && version != 'v3.1.1'
-          title = resource + ' ' + title.split(resource).map(&:strip).join(' ')
+          title = "#{resource} (#{title.split(resource).map(&:strip).join(' ').gsub(/\-/, ' ')})".titleize
         end
 
         title

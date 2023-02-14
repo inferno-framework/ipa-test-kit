@@ -1,11 +1,11 @@
 require_relative '../../../validation_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class DocumentReferenceValidationTest < Inferno::Test
       include IpaTestKit::ValidationTest
 
-      id :ipa_v100preview_document_reference_validation_test
+      id :ipa_v100_document_reference_validation_test
       title 'DocumentReference resources returned during previous tests conform to the IPA-DocumentReference'
       description %(
 This test verifies resources returned from the first search conform to
@@ -32,7 +32,7 @@ fail if their code/system are not found in the valueset.
       run do
         perform_validation_test(scratch_resources[:all] || [],
                                 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference',
-                                '1.0.0-preview',
+                                '1.0.0',
                                 skip_if_empty: true)
       end
     end

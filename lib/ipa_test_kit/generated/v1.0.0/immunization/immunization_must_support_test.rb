@@ -1,7 +1,7 @@
 require_relative '../../../must_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ImmunizationMustSupportTest < Inferno::Test
       include IpaTestKit::MustSupportTest
 
@@ -19,7 +19,7 @@ module IpaTestKit
         * Immunization.vaccineCode
       )
 
-      id :ipa_v100preview_immunization_must_support_test
+      id :ipa_v100_immunization_must_support_test
 
       def resource_type
         'Immunization'

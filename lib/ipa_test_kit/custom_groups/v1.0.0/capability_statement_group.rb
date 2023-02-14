@@ -5,9 +5,9 @@ require_relative 'capability_statement/json_support_test'
 require_relative 'capability_statement/profile_support_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class CapabilityStatementGroup < Inferno::TestGroup
-      id :ipa_v100preview_capability_statement
+      id :ipa_v100_capability_statement
       title 'Capability Statement'
       short_description 'Retrieve information about supported server functionality using the FHIR capabilties interaction.'
       description %(

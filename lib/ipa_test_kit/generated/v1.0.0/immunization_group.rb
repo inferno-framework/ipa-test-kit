@@ -8,17 +8,17 @@ require_relative 'immunization/immunization_must_support_test'
 require_relative 'immunization/immunization_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ImmunizationGroup < Inferno::TestGroup
-      title 'IPA-Immunization Tests'
+      title 'Immunization Tests'
       short_description 'Verify support for the server capabilities required by the IPA-Immunization.'
       description %(
   # Background
 
-The IPA IPA-Immunization sequence verifies that the system under test is
+The IPA Immunization sequence verifies that the system under test is
 able to provide correct responses for Immunization queries. These queries
 must contain resources conforming to the IPA-Immunization as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -70,21 +70,21 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_immunization
+      id :ipa_v100_immunization
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'immunization', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_immunization_patient_search_test
-      test from: :ipa_v100preview_immunization_patient_date_search_test
-      test from: :ipa_v100preview_immunization_patient_status_search_test
-      test from: :ipa_v100preview_immunization_read_test
-      test from: :ipa_v100preview_immunization_provenance_revinclude_search_test
-      test from: :ipa_v100preview_immunization_validation_test
-      test from: :ipa_v100preview_immunization_must_support_test
-      test from: :ipa_v100preview_immunization_reference_resolution_test
+      test from: :ipa_v100_immunization_patient_search_test
+      test from: :ipa_v100_immunization_patient_date_search_test
+      test from: :ipa_v100_immunization_patient_status_search_test
+      test from: :ipa_v100_immunization_read_test
+      test from: :ipa_v100_immunization_provenance_revinclude_search_test
+      test from: :ipa_v100_immunization_validation_test
+      test from: :ipa_v100_immunization_must_support_test
+      test from: :ipa_v100_immunization_reference_resolution_test
     end
   end
 end

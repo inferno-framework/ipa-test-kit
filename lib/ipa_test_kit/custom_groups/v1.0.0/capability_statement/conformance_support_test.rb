@@ -1,5 +1,5 @@
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class ConformanceSupportTest < Inferno::Test
       id :ipa_010_conformance_support
       title 'FHIR Server supports the conformance interaction'

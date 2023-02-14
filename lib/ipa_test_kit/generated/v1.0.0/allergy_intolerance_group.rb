@@ -7,17 +7,17 @@ require_relative 'allergy_intolerance/allergy_intolerance_must_support_test'
 require_relative 'allergy_intolerance/allergy_intolerance_reference_resolution_test'
 
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     class AllergyIntoleranceGroup < Inferno::TestGroup
-      title 'IPA-AllergyIntolerance Tests'
+      title 'AllergyIntolerance Tests'
       short_description 'Verify support for the server capabilities required by the IPA-AllergyIntolerance.'
       description %(
   # Background
 
-The IPA IPA-AllergyIntolerance sequence verifies that the system under test is
+The IPA AllergyIntolerance sequence verifies that the system under test is
 able to provide correct responses for AllergyIntolerance queries. These queries
 must contain resources conforming to the IPA-AllergyIntolerance as
-specified in the IPA v1.0.0-preview Implementation Guide.
+specified in the IPA v1.0.0 Implementation Guide.
 
 # Testing Methodology
 ## Searching
@@ -69,20 +69,20 @@ read succeeds.
 
       )
 
-      id :ipa_v100preview_allergy_intolerance
+      id :ipa_v100_allergy_intolerance
       run_as_group
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'allergy_intolerance', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100preview_allergy_intolerance_patient_search_test
-      test from: :ipa_v100preview_allergy_intolerance_patient_clinical_status_search_test
-      test from: :ipa_v100preview_allergy_intolerance_read_test
-      test from: :ipa_v100preview_allergy_intolerance_provenance_revinclude_search_test
-      test from: :ipa_v100preview_allergy_intolerance_validation_test
-      test from: :ipa_v100preview_allergy_intolerance_must_support_test
-      test from: :ipa_v100preview_allergy_intolerance_reference_resolution_test
+      test from: :ipa_v100_allergy_intolerance_patient_search_test
+      test from: :ipa_v100_allergy_intolerance_patient_clinical_status_search_test
+      test from: :ipa_v100_allergy_intolerance_read_test
+      test from: :ipa_v100_allergy_intolerance_provenance_revinclude_search_test
+      test from: :ipa_v100_allergy_intolerance_validation_test
+      test from: :ipa_v100_allergy_intolerance_must_support_test
+      test from: :ipa_v100_allergy_intolerance_reference_resolution_test
     end
   end
 end

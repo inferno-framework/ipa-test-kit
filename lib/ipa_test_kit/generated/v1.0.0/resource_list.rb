@@ -1,5 +1,5 @@
 module IpaTestKit
-  module IpaV100PREVIEW
+  module IpaV100
     module ResourceList
       RESOURCE_LIST = [
         'AllergyIntolerance',
