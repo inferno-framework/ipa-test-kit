@@ -116,12 +116,6 @@ module IpaTestKit
         @first_search_params ||=
         if category_first_profile?
           ['patient', 'category']
-        elsif resource == 'Observation'
-          ['patient', 'code']
-        elsif resource == 'MedicationRequest'
-          ['patient', 'intent']
-        elsif resource == 'CareTeam'
-          ['patient', 'status']
         else
           ['patient']
         end

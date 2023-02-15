@@ -10,12 +10,12 @@ module IpaTestKit
             .reject { |group| SpecialCases.exclude_group? group }
             .each do |group|
               new(group, base_output_dir: base_output_dir).generate
-              next unless group.resource == 'MedicationRequest'
+              # next unless group.resource == 'MedicationRequest'
 
-              # The Medication validation test lives in the MedicationRequest
-              # group, so we need to pass in that group's metadata
-              medication_group_metadata = ig_metadata.groups.find { |group| group.resource == 'Medication' }
-              new(medication_group_metadata, group, base_output_dir: base_output_dir).generate
+              # # The Medication validation test lives in the MedicationRequest
+              # # group, so we need to pass in that group's metadata
+              # medication_group_metadata = ig_metadata.groups.find { |group| group.resource == 'Medication' }
+              # new(medication_group_metadata, group, base_output_dir: base_output_dir).generate
             end
         end
       end
@@ -103,11 +103,7 @@ module IpaTestKit
           file_name: base_output_file_name
         }
 
-        if resource_type == 'Medication'
-          medication_request_metadata.add_test(**test_metadata)
-        else
-          group_metadata.add_test(**test_metadata)
-        end
+        group_metadata.add_test(**test_metadata)
       end
 
       def description

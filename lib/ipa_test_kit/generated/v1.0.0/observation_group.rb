@@ -1,5 +1,5 @@
-require_relative 'observation/observation_patient_code_search_test'
 require_relative 'observation/observation_patient_category_search_test'
+require_relative 'observation/observation_patient_code_search_test'
 require_relative 'observation/observation_patient_category_date_search_test'
 require_relative 'observation/observation_patient_category_status_search_test'
 require_relative 'observation/observation_patient_code_date_search_test'
@@ -28,8 +28,8 @@ This test sequence will first perform each required search associated
 with this resource. This sequence will perform searches with the
 following parameters:
 
-* patient + code
 * patient + category
+* patient + code
 * patient + category + date
 
 ### Search Parameters
@@ -81,8 +81,8 @@ read succeeds.
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'observation', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100_observation_patient_code_search_test
       test from: :ipa_v100_observation_patient_category_search_test
+      test from: :ipa_v100_observation_patient_code_search_test
       test from: :ipa_v100_observation_patient_category_date_search_test
       test from: :ipa_v100_observation_patient_category_status_search_test
       test from: :ipa_v100_observation_patient_code_date_search_test

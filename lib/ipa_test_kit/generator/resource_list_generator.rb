@@ -9,7 +9,7 @@ module IpaTestKit
           File.open(File.join(base_output_dir, base_output_file_name), 'w') { |f| f.write(output) }
         end
 
-        def resource_list          
+        def resource_list
           @ig_metadata.groups.map(&:resource).uniq
         end
 

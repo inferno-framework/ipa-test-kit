@@ -16,10 +16,9 @@
   :expectation: SHALL
 :operations: []
 :searches:
-- :expectation: SHOULD
-  :names:
+- :names:
   - patient
-  - intent
+  :expectation: SHALL
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
 - :names:
@@ -34,9 +33,10 @@
   :names_not_must_support_or_mandatory:
   - code
   :must_support_or_mandatory: false
-- :names:
+- :expectation: SHOULD
+  :names:
   - patient
-  :expectation: SHALL
+  - intent
   :names_not_must_support_or_mandatory: []
   :must_support_or_mandatory: true
 - :expectation: SHOULD
@@ -324,14 +324,14 @@
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Provenance
 :tests:
-- :id: ipa_v100_medication_request_patient_intent_search_test
-  :file_name: medication_request_patient_intent_search_test.rb
+- :id: ipa_v100_medication_request_patient_search_test
+  :file_name: medication_request_patient_search_test.rb
 - :id: ipa_v100_medication_request_category_search_test
   :file_name: medication_request_category_search_test.rb
 - :id: ipa_v100_medication_request_code_search_test
   :file_name: medication_request_code_search_test.rb
-- :id: ipa_v100_medication_request_patient_search_test
-  :file_name: medication_request_patient_search_test.rb
+- :id: ipa_v100_medication_request_patient_intent_search_test
+  :file_name: medication_request_patient_intent_search_test.rb
 - :id: ipa_v100_medication_request_patient_intent_authoredon_search_test
   :file_name: medication_request_patient_intent_authoredon_search_test.rb
 - :id: ipa_v100_medication_request_patient_intent_status_search_test
@@ -342,8 +342,6 @@
   :file_name: medication_request_provenance_revinclude_search_test.rb
 - :id: ipa_v100_medication_request_validation_test
   :file_name: medication_request_validation_test.rb
-- :id: ipa_v100_medication_validation_test
-  :file_name: medication_validation_test.rb
 - :id: ipa_v100_medication_request_must_support_test
   :file_name: medication_request_must_support_test.rb
 - :id: ipa_v100_medication_request_reference_resolution_test

@@ -68,7 +68,6 @@ module IpaTestKit
         search_param_names.each_with_object({}) do |name, definitions|
           definitions[name.to_sym] =
             SearchDefinitionMetadataExtractor.new(name, ig_resources, resource, profile_elements, base_search_params).search_definition
-          
         end
       end
     end

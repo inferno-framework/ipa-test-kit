@@ -1327,10 +1327,9 @@
     :expectation: SHALL
   :operations: []
   :searches:
-  - :expectation: SHOULD
-    :names:
+  - :names:
     - patient
-    - intent
+    :expectation: SHALL
     :names_not_must_support_or_mandatory: []
     :must_support_or_mandatory: true
   - :names:
@@ -1345,9 +1344,10 @@
     :names_not_must_support_or_mandatory:
     - code
     :must_support_or_mandatory: false
-  - :names:
+  - :expectation: SHOULD
+    :names:
     - patient
-    :expectation: SHALL
+    - intent
     :names_not_must_support_or_mandatory: []
     :must_support_or_mandatory: true
   - :expectation: SHOULD
@@ -1857,13 +1857,13 @@
   - :expectation: SHALL
     :names:
     - patient
-    - code
+    - category
     :names_not_must_support_or_mandatory: []
     :must_support_or_mandatory: true
   - :expectation: SHALL
     :names:
     - patient
-    - category
+    - code
     :names_not_must_support_or_mandatory: []
     :must_support_or_mandatory: true
   - :expectation: SHALL

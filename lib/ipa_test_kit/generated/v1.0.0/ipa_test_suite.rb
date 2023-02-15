@@ -12,7 +12,9 @@ require_relative 'immunization_group'
 require_relative 'medication_request_group'
 require_relative 'medication_statement_group'
 require_relative 'observation_group'
+require_relative 'medication_group'
 require_relative 'practitioner_group'
+require_relative 'practitioner_role_group'
 
 module IpaTestKit
   module IpaV100
@@ -79,7 +81,9 @@ module IpaTestKit
       group from: :ipa_v100_medication_request
       group from: :ipa_v100_medication_statement
       group from: :ipa_v100_observation
+      group from: :ipa_v100_medication
       group from: :ipa_v100_practitioner
+      group from: :ipa_v100_practitioner_role
 
     end
   end

@@ -123,7 +123,7 @@ module IpaTestKit
       return resources_returned if all_search_variants_tested?
 
       perform_post_search(resources_returned, params) if test_post_search?
-      # test_medication_inclusion(resources_returned, params, patient_id) if test_medication_inclusion?
+      test_medication_inclusion(resources_returned, params, patient_id) if test_medication_inclusion?
       perform_reference_with_type_search(params, resources_returned.count) if test_reference_variants?
       perform_search_with_system(params, patient_id) if token_search_params.present?
 

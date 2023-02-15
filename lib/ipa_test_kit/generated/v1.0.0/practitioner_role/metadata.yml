@@ -1,0 +1,68 @@
+---
+:name: ipa_practitionerrole
+:class_name: Ipav100PractitionerroleSequence
+:version: v1.0.0
+:reformatted_version: v100
+:resource: PractitionerRole
+:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+:profile_name: IPA-PractitionerRole
+:profile_version: 1.0.0
+:title: PractitionerRole
+:short_description: Verify support for the server capabilities required by the IPA-PractitionerRole.
+:interactions:
+- :code: read
+  :expectation: SHALL
+:operations: []
+:searches: []
+:search_definitions: {}
+:include_params:
+- PractitionerRole:endpoint
+- PractitionerRole:practitioner
+:revincludes:
+- Provenance:target
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: []
+  :elements:
+  - :path: practitioner
+    :types:
+    - Reference
+:mandatory_elements:
+- PractitionerRole.notAvailable.description
+:bindings:
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/days-of-week
+  :path: availableTime.daysOfWeek
+:references:
+- :path: PractitionerRole.practitioner
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+- :path: PractitionerRole.organization
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Organization
+- :path: PractitionerRole.location
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Location
+- :path: PractitionerRole.healthcareService
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/HealthcareService
+- :path: PractitionerRole.endpoint
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Endpoint
+:tests:
+- :id: ipa_v100_practitioner_role_read_test
+  :file_name: practitioner_role_read_test.rb
+- :id: ipa_v100_practitioner_role_validation_test
+  :file_name: practitioner_role_validation_test.rb
+- :id: ipa_v100_practitioner_role_must_support_test
+  :file_name: practitioner_role_must_support_test.rb
+- :id: ipa_v100_practitioner_role_reference_resolution_test
+  :file_name: practitioner_role_reference_resolution_test.rb
+:id: ipa_v100_practitioner_role
+:file_name: practitioner_role_group.rb
+:delayed_references:
+- :path: practitioner
+  :resources:
+  - Practitioner

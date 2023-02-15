@@ -1,13 +1,12 @@
-require_relative 'medication_request/medication_request_patient_intent_search_test'
+require_relative 'medication_request/medication_request_patient_search_test'
 require_relative 'medication_request/medication_request_category_search_test'
 require_relative 'medication_request/medication_request_code_search_test'
-require_relative 'medication_request/medication_request_patient_search_test'
+require_relative 'medication_request/medication_request_patient_intent_search_test'
 require_relative 'medication_request/medication_request_patient_intent_authoredon_search_test'
 require_relative 'medication_request/medication_request_patient_intent_status_search_test'
 require_relative 'medication_request/medication_request_read_test'
 require_relative 'medication_request/medication_request_provenance_revinclude_search_test'
 require_relative 'medication_request/medication_request_validation_test'
-require_relative 'medication_request/medication_validation_test'
 require_relative 'medication_request/medication_request_must_support_test'
 require_relative 'medication_request/medication_request_reference_resolution_test'
 
@@ -81,16 +80,15 @@ read succeeds.
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'medication_request', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100_medication_request_patient_intent_search_test
+      test from: :ipa_v100_medication_request_patient_search_test
       test from: :ipa_v100_medication_request_category_search_test
       test from: :ipa_v100_medication_request_code_search_test
-      test from: :ipa_v100_medication_request_patient_search_test
+      test from: :ipa_v100_medication_request_patient_intent_search_test
       test from: :ipa_v100_medication_request_patient_intent_authoredon_search_test
       test from: :ipa_v100_medication_request_patient_intent_status_search_test
       test from: :ipa_v100_medication_request_read_test
       test from: :ipa_v100_medication_request_provenance_revinclude_search_test
       test from: :ipa_v100_medication_request_validation_test
-      test from: :ipa_v100_medication_validation_test
       test from: :ipa_v100_medication_request_must_support_test
       test from: :ipa_v100_medication_request_reference_resolution_test
     end

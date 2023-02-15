@@ -2,9 +2,7 @@ module IpaTestKit
   class Generator
     module SpecialCases
       RESOURCES_TO_EXCLUDE = [
-        'Location',
-        'Medication',
-        'PractitionerRole'
+        'Location'
       ].freeze
 
       PROFILES_TO_EXCLUDE = [
