@@ -1,0 +1,28 @@
+{
+  "title": "Preset for International Patient Access (v1.0.0)",
+  "id": "ipa_reference_server",
+  "test_suite_id": "ipa_v100",
+  "inputs": [
+    {
+      "name": "url",
+      "value": "http://inferno.healthit.gov/reference-server/r4",
+      "_title": "FHIR Endpoint",
+      "_description": "URL of the FHIR endpoint",
+      "_type": "text"
+    },
+    {
+      "name": "smart_credentials",
+      "value": "{\"access_token\":\"SAMPLE_TOKEN\"}",
+      "_title": "OAuth Credentials",
+      "_type": "oauth_credentials",
+      "_optional": true
+    },
+    {
+      "name": "patient_ids",
+      "value": "85,355",
+      "_title": "Patient IDs",
+      "_description": "Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements",
+      "_type": "text"
+    }
+  ]
+}
