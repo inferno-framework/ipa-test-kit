@@ -288,6 +288,7 @@ DEPENDENCIES
   debug
   factory_bot (~> 6.1)
   ipa_test_kit!
+  pry-byebug
   rspec (~> 3.10)
   webmock (~> 3.11)
 
