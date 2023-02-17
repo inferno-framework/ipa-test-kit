@@ -270,6 +270,14 @@
   :system: http://hl7.org/fhir/ValueSet/request-priority
   :path: priority
 :references:
+- :path: MedicationRequest.reportedReference
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+- :path: MedicationRequest.medicationReference
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication
 - :path: MedicationRequest.subject
   :profiles:
   - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
@@ -349,6 +357,13 @@
 :id: ipa_v100_medication_request
 :file_name: medication_request_group.rb
 :delayed_references:
+- :path: reportedReference
+  :resources:
+  - Practitioner
+  - PractitionerRole
+- :path: medicationReference
+  :resources:
+  - Medication
 - :path: requester
   :resources:
   - Practitioner

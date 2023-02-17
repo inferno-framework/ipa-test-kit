@@ -36,6 +36,10 @@
 - :path: Medication.manufacturer
   :profiles:
   - http://hl7.org/fhir/StructureDefinition/Organization
+- :path: Medication.ingredient.itemReference
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Substance
+  - http://hl7.org/fhir/StructureDefinition/Medication
 :tests:
 - :id: ipa_v100_medication_read_test
   :file_name: medication_read_test.rb

@@ -8,6 +8,7 @@ module IpaTestKit
 
       paths = path.split('.')
       segment = paths.first
+      segment.delete_suffix! '[x]'
       remaining_path = paths.drop(1).join('.')
 
       elements.flat_map do |element|

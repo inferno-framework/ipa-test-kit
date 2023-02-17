@@ -5,7 +5,7 @@
   "inputs": [
     {
       "name": "url",
-      "value": "http://inferno.healthit.gov/reference-server/r4",
+      "value": "https://inferno.healthit.gov/reference-server/r4",
       "_title": "FHIR Endpoint",
       "_description": "URL of the FHIR endpoint",
       "_type": "text"

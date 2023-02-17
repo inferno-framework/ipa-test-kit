@@ -1309,6 +1309,10 @@
   - :path: Medication.manufacturer
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Organization
+  - :path: Medication.ingredient.itemReference
+    :profiles:
+    - http://hl7.org/fhir/StructureDefinition/Substance
+    - http://hl7.org/fhir/StructureDefinition/Medication
   :delayed_references: []
 - :name: ipa_medicationrequest
   :class_name: Ipav100MedicationrequestSequence
@@ -1581,6 +1585,14 @@
     :system: http://hl7.org/fhir/ValueSet/request-priority
     :path: priority
   :references:
+  - :path: MedicationRequest.reportedReference
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+  - :path: MedicationRequest.medicationReference
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication
   - :path: MedicationRequest.subject
     :profiles:
     - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
@@ -1635,6 +1647,13 @@
     :profiles:
     - http://hl7.org/fhir/StructureDefinition/Provenance
   :delayed_references:
+  - :path: reportedReference
+    :resources:
+    - Practitioner
+    - PractitionerRole
+  - :path: medicationReference
+    :resources:
+    - Medication
   - :path: requester
     :resources:
     - Practitioner
@@ -1810,6 +1829,9 @@
     - http://hl7.org/fhir/StructureDefinition/MedicationStatement
     - http://hl7.org/fhir/StructureDefinition/Procedure
     - http://hl7.org/fhir/StructureDefinition/Observation
+  - :path: MedicationStatement.medicationReference
+    :profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication
   - :path: MedicationStatement.subject
     :profiles:
     - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
@@ -1833,6 +1855,9 @@
     - http://hl7.org/fhir/StructureDefinition/Observation
     - http://hl7.org/fhir/StructureDefinition/DiagnosticReport
   :delayed_references:
+  - :path: medicationReference
+    :resources:
+    - Medication
   - :path: informationSource
     :resources:
     - Practitioner

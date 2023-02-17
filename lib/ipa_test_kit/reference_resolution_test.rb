@@ -43,6 +43,8 @@ module IpaTestKit
 
     def is_reference_resolved?(reference, target_profile)
       resolved_references.any? do |item|
+        next unless item[:reference].is_a? FHIR::Reference
+
         item[:reference] == reference.reference &&
         (
           target_profile.blank? || item[:profiles].include?(target_profile)
@@ -110,6 +112,7 @@ module IpaTestKit
     end
 
     def validate_reference_resolution(resource, reference, target_profile)
+      return false unless reference.is_a? FHIR::Reference
       return true if is_reference_resolved?(reference, target_profile)
 
       if reference.contained?

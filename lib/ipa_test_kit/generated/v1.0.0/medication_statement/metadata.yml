@@ -170,6 +170,9 @@
   - http://hl7.org/fhir/StructureDefinition/MedicationStatement
   - http://hl7.org/fhir/StructureDefinition/Procedure
   - http://hl7.org/fhir/StructureDefinition/Observation
+- :path: MedicationStatement.medicationReference
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication
 - :path: MedicationStatement.subject
   :profiles:
   - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
@@ -210,6 +213,9 @@
 :id: ipa_v100_medication_statement
 :file_name: medication_statement_group.rb
 :delayed_references:
+- :path: medicationReference
+  :resources:
+  - Medication
 - :path: informationSource
   :resources:
   - Practitioner

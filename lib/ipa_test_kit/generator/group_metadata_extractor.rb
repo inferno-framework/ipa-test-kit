@@ -278,11 +278,12 @@ module IpaTestKit
       def references
         @references ||=
           profile_elements
-            .select { |element| element.type&.first&.code == 'Reference' }
+            .select { |element| element.type&.any? { |type| type&.code == 'Reference' } }
             .map do |reference_definition|
+              reference_type = reference_definition.type.find { |type| type.code == 'Reference' }
               {
-                path: reference_definition.path,
-                profiles: reference_definition.type.first.targetProfile
+                path: reference_definition.path.gsub('[x]', 'Reference'),
+                profiles: reference_type.targetProfile
               }
             end
       end
