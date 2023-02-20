@@ -99,6 +99,11 @@ module IpaTestKit
         resource_type == 'QuestionnaireResponse'
       end
 
+      def read_all_resources?(id)
+        ['Medication', 'Practitioner', 'PractitionerRole'].include?(resource_type) &&
+          id.end_with?('read_test')
+      end
+
       def generate
         add_special_tests
         File.open(output_file_name, 'w') { |f| f.write(output) }

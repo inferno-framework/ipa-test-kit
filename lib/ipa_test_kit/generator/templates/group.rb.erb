@@ -18,7 +18,7 @@ module IpaTestKit
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, '<%= profile_identifier %>', 'metadata.yml'), aliases: true))
       end
   <% test_id_list.each do |id| %>
-      test from: :<%= id %><% end %>
+      test from: :<%= id %><% if read_all_resources?(id) %>, config: { options: { read_all_resources: true } }<% end %><% end %>
     end
   end
 end

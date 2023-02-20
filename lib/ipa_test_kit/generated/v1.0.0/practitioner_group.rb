@@ -49,7 +49,7 @@ read succeeds.
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'practitioner', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100_practitioner_read_test
+      test from: :ipa_v100_practitioner_read_test, config: { options: { read_all_resources: true } }
       test from: :ipa_v100_practitioner_validation_test
       test from: :ipa_v100_practitioner_must_support_test
     end

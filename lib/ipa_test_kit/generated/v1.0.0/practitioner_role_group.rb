@@ -50,7 +50,7 @@ read succeeds.
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'practitioner_role', 'metadata.yml'), aliases: true))
       end
   
-      test from: :ipa_v100_practitioner_role_read_test
+      test from: :ipa_v100_practitioner_role_read_test, config: { options: { read_all_resources: true } }
       test from: :ipa_v100_practitioner_role_validation_test
       test from: :ipa_v100_practitioner_role_must_support_test
       test from: :ipa_v100_practitioner_role_reference_resolution_test
