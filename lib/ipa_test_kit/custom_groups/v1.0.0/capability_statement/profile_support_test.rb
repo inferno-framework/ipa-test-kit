@@ -20,20 +20,11 @@ module IpaTestKit
         'Condition' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-condition'].freeze,
         'DocumentReference' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference'].freeze,
         'Immunization' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-immunization'].freeze,
-        'Medication' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication'].freeze,
+        # 'Medication' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medication'].freeze,
         'MedicationRequest' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationrequest'].freeze,
         'MedicationStatement' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-medicationstatement'].freeze,
         'Observation' => [
-          'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation',
-          'http://hl7.org/fhir/StructureDefinition/bp/bmi',
-          'http://hl7.org/fhir/StructureDefinition/bp/oxygensat',
-          'http://hl7.org/fhir/StructureDefinition/bp',
-          'http://hl7.org/fhir/StructureDefinition/bodyheight',
-          'http://hl7.org/fhir/StructureDefinition/bodyweight',
-          'http://hl7.org/fhir/StructureDefinition/heartrate',
-          'http://hl7.org/fhir/StructureDefinition/resprate',
-          'http://hl7.org/fhir/StructureDefinition/bodytemp',
-          'http://hl7.org/fhir/StructureDefinition/headcircum'
+          'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation'
         ].freeze,
         'Patient' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient'].freeze,
         'Practitioner' => ['http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner'].freeze,
@@ -62,16 +53,12 @@ module IpaTestKit
         other_resources_supported = other_resources.any? { |resource| supported_resources.include? resource }
         assert other_resources_supported, 'No IPA resources other than Patient are supported'
 
-        PROFILES.each do |resource_type, profiles|
-          next unless supported_resources.include? resource_type
+        required_profiles = PROFILES.slice(*supported_resources).values.flatten
 
-          profiles.each do |profile|
-            warning do
-              assert supported_profiles&.include?(profile),
-                      "CapabilityStatement does not claim support for IPA #{resource_type} profile: #{profile}"
-            end
-          end
-        end
+        missing_profiles = required_profiles - supported_profiles
+
+        assert missing_profiles.blank?,
+               "CapabilityStatement does not claim support for the following IPA profiles: \n* #{missing_profiles.join("\n* ")}"
       end
     end
   end
