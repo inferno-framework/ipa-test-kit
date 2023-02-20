@@ -25,9 +25,6 @@ module IpaTestKit
           agent.onBehalfOf.nil?
         end
 
-      binding.pry
-
-
       if failed_provenance.present?
         validation_messages << {
           type: 'error',

@@ -1,5 +1,6 @@
 require 'fhir_models'
 require 'pry'
+require 'pry-byebug'
 
 require_relative 'ext/fhir_models'
 require_relative 'generator/ig_loader'
@@ -51,9 +52,14 @@ module IpaTestKit
     end
 
     def load_base_search_params
-
-      self.base_search_params = JSON.parse(File.read(File.join(Dir.pwd, 'lib', 'ipa_test_kit', 'igs', 'search-parameters.json')))
-
+      self.base_search_params =
+        JSON.parse(
+          File.read(
+            File.join(
+              Dir.pwd, 'lib', 'ipa_test_kit', 'igs', 'ipa_v100', 'search-parameters.json'
+            )
+          )
+        )
     end
 
     def extract_metadata
