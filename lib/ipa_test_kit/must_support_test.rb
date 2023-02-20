@@ -68,16 +68,8 @@ module IpaTestKit
       end
     end
 
-    def exclude_uscdi_only_test?
-      config.options[:exclude_uscdi_only_test] == true
-    end
-
     def must_support_extensions
-      if exclude_uscdi_only_test?
-        metadata.must_supports[:extensions].reject{ |extension| extension[:uscdi_only] }
-      else
-        metadata.must_supports[:extensions]
-      end
+      metadata.must_supports[:extensions]
     end
 
     def missing_extensions(resources = [])
@@ -90,11 +82,7 @@ module IpaTestKit
     end
 
     def must_support_elements
-      if exclude_uscdi_only_test?
-        metadata.must_supports[:elements].reject{ |element| element[:uscdi_only] }
-      else
-        metadata.must_supports[:elements]
-      end
+      metadata.must_supports[:elements]
     end
 
     def missing_elements(resources = [])
@@ -120,11 +108,7 @@ module IpaTestKit
     end
 
     def must_support_slices
-      if exclude_uscdi_only_test?
-        metadata.must_supports[:slices].reject{ |slice| slice[:uscdi_only] }
-      else
-        metadata.must_supports[:slices]
-      end
+      metadata.must_supports[:slices]
     end
 
     def missing_slices(resources = [])
