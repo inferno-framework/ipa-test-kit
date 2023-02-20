@@ -48,9 +48,7 @@ module IpaTestKit
         metadata.groups =
           resources_in_capability_statement.flat_map do |resource|
             ([resource.profile] + resource.supportedProfile).uniq&.map do |supported_profile|
-              unless supported_profile.include? 'vital'
-                GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources, base_search_params).group_metadata
-              end
+              GroupMetadataExtractor.new(resource, supported_profile, metadata, ig_resources, base_search_params).group_metadata
             end.compact
           end
 
