@@ -7,10 +7,10 @@ module IpaTestKit
 
       title 'All must support elements are provided in the Patient resources returned'
       description %(
-        IPA Responders SHALL be capable of populating all data elements as
-        part of the query results as specified by the IPA Core Server Capability
-        Statement. This test will look through the Patient resources
-        found previously for the following must support elements:
+        Responders conforming to a profile in IPA SHALL return a Must Support
+        element if that element is available. This test will look through the
+        Patient resources found previously for the following must
+        support elements:
 
         * Patient.active
         * Patient.birthDate
@@ -19,9 +19,15 @@ module IpaTestKit
         * Patient.identifier.value
         * Patient.link
         * Patient.name
+
+        Note: Responders who cannot store or return a data element tagged as
+        Supported in IPA profiles can still claim conformance to the IPA
+        profiles per the IPA conformance resources.
       )
 
       id :ipa_v100_patient_must_support_test
+
+      optional
 
       def resource_type
         'Patient'
