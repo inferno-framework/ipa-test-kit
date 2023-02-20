@@ -36,6 +36,9 @@ module IpaTestKit
       version VERSION
 
       VALIDATION_MESSAGE_FILTERS = [
+        %r{Sub-extension url 'introspect' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris},
+        %r{Sub-extension url 'revoke' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris},
+        /Observation\.effective\.ofType\(Period\): .*vs-1:/, # Invalid invariant in FHIR v4.0.1
       ].freeze
 
       def self.metadata
