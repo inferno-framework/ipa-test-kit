@@ -23,8 +23,7 @@ module IpaTestKit
       def properties
         @properties ||= SearchTestProperties.new(
           resource_type: 'DocumentReference',
-        search_param_names: ['patient'],
-        possible_status_search: true
+        search_param_names: ['patient']
         )
       end
 

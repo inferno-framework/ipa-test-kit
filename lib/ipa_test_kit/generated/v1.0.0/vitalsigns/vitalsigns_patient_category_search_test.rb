@@ -43,7 +43,6 @@ requirement of IPA v1.0.0.
         fixed_value_search: true,
         resource_type: 'Observation',
         search_param_names: ['patient', 'category'],
-        possible_status_search: true,
         token_search_params: ['category'],
         test_reference_variants: true,
         test_post_search: true

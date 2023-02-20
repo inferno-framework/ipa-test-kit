@@ -47,7 +47,6 @@ requirement of IPA v1.0.0.
         resource_type: 'MedicationRequest',
         search_param_names: ['patient'],
         saves_delayed_references: true,
-        possible_status_search: true,
         test_medication_inclusion: true,
         test_reference_variants: true,
         test_post_search: true

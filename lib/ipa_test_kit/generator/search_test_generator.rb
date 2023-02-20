@@ -143,11 +143,6 @@ module IpaTestKit
         first_search? && group_metadata.delayed_references.present?
       end
 
-      def possible_status_search?
-        !search_metadata[:names].any? { |name| name.include? 'status' } &&
-          group_metadata.search_definitions.keys.any? { |key| key.to_s.include? 'status' }
-      end
-
       def token_search_params
         @token_search_params ||=
           search_param_names.select do |name|
@@ -198,7 +193,6 @@ module IpaTestKit
           properties[:resource_type] = "'#{resource_type}'"
           properties[:search_param_names] = search_param_names_array
           properties[:saves_delayed_references] = 'true' if saves_delayed_references?
-          properties[:possible_status_search] = 'true' if possible_status_search?
           properties[:test_medication_inclusion] = 'true' if test_medication_inclusion?
           properties[:token_search_params] = token_search_params_string if token_search_params.present?
           properties[:test_reference_variants] = 'true' if test_reference_variants?

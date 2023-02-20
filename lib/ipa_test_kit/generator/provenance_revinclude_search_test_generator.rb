@@ -140,10 +140,6 @@ module IpaTestKit
         first_search? && group_metadata.delayed_references.present?
       end
 
-      def possible_status_search?
-        !search_metadata[:names].include?('status') && group_metadata.search_definitions.key?(:status)
-      end
-
       def token_search_params
         @token_search_params ||=
           search_param_names.select do |name|
@@ -169,7 +165,6 @@ module IpaTestKit
           properties[:fixed_value_search] = 'true' if fixed_value_search?
           properties[:resource_type] = "'#{resource_type}'"
           properties[:search_param_names] = search_param_names_array
-          properties[:possible_status_search] = 'true' if possible_status_search?
         end
       end
 

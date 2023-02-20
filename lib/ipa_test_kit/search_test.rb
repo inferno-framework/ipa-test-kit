@@ -15,7 +15,6 @@ module IpaTestKit
                    :saves_delayed_references?,
                    :first_search?,
                    :fixed_value_search?,
-                   :possible_status_search?,
                    :test_medication_inclusion?,
                    :test_post_search?,
                    :token_search_params,
@@ -61,8 +60,6 @@ module IpaTestKit
           params_list.flat_map do |params|
             fhir_search resource_type, params: params
 
-            perform_search_with_status(params, patient_id) if response[:status] == 400 && possible_status_search?
-
             check_search_response
 
             fetch_all_bundled_resources(additional_resource_types: ['Provenance'])
@@ -94,8 +91,6 @@ module IpaTestKit
 
     def perform_search(params, patient_id)
       fhir_search resource_type, params: params
-
-      perform_search_with_status(params, patient_id) if response[:status] == 400 && possible_status_search?
 
       check_search_response
 
@@ -244,28 +239,6 @@ module IpaTestKit
       assert resources_returned.present?, "No resources were returned when searching by `system|code`"
 
       search_variant_test_records[:token_variants] = true
-    end
-
-    def perform_search_with_status(
-          original_params,
-          patient_id,
-          status_search_values: self.status_search_values,
-          resource_type: self.resource_type
-        )
-      assert resource.is_a?(FHIR::OperationOutcome), "Server returned a status of 400 without an OperationOutcome"
-      # TODO: warn about documenting status requirements
-      status_search_values.flat_map do |status_value|
-        search_params = original_params.merge("#{status_search_param_name}": status_value)
-
-        search_and_check_response(search_params)
-
-        entries = resource.entry.select { |entry| entry.resource.resourceType == resource_type }
-
-        if entries.present?
-          original_params.merge!("#{status_search_param_name}": status_value)
-          break
-        end
-      end
     end
 
     def status_search_param_name

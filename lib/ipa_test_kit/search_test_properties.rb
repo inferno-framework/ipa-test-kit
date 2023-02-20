@@ -6,7 +6,6 @@ module IpaTestKit
       :first_search,
       :fixed_value_search,
       :saves_delayed_references,
-      :possible_status_search,
       :test_medication_inclusion,
       :token_search_params,
       :test_reference_variants,
@@ -35,10 +34,6 @@ module IpaTestKit
 
     def saves_delayed_references?
       !!saves_delayed_references
-    end
-
-    def possible_status_search?
-      !!possible_status_search
     end
 
     def test_medication_inclusion?
