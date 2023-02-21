@@ -13,6 +13,8 @@ module IpaTestKit
       run_as_group<% if optional? %>
       optional
       <% end %>
+      input :standalone_smart_credentials,
+            type: 'oauth_credentials'
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, '<%= profile_identifier %>', 'metadata.yml'), aliases: true))

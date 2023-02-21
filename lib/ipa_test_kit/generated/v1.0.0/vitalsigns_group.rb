@@ -76,6 +76,8 @@ read succeeds.
 
       id :ipa_v100_vitalsigns
       run_as_group
+      input :standalone_smart_credentials,
+            type: 'oauth_credentials'
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'vitalsigns', 'metadata.yml'), aliases: true))

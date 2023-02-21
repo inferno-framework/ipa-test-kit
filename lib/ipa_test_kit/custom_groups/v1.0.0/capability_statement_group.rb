@@ -47,6 +47,9 @@ module IpaTestKit
       )
       run_as_group
 
+      input :standalone_smart_credentials,
+            type: 'oauth_credentials'
+
       test from: :tls_version_test,
           id: :standalone_auth_tls,
           title: 'FHIR server secured by transport layer security',
