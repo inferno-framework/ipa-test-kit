@@ -87,6 +87,13 @@
       "_title": "Patient IDs",
       "_description": "Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements",
       "_type": "text"
+    },
+    {
+      "name": "observation_categories",
+      "value": "laboratory",
+      "_title": "Observation categories",
+      "_description": "A comma-separated list of observation categories.",
+      "_type": "text"
     }
   ]
 }
