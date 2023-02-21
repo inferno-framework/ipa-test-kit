@@ -84,6 +84,13 @@ module IpaTestKit
         "ipa_#{ig_metadata.reformatted_version}_capability_statement"
       end
 
+      def public_launch_file_name
+        "../../custom_groups/#{ig_metadata.ig_version}/ipa_public_launch_group"
+      end
+
+      def public_launch_group_id
+        "ipa_#{ig_metadata.reformatted_version}_public_launch"
+      end
     end
   end
 end

@@ -3,6 +3,7 @@ require 'smart_app_launch_test_kit'
 
 require_relative '../../version'
 require_relative '<%= capability_statement_file_name %>'
+require_relative '<%= public_launch_file_name %>'
 require_relative '../../provenance_validator'
 <% group_file_list.each do |file_name| %>require_relative '<%= file_name %>'
 <% end %>
@@ -59,20 +60,7 @@ module IpaTestKit
         oauth_credentials :standalone_smart_credentials
       end
 
-      group from: :smart_discovery_stu2,
-            run_as_group: true
-      group from: :smart_standalone_launch_stu2,
-            run_as_group: true,
-            config: {
-              inputs: {
-                client_secret: {
-                  default: nil,
-                  locked: true,
-                  optional: true
-                }
-              }
-            }
-
+      group from: :<%= public_launch_group_id %>
 
       group from: :<%= capability_statement_group_id %>
   <% group_id_list.each do |id| %>
