@@ -83,7 +83,9 @@ read succeeds.
       id :ipa_v100_document_reference
       run_as_group
       input :standalone_smart_credentials,
-            type: 'oauth_credentials'
+            title: 'SMART App Launch Credentials',
+            type: 'oauth_credentials',
+            optional: true
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'document_reference', 'metadata.yml'), aliases: true))

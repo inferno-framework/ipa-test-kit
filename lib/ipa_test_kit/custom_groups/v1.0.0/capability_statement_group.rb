@@ -48,6 +48,8 @@ module IpaTestKit
       run_as_group
 
       input :standalone_smart_credentials,
+            title: 'SMART App Launch Credentials',
+            optional: true,
             type: 'oauth_credentials'
 
       test from: :tls_version_test,
