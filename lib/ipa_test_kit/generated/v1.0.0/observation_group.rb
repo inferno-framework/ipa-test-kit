@@ -78,6 +78,9 @@ read succeeds.
       run_as_group
       input :standalone_smart_credentials,
             type: 'oauth_credentials'
+      input :observation_categories,
+            title: 'Observation categories',
+            description: 'A comma-separated list of observation categories'
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'observation', 'metadata.yml'), aliases: true))

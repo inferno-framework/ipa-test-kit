@@ -73,7 +73,6 @@ US Core generator after being altered based on differing requirements.  Updates 
 ## TODOS
 
 * Support `client-confidential-asymmetric`.
-* Fix base Observation tests.
 * Test `$docref` operation.
 
 ## License

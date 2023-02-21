@@ -94,6 +94,9 @@ module IpaTestKit
         group_metadata.profile_url
       end
 
+      def base_observation_group?
+        profile_url == 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation'
+      end
 
       def optional?
         resource_type == 'QuestionnaireResponse'

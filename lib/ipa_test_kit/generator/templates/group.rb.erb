@@ -14,7 +14,10 @@ module IpaTestKit
       optional
       <% end %>
       input :standalone_smart_credentials,
-            type: 'oauth_credentials'
+            type: 'oauth_credentials'<% if base_observation_group? %>
+      input :observation_categories,
+            title: 'Observation categories',
+            description: 'A comma-separated list of observation categories.'<% end %>
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, '<%= profile_identifier %>', 'metadata.yml'), aliases: true))

@@ -360,7 +360,9 @@ module IpaTestKit
     end
 
     def fixed_value_search_param_values
-      metadata.search_definitions[fixed_value_search_param_name.to_sym][:values]
+      return metadata.search_definitions[fixed_value_search_param_name.to_sym][:values] unless respond_to? :observation_categories
+
+      observation_categories.split(',').map(&:strip)
     end
 
     def fixed_value_search_params(value, patient_id)
