@@ -1,8 +1,8 @@
 module IpaTestKit
   module IpaV100
-    class IPAPublicLaunchGroup < Inferno::TestGroup
-      id :ipa_v100_public_launch
-      title 'Public SMART App Launch'
+    class IPASMARTLaunchGroup < Inferno::TestGroup
+      id :ipa_v100_smart_launch
+      title 'SMART App Launch'
       description %(
         # Background
         Applications authorize to gain access to a patient record using the
@@ -16,10 +16,14 @@ module IpaTestKit
         for the required SMART capabilities. They then perform a public
         standalone launch to obtain an access token which can be used by the
         remaining tests to access patient data.
+
+        This group does not yet test launching with asymmetric client
+        credentials, which is also required.
       )
-      run_as_group
 
       group from: :smart_discovery_stu2 do
+        run_as_group
+
         test do
           id :ipa_smart_capabilities
           title 'Server supports required SMART capabilities'
@@ -73,6 +77,8 @@ module IpaTestKit
       end
 
       group from: :smart_standalone_launch_stu2,
+            run_as_group: true,
+            title: 'SMART Public Standalone Launch',
             config: {
               inputs: {
                 client_secret: {
@@ -82,6 +88,21 @@ module IpaTestKit
                 }
               }
             }
+
+      group do
+        title 'SMART Asymmetric Standalone Launch'
+        description %(
+          Not yet implemented
+        )
+        run_as_group
+
+        test do
+          title 'Not yet implemented'
+          run do
+            omit 'Not yet implemented'
+          end
+        end
+      end
     end
   end
 end

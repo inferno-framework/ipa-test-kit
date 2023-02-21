@@ -3,7 +3,7 @@ require 'smart_app_launch_test_kit'
 
 require_relative '../../version'
 require_relative '../../custom_groups/v1.0.0/capability_statement_group'
-require_relative '../../custom_groups/v1.0.0/ipa_public_launch_group'
+require_relative '../../custom_groups/v1.0.0/ipa_smart_launch_group'
 require_relative '../../provenance_validator'
 require_relative 'patient_group'
 require_relative 'allergy_intolerance_group'
@@ -72,7 +72,7 @@ module IpaTestKit
         oauth_credentials :standalone_smart_credentials
       end
 
-      group from: :ipa_v100_public_launch
+      group from: :ipa_v100_smart_launch
 
       group from: :ipa_v100_capability_statement
   
