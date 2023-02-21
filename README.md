@@ -72,7 +72,6 @@ US Core generator after being altered based on differing requirements.  Updates 
   
 ## TODOS
 
-* Check supported SMART capabilities.
 * Support `client-confidential-asymmetric`.
 * Fix base Observation tests.
 * Test `$docref` operation.
