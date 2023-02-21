@@ -3,6 +3,7 @@ PATH
   specs:
     ipa_test_kit (0.3.0.dev)
       inferno_core (>= 0.4.2)
+      smart_app_launch_test_kit (~> 0.2.2)
       tls_test_kit (~> 0.2.0)
 
 GEM
@@ -244,6 +245,10 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    smart_app_launch_test_kit (0.2.2)
+      inferno_core (>= 0.4.2)
+      jwt (~> 2.2)
+      tls_test_kit (~> 0.2.0)
     sqlite3 (1.6.0-arm64-darwin)
     sqlite3 (1.6.0-x86_64-darwin)
     sqlite3 (1.6.0-x86_64-linux)
