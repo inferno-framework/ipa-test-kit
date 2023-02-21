@@ -90,7 +90,7 @@
     },
     {
       "name": "observation_categories",
-      "value": "laboratory",
+      "value": "social-history,imaging,laboratory,procedure,survey,exam,therapy,activity",
       "_title": "Observation categories",
       "_description": "A comma-separated list of observation categories.",
       "_type": "text"

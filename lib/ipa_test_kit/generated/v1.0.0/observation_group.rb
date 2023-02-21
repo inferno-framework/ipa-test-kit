@@ -82,7 +82,8 @@ read succeeds.
             optional: true
       input :observation_categories,
             title: 'Observation categories',
-            description: 'A comma-separated list of observation categories.'
+            description: 'A comma-separated list of observation categories.',
+            default: 'social-history,imaging,laboratory,procedure,survey,exam,therapy,activity'
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'observation', 'metadata.yml'), aliases: true))

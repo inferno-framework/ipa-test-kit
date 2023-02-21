@@ -19,7 +19,8 @@ module IpaTestKit
             optional: true<% if base_observation_group? %>
       input :observation_categories,
             title: 'Observation categories',
-            description: 'A comma-separated list of observation categories.'<% end %>
+            description: 'A comma-separated list of observation categories.',
+            default: 'social-history,imaging,laboratory,procedure,survey,exam,therapy,activity'<% end %>
 
       def self.metadata
         @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, '<%= profile_identifier %>', 'metadata.yml'), aliases: true))
