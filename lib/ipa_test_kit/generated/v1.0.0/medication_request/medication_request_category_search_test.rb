@@ -30,8 +30,7 @@ Medications, the search will be repeated with
         @properties ||= SearchTestProperties.new(
           resource_type: 'MedicationRequest',
         search_param_names: ['category'],
-        test_medication_inclusion: true,
-        token_search_params: ['category']
+        test_medication_inclusion: true
         )
       end
 

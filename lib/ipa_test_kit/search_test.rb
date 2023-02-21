@@ -17,7 +17,6 @@ module IpaTestKit
                    :fixed_value_search?,
                    :test_medication_inclusion?,
                    :test_post_search?,
-                   :token_search_params,
                    :test_reference_variants?,
                    :params_with_comparators,
                    :multiple_or_search_params
@@ -118,7 +117,6 @@ module IpaTestKit
       return resources_returned if all_search_variants_tested?
 
       test_medication_inclusion(resources_returned, params, patient_id) if test_medication_inclusion?
-      perform_search_with_system(params, patient_id) if token_search_params.present?
 
       resources_returned
     end
@@ -165,7 +163,6 @@ module IpaTestKit
       {}.tap do |records|
         records[:post_variant] = false if test_post_search?
         records[:medication_inclusion] = false# if test_medication_inclusion?
-        records[:token_variants] = false if token_search_params.present?
         records[:comparator_searches] = Set.new if params_with_comparators.present?
       end
     end
@@ -223,24 +220,6 @@ module IpaTestKit
       end
     end
 
-    def perform_search_with_system(params, patient_id)
-      return if search_variant_test_records[:token_variants]
-
-      new_search_params = search_params_with_values(token_search_params, patient_id, include_system: true)
-      return if new_search_params.any? { |_name, value| value.blank? }
-
-      search_params = params.merge(new_search_params)
-      search_and_check_response(search_params)
-
-      resources_returned =
-        fetch_all_bundled_resources
-          .select { |resource| resource.resourceType == resource_type }
-
-      assert resources_returned.present?, "No resources were returned when searching by `system|code`"
-
-      search_variant_test_records[:token_variants] = true
-    end
-
     def status_search_param_name
       @status_search_param_name ||=
         metadata.search_definitions.keys.find { |key| key.to_s.include? 'status' }
@@ -256,7 +235,6 @@ module IpaTestKit
 
       definition[:multiple_or] == 'SHALL' ? [definition[:values].join(',')] : Array.wrap(definition[:values])
     end
-
 
     def perform_multiple_or_search_test
       resolved_one = false

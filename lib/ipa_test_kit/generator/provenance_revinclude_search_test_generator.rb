@@ -140,17 +140,6 @@ module IpaTestKit
         first_search? && group_metadata.delayed_references.present?
       end
 
-      def token_search_params
-        @token_search_params ||=
-          search_param_names.select do |name|
-            ['Identifier', 'CodeableConcept', 'Coding'].include? group_metadata.search_definitions[name.to_sym][:type]
-          end
-      end
-
-      def token_search_params_string
-        array_of_strings(token_search_params)
-      end
-
       def required_comparators_string
         array_of_strings(required_comparators.keys)
       end
