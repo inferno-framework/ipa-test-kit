@@ -117,8 +117,31 @@ module IpaTestKit
       return resources_returned if all_search_variants_tested?
 
       test_medication_inclusion(resources_returned, params, patient_id) if test_medication_inclusion?
+      perform_reference_with_type_search(params, resources_returned.count) if test_reference_variants?
+      perform_search_with_system(params, patient_id) if token_search_params.present?
 
       resources_returned
+    end
+
+    def perform_post_search(get_search_resources, params)
+      fhir_search resource_type, params: params, search_method: :post
+
+      check_search_response
+
+      post_search_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
+
+      filter_conditions(post_search_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_devices(post_search_resources) if resource_type == 'Device'
+
+      get_resource_count = get_search_resources.length
+      post_resource_count = post_search_resources.length
+
+      search_variant_test_records[:post_variant] = true
+
+      assert get_resource_count == post_resource_count,
+             "Expected search by POST to return the same results as search by GET, " \
+             "but GET search returned #{get_resource_count} resources, and POST search " \
+             "returned #{post_resource_count} resources."
     end
 
     def filter_devices(resources)
@@ -163,6 +186,8 @@ module IpaTestKit
       {}.tap do |records|
         records[:post_variant] = false if test_post_search?
         records[:medication_inclusion] = false# if test_medication_inclusion?
+        records[:reference_variants] = false if test_reference_variants?
+        records[:token_variants] = false if token_search_params.present?
         records[:comparator_searches] = Set.new if params_with_comparators.present?
       end
     end
@@ -218,6 +243,49 @@ module IpaTestKit
 
         search_variant_test_records[:comparator_searches] << name
       end
+    end
+
+    def perform_reference_with_type_search(params, resource_count)
+      return if resource_count == 0
+      return if search_variant_test_records[:reference_variants]
+
+      new_search_params = params.merge('patient' => "Patient/#{params['patient']}")
+      search_and_check_response(new_search_params)
+
+      reference_with_type_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
+
+      filter_conditions(reference_with_type_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_devices(reference_with_type_resources) if resource_type == 'Device'
+
+      new_resource_count = reference_with_type_resources.count
+
+      assert new_resource_count == resource_count,
+             "Expected search by `#{params['patient']}` to to return the same results as searching " \
+             "by `#{new_search_params['patient']}`, but found #{resource_count} resources with " \
+             "`#{params['patient']}` and #{new_resource_count} with `#{new_search_params['patient']}`"
+
+      search_variant_test_records[:reference_variants] = true
+    end
+
+    def perform_search_with_system(params, patient_id)
+      return if search_variant_test_records[:token_variants]
+
+      new_search_params = params.merge('patient' => "Patient/#{params['patient']}")
+      search_and_check_response(new_search_params)
+
+      reference_with_type_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
+
+      filter_conditions(reference_with_type_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_devices(reference_with_type_resources) if resource_type == 'Device'
+
+      new_resource_count = reference_with_type_resources.count
+
+      assert new_resource_count == resource_count,
+             "Expected search by `#{params['patient']}` to to return the same results as searching " \
+             "by `#{new_search_params['patient']}`, but found #{resource_count} resources with " \
+             "`#{params['patient']}` and #{new_resource_count} with `#{new_search_params['patient']}`"
+
+      search_variant_test_records[:reference_variants] = true
     end
 
     def status_search_param_name
