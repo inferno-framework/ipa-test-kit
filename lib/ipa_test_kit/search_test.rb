@@ -131,7 +131,7 @@ module IpaTestKit
 
       post_search_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
 
-      filter_conditions(post_search_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_conditions(post_search_resources) if resource_type == 'Condition' && metadata.name == 'ipa_problem_list_item'
       filter_devices(post_search_resources) if resource_type == 'Device'
 
       get_resource_count = get_search_resources.length
@@ -255,7 +255,7 @@ module IpaTestKit
 
       reference_with_type_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
 
-      filter_conditions(reference_with_type_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
+      filter_conditions(reference_with_type_resources) if resource_type == 'Condition' && metadata.name == 'ipa_problem_list_item'
       filter_devices(reference_with_type_resources) if resource_type == 'Device'
 
       new_resource_count = reference_with_type_resources.count
@@ -271,22 +271,19 @@ module IpaTestKit
     def perform_search_with_system(params, patient_id)
       return if search_variant_test_records[:token_variants]
 
-      new_search_params = params.merge('patient' => "Patient/#{params['patient']}")
-      search_and_check_response(new_search_params)
+      new_search_params = search_params_with_values(token_search_params, patient_id, include_system: true)
+      return if new_search_params.any? { |_name, value| value.blank? }
 
-      reference_with_type_resources = fetch_all_bundled_resources.select { |resource| resource.resourceType == resource_type }
+      search_params = params.merge(new_search_params)
+      search_and_check_response(search_params)
 
-      filter_conditions(reference_with_type_resources) if resource_type == 'Condition' && metadata.version == 'v5.0.1'
-      filter_devices(reference_with_type_resources) if resource_type == 'Device'
+      resources_returned =
+        fetch_all_bundled_resources
+          .select { |resource| resource.resourceType == resource_type }
 
-      new_resource_count = reference_with_type_resources.count
+      assert resources_returned.present?, "No resources were returned when searching by `system|code`"
 
-      assert new_resource_count == resource_count,
-             "Expected search by `#{params['patient']}` to to return the same results as searching " \
-             "by `#{new_search_params['patient']}`, but found #{resource_count} resources with " \
-             "`#{params['patient']}` and #{new_resource_count} with `#{new_search_params['patient']}`"
-
-      search_variant_test_records[:reference_variants] = true
+      search_variant_test_records[:token_variants] = true
     end
 
     def status_search_param_name
