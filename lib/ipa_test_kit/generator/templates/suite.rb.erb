@@ -22,6 +22,15 @@ module IpaTestKit
 
         Resources are validated with the FHIR Java validator using `tx.fhir.org`
         as the terminology server.
+
+        The following are not yet implemented:
+        * Test for `client-confidential-asymmetric`.
+        * Verify that the server supports all required SMART capabilities, rather than
+          just verifying that the server advertises support for them.
+        * Test `$docref` operation.
+        * Test `Patient.link` requirements.
+        * Verify that the server requires both a code and system for Patient identifier
+          search.
       )
       version VERSION
 

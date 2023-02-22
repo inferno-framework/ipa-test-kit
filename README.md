@@ -73,7 +73,12 @@ US Core generator after being altered based on differing requirements.  Updates 
 ## TODOS
 
 * Support `client-confidential-asymmetric`.
+* Verify that the server supports all required SMART capabilities, rather than
+  just verifying that the server advertises support for them.
 * Test `$docref` operation.
+* Test `Patient.link` requirements.
+* Verify that the server requires both a code and system for Patient identifier
+  search.
 
 ## License
 
