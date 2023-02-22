@@ -7,6 +7,7 @@ module IpaTestKit
       :fixed_value_search,
       :saves_delayed_references,
       :test_medication_inclusion,
+      :token_search_params,
       :test_reference_variants,
       :params_with_comparators,
       :multiple_or_search_params,

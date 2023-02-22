@@ -27,7 +27,8 @@ none are returned, the test is skipped.
       def self.properties
         @properties ||= SearchTestProperties.new(
           resource_type: 'DocumentReference',
-        search_param_names: ['patient', 'category']
+        search_param_names: ['patient', 'category'],
+        token_search_params: ['category']
         )
       end
 

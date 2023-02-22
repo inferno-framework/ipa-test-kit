@@ -17,6 +17,7 @@ module IpaTestKit
                    :fixed_value_search?,
                    :test_medication_inclusion?,
                    :test_post_search?,
+                   :token_search_params,
                    :test_reference_variants?,
                    :params_with_comparators,
                    :multiple_or_search_params
@@ -303,6 +304,7 @@ module IpaTestKit
 
       definition[:multiple_or] == 'SHALL' ? [definition[:values].join(',')] : Array.wrap(definition[:values])
     end
+
 
     def perform_multiple_or_search_test
       resolved_one = false
