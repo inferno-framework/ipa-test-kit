@@ -1,7 +1,7 @@
 module IpaTestKit
   module IpaV100
     class FHIRVersionTest < Inferno::Test
-      id :ipa_010_fhir_version
+      id :ipa_100_fhir_version
       title 'Server is using FHIR R4'
       description %(
           This test inspects the CapabilityStatement returned by the server to

@@ -1,6 +1,7 @@
 require 'tls_test_kit'
 require_relative 'capability_statement/conformance_support_test'
 require_relative 'capability_statement/fhir_version_test'
+require_relative 'capability_statement/instantiates_ig_test'
 require_relative 'capability_statement/json_support_test'
 require_relative 'capability_statement/profile_support_test'
 
@@ -62,10 +63,11 @@ module IpaTestKit
           config: {
             options: {  minimum_allowed_version: OpenSSL::SSL::TLS1_2_VERSION }
           }
-      test from: :ipa_010_conformance_support
-      test from: :ipa_010_fhir_version
-      test from: :ipa_010_json_support
-      test from: :ipa_010_profile_support
+      test from: :ipa_100_conformance_support
+      test from: :ipa_100_fhir_version
+      test from: :ipa_100_json_support
+      test from: :ipa_100_instantiates_ig
+      test from: :ipa_100_profile_support
     end
   end
 end

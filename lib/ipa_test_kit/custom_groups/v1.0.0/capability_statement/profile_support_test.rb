@@ -1,7 +1,7 @@
 module IpaTestKit
   module IpaV100
     class ProfileSupportTest < Inferno::Test
-      id :ipa_010_profile_support
+      id :ipa_100_profile_support
       title 'Capability Statement lists support for required IPA Profiles'
       description %(
         The IPA Implementation Guide states:
