@@ -49,6 +49,10 @@ module IpaTestKit
         "International Patient Access (#{ig_metadata.ig_version})"
       end
 
+      def short_title
+        "IPA #{ig_metadata.ig_version}"
+      end
+
       def validator_env_name
         "IPA_#{ig_metadata.reformatted_version.upcase}_VALIDATOR_URL"
       end

@@ -23,6 +23,7 @@ module IpaTestKit
   module IpaV100
     class IpaTestSuite < Inferno::TestSuite
       title 'International Patient Access (v1.0.0)'
+      short_title 'IPA v1.0.0'
       description %(
         This test suite evaluates the ability of a system to support applications
         acting on behalf of patients to access clinical records using a FHIR R4 API
@@ -83,21 +84,30 @@ module IpaTestKit
 
       group from: :ipa_v100_smart_launch
 
-      group from: :ipa_v100_capability_statement
-  
-      group from: :ipa_v100_patient
-      group from: :ipa_v100_allergy_intolerance
-      group from: :ipa_v100_condition
-      group from: :ipa_v100_problem_list_item
-      group from: :ipa_v100_document_reference
-      group from: :ipa_v100_immunization
-      group from: :ipa_v100_medication_request
-      group from: :ipa_v100_medication_statement
-      group from: :ipa_v100_observation
-      group from: :ipa_v100_vitalsigns
-      group from: :ipa_v100_medication
-      group from: :ipa_v100_practitioner
-      group from: :ipa_v100_practitioner_role
+      group do
+        title 'IPA Responder Tests'
+        description %(
+          The IPA Responder Tests evaluate the ability of an IPA Responder (IPA FHIR Server)
+          to support required and optional FHIR operations and search parameters to return
+          conformant IPA resources.
+        )
+
+        group from: :ipa_v100_capability_statement
+    
+        group from: :ipa_v100_patient
+        group from: :ipa_v100_allergy_intolerance
+        group from: :ipa_v100_condition
+        group from: :ipa_v100_problem_list_item
+        group from: :ipa_v100_document_reference
+        group from: :ipa_v100_immunization
+        group from: :ipa_v100_medication_request
+        group from: :ipa_v100_medication_statement
+        group from: :ipa_v100_observation
+        group from: :ipa_v100_vitalsigns
+        group from: :ipa_v100_medication
+        group from: :ipa_v100_practitioner
+        group from: :ipa_v100_practitioner_role
+      end
     end
   end
 end

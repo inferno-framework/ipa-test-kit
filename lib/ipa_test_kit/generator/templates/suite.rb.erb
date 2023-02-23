@@ -11,6 +11,7 @@ module IpaTestKit
   module <%= module_name %>
     class <%= class_name %> < Inferno::TestSuite
       title '<%= title %>'
+      short_title '<%= short_title %>'
       description %(
         This test suite evaluates the ability of a system to support applications
         acting on behalf of patients to access clinical records using a FHIR R4 API
@@ -71,9 +72,18 @@ module IpaTestKit
 
       group from: :<%= smart_launch_group_id %>
 
-      group from: :<%= capability_statement_group_id %>
-  <% group_id_list.each do |id| %>
-      group from: :<%= id %><% end %>
+      group do
+        title 'IPA Responder Tests'
+        description %(
+          The IPA Responder Tests evaluate the ability of an IPA Responder (IPA FHIR Server)
+          to support required and optional FHIR operations and search parameters to return
+          conformant IPA resources.
+        )
+
+        group from: :<%= capability_statement_group_id %>
+    <% group_id_list.each do |id| %>
+        group from: :<%= id %><% end %>
+      end
     end
   end
 end
