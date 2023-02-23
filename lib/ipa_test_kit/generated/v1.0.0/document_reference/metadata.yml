@@ -1,0 +1,365 @@
+---
+:name: ipa_documentreference
+:class_name: Ipav100DocumentreferenceSequence
+:version: v1.0.0
+:reformatted_version: v100
+:resource: DocumentReference
+:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference
+:profile_name: IPA-DocumentReference
+:profile_version: 1.0.0
+:title: DocumentReference
+:short_description: Verify support for the server capabilities required by the IPA-DocumentReference.
+:interactions:
+- :code: read
+  :expectation: SHALL
+- :code: search-type
+  :expectation: SHALL
+:operations:
+- :code: docref
+  :expectation: SHALL
+:searches:
+- :names:
+  - patient
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :names:
+  - _id
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHALL
+  :names:
+  - patient
+  - category
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHALL
+  :names:
+  - patient
+  - category
+  - date
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHALL
+  :names:
+  - patient
+  - type
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - contenttype
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - status
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - type
+  - date
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - type
+  - period
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+:search_definitions:
+  :_id:
+    :paths:
+    - id
+    :full_paths:
+    - DocumentReference.id
+    :comparators: {}
+    :values: []
+    :type: http://hl7.org/fhirpath/System.String
+    :contains_multiple: false
+  :patient:
+    :paths:
+    - AllergyIntolerance.patient
+    - CarePlan.subject
+    - CareTeam.subject
+    - ClinicalImpression.subject
+    - Composition.subject
+    - Condition.subject
+    - Consent.patient
+    - DetectedIssue.patient
+    - DeviceRequest.subject
+    - DeviceUseStatement.subject
+    - DiagnosticReport.subject
+    - DocumentManifest.subject
+    - subject
+    - Encounter.subject
+    - EpisodeOfCare.patient
+    - FamilyMemberHistory.patient
+    - Flag.subject
+    - Goal.subject
+    - ImagingStudy.subject
+    - Immunization.patient
+    - List.subject
+    - MedicationAdministration.subject
+    - MedicationDispense.subject
+    - MedicationRequest.subject
+    - MedicationStatement.subject
+    - NutritionOrder.patient
+    - Observation.subject
+    - Procedure.subject
+    - RiskAssessment.subject
+    - ServiceRequest.subject
+    - SupplyDelivery.patient
+    - VisionPrescription.patient
+    :full_paths:
+    - AllergyIntolerance.patient
+    - CarePlan.subject
+    - CareTeam.subject
+    - ClinicalImpression.subject
+    - Composition.subject
+    - Condition.subject
+    - Consent.patient
+    - DetectedIssue.patient
+    - DeviceRequest.subject
+    - DeviceUseStatement.subject
+    - DiagnosticReport.subject
+    - DocumentManifest.subject
+    - DocumentReference.subject
+    - Encounter.subject
+    - EpisodeOfCare.patient
+    - FamilyMemberHistory.patient
+    - Flag.subject
+    - Goal.subject
+    - ImagingStudy.subject
+    - Immunization.patient
+    - List.subject
+    - MedicationAdministration.subject
+    - MedicationDispense.subject
+    - MedicationRequest.subject
+    - MedicationStatement.subject
+    - NutritionOrder.patient
+    - Observation.subject
+    - Procedure.subject
+    - RiskAssessment.subject
+    - ServiceRequest.subject
+    - SupplyDelivery.patient
+    - VisionPrescription.patient
+    :comparators: {}
+    :values: []
+    :type: Reference
+    :contains_multiple: false
+  :category:
+    :paths:
+    - category
+    :full_paths:
+    - DocumentReference.category
+    :comparators: {}
+    :values: []
+    :type: CodeableConcept
+    :contains_multiple: true
+  :date:
+    :paths:
+    - date
+    :full_paths:
+    - DocumentReference.date
+    :comparators:
+      :eq: MAY
+      :ne: MAY
+      :gt: MAY
+      :ge: MAY
+      :lt: MAY
+      :le: MAY
+      :sa: MAY
+      :eb: MAY
+      :ap: MAY
+    :values: []
+    :type: instant
+    :contains_multiple: false
+  :type:
+    :paths:
+    - AllergyIntolerance.type
+    - Composition.type
+    - DocumentManifest.type
+    - type
+    - Encounter.type
+    - EpisodeOfCare.type
+    :full_paths:
+    - AllergyIntolerance.type
+    - Composition.type
+    - DocumentManifest.type
+    - DocumentReference.type
+    - Encounter.type
+    - EpisodeOfCare.type
+    :comparators: {}
+    :values: []
+    :type: CodeableConcept
+    :contains_multiple: false
+  :contenttype:
+    :paths:
+    - content.attachment.contentType
+    :full_paths:
+    - DocumentReference.content.attachment.contentType
+    :comparators: {}
+    :values: []
+    :type: code
+    :contains_multiple: false
+  :status:
+    :paths:
+    - status
+    :full_paths:
+    - DocumentReference.status
+    :comparators: {}
+    :values:
+    - current
+    - superseded
+    - entered-in-error
+    :type: code
+    :contains_multiple: false
+  :period:
+    :paths:
+    - context.period
+    :full_paths:
+    - DocumentReference.context.period
+    :comparators:
+      :eq: MAY
+      :ne: MAY
+      :gt: MAY
+      :ge: MAY
+      :lt: MAY
+      :le: MAY
+      :sa: MAY
+      :eb: MAY
+      :ap: MAY
+    :values: []
+    :type: Period
+    :contains_multiple: false
+:include_params: []
+:revincludes:
+- Provenance:target
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: []
+  :elements:
+  - :path: status
+  - :path: type
+  - :path: category
+  - :path: subject
+    :types:
+    - Reference
+  - :path: date
+  - :path: author
+    :types:
+    - Reference
+  - :path: content
+  - :path: content.attachment
+  - :path: content.attachment.contentType
+  - :path: content.attachment.data
+  - :path: content.attachment.url
+  - :path: content.format
+  - :path: context
+  - :path: context.encounter
+    :types:
+    - Reference
+  - :path: context.period
+  :choices:
+  - :paths:
+    - content.attachment.data
+    - content.attachment.url
+:mandatory_elements:
+- DocumentReference.status
+- DocumentReference.subject
+- DocumentReference.relatesTo.code
+- DocumentReference.relatesTo.target
+- DocumentReference.content
+- DocumentReference.content.attachment
+- DocumentReference.content.attachment.contentType
+:bindings:
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/document-reference-status
+  :path: status
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/composition-status
+  :path: docStatus
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/document-relationship-type
+  :path: relatesTo.code
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/mimetypes
+  :path: content.attachment.contentType
+:references:
+- :path: DocumentReference.subject
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+- :path: DocumentReference.author
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitionerrole
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+- :path: DocumentReference.authenticator
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Practitioner
+  - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+  - http://hl7.org/fhir/StructureDefinition/Organization
+- :path: DocumentReference.custodian
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Organization
+- :path: DocumentReference.relatesTo.target
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/DocumentReference
+- :path: DocumentReference.context.encounter
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Encounter
+  - http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
+- :path: DocumentReference.context.sourcePatientInfo
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Patient
+- :path: DocumentReference.context.related
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Resource
+:tests:
+- :id: ipa_v100_document_reference_patient_search_test
+  :file_name: document_reference_patient_search_test.rb
+- :id: ipa_v100_document_reference__id_search_test
+  :file_name: document_reference_id_search_test.rb
+- :id: ipa_v100_document_reference_patient_category_search_test
+  :file_name: document_reference_patient_category_search_test.rb
+- :id: ipa_v100_document_reference_patient_category_date_search_test
+  :file_name: document_reference_patient_category_date_search_test.rb
+- :id: ipa_v100_document_reference_patient_type_search_test
+  :file_name: document_reference_patient_type_search_test.rb
+- :id: ipa_v100_document_reference_patient_contenttype_search_test
+  :file_name: document_reference_patient_contenttype_search_test.rb
+- :id: ipa_v100_document_reference_patient_status_search_test
+  :file_name: document_reference_patient_status_search_test.rb
+- :id: ipa_v100_document_reference_patient_type_date_search_test
+  :file_name: document_reference_patient_type_date_search_test.rb
+- :id: ipa_v100_document_reference_patient_type_period_search_test
+  :file_name: document_reference_patient_type_period_search_test.rb
+- :id: ipa_v100_document_reference_read_test
+  :file_name: document_reference_read_test.rb
+- :id: ipa_v100_document_reference_provenance_revinclude_search_test
+  :file_name: document_reference_provenance_revinclude_search_test.rb
+- :id: ipa_v100_document_reference_validation_test
+  :file_name: document_reference_validation_test.rb
+- :id: ipa_v100_document_reference_must_support_test
+  :file_name: document_reference_must_support_test.rb
+- :id: ipa_v100_document_reference_reference_resolution_test
+  :file_name: document_reference_reference_resolution_test.rb
+:id: ipa_v100_document_reference
+:file_name: document_reference_group.rb
+:delayed_references:
+- :path: author
+  :resources:
+  - Practitioner
+  - PractitionerRole

@@ -7,13 +7,14 @@ require_relative 'terminology_binding_metadata_extractor'
 module IpaTestKit
   class Generator
     class GroupMetadataExtractor
-      attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources
+      attr_accessor :resource_capabilities, :profile_url, :ig_metadata, :ig_resources, :base_search_params
 
-      def initialize(resource_capabilities, profile_url, ig_metadata, ig_resources)
+      def initialize(resource_capabilities, profile_url, ig_metadata, ig_resources, base_search_params)
         self.resource_capabilities = resource_capabilities
         self.profile_url = profile_url
         self.ig_metadata = ig_metadata
         self.ig_resources = ig_resources
+        self.base_search_params = base_search_params
       end
 
       def group_metadata
@@ -32,6 +33,7 @@ module IpaTestKit
             resource: resource,
             profile_url: profile_url,
             profile_name: profile_name,
+            profile_version: profile_version,
             title: title,
             short_description: short_description,
             interactions: interactions,
@@ -57,26 +59,32 @@ module IpaTestKit
       def mark_mandatory_and_must_support_searches
         searches.each do |search|
           search[:names_not_must_support_or_mandatory] = search[:names].reject do |name|
-            path = search_definitions[name.to_sym][:full_path]
+            full_paths = search_definitions[name.to_sym][:full_paths]
             any_must_support_elements = (must_supports[:elements]).any? do |element|
-              full_must_support_path = "#{resource}.#{element[:path]}"
+              full_must_support_paths = ["#{resource}.#{element[:original_path]}", "#{resource}.#{element[:path]}"]
 
-              # allow for non-choice, choice types, and _id
-              name == '_id' || full_must_support_path == path || full_must_support_path == "#{path}[x]"
+              full_paths.any? do |path|
+                # allow for non-choice, choice types, and _id
+                name == '_id' || full_must_support_paths.include?(path) || full_must_support_paths.include?("#{path}[x]")
+              end
             end
 
             any_must_support_slices = must_supports[:slices].any? do |slice|
               # only handle type slices because that is all we need for now
+              # for a slice like Observation.effective[x]:effectiveDateTime, the search parameter's expression could be
+              # either Observation.effective or Observation.effectiveDateTime.
               if slice[:discriminator] && slice[:discriminator][:type] == 'type'
                 full_must_support_path = "#{resource}.#{slice[:path].sub('[x]', slice[:discriminator][:code])}"
-                full_must_support_path == path
+                base_must_support_path = "#{resource}.#{slice[:path].sub('[x]', '')}"
+
+                full_paths.intersection([full_must_support_path,base_must_support_path]).present?
               else
                 false
               end
             end
 
             any_mandatory_elements = mandatory_elements.any? do |element|
-              element == path
+              full_paths.include?(element)
             end
 
             any_must_support_elements || any_must_support_slices || any_mandatory_elements
@@ -89,7 +97,15 @@ module IpaTestKit
       ### BEGIN SPECIAL CASES ###
 
       CATEGORY_FIRST_PROFILES = [
-        'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-test',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sdoh-assessment',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history',
+        # 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-survey'
       ]
 
       def category_first_profile?
@@ -100,10 +116,6 @@ module IpaTestKit
         @first_search_params ||=
         if category_first_profile?
           ['patient', 'category']
-        elsif resource == 'Observation'
-          ['patient', 'code']
-        elsif resource == 'MedicationRequest'
-          ['patient', 'intent']
         else
           ['patient']
         end
@@ -111,17 +123,6 @@ module IpaTestKit
 
       def handle_special_cases
         set_first_search
-
-        case profile_url
-        when 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-implantable-device'
-          must_supports[:elements].delete_if do |element|
-            ['udiCarrier.carrierAIDC', 'udiCarrier.carrierHRF'].include? element[:path]
-          end
-        when 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-documentreference'
-          must_supports[:elements].delete_if do |element|
-            ['content.attachment.data', 'content.attachment.url'].include? element[:path]
-          end
-        end
       end
 
       def set_first_search
@@ -172,11 +173,22 @@ module IpaTestKit
       end
 
       def profile_name
+        binding.pry if profile.nil?
         profile.title.gsub('  ', ' ')
       end
 
+      def profile_version
+        profile.version
+      end
+
       def title
-        profile.title.gsub(/IPA\s*/, '').gsub(/\s*Profile/, '').strip
+        title = profile.title.gsub(/IPA\-/, ' ').strip
+
+        if (Naming.resources_with_multiple_profiles.include?(resource)) && !title.start_with?(resource) && version != 'v3.1.1'
+          title = "#{resource} (#{title.split(resource).map(&:strip).join(' ').gsub(/\-/, ' ')})".titleize
+        end
+
+        title
       end
 
       def short_description
@@ -205,7 +217,7 @@ module IpaTestKit
 
       def search_metadata_extractor
         @search_metadata_extractor ||=
-          SearchMetadataExtractor.new(resource_capabilities, ig_resources, resource, profile_elements)
+          SearchMetadataExtractor.new(resource_capabilities, ig_resources, resource, profile_elements, base_search_params)
       end
 
       def searches
@@ -227,7 +239,7 @@ module IpaTestKit
       def required_concepts
         # The base FHIR vital signs profile has a required binding that isn't
         # relevant for any of its child profiles
-        return if resource == 'Observation'
+        return [] if resource == 'Observation'
 
         profile_elements
           .select { |element| element.type&.any? { |type| type.code == 'CodeableConcept' } }
@@ -247,7 +259,7 @@ module IpaTestKit
 
       def must_support_metadata_extractor
         @must_support_metadata_extractor ||=
-          MustSupportMetadataExtractor.new(profile_elements, profile, resource)
+          MustSupportMetadataExtractor.new(profile_elements, profile, resource, ig_resources)
       end
 
       def must_supports
@@ -260,16 +272,18 @@ module IpaTestKit
           profile_elements
             .select { |element| element.min.positive? }
             .map { |element| element.path }
+            .uniq
       end
 
       def references
         @references ||=
           profile_elements
-            .select { |element| element.type&.first&.code == 'Reference' }
+            .select { |element| element.type&.any? { |type| type&.code == 'Reference' } }
             .map do |reference_definition|
+              reference_type = reference_definition.type.find { |type| type.code == 'Reference' }
               {
-                path: reference_definition.path,
-                profiles: reference_definition.type.first.targetProfile
+                path: reference_definition.path.gsub('[x]', 'Reference'),
+                profiles: reference_type.targetProfile
               }
             end
       end

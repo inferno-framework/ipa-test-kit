@@ -1,35 +1,43 @@
-require_relative '../../must_support_test'
+require_relative '../../../must_support_test'
 
 module IpaTestKit
-  class <%= class_name %> < Inferno::Test
-    include IpaTestKit::MustSupportTest
+  module <%= module_name %>
+    class <%= class_name %> < Inferno::Test
+      include IpaTestKit::MustSupportTest
 
-    title 'All must support elements are provided in the <%= resource_type %> resources returned'
-    description %(
-      IPA Responders SHALL be capable of populating all data elements as
-      part of the query results as specified by the IPA Server Capability
-      Statement. This test will look through the <%= resource_type %> resources
-      found previously for the following must support elements:
+      title 'All must support elements are provided in the <%= resource_type %> resources returned'
+      description %(
+        Responders conforming to a profile in IPA SHALL return a Must Support
+        element if that element is available. This test will look through the
+        <%= resource_type %> resources found previously for the following must
+        support elements:
 
 <%= must_support_list_string %>
-    )
 
-    id :<%= test_id %>
+        Note: Responders who cannot store or return a data element tagged as
+        Supported in IPA profiles can still claim conformance to the IPA
+        profiles per the IPA conformance resources.
+      )
 
-    def resource_type
-      '<%= resource_type %>'
-    end
+      id :<%= test_id %>
 
-    def self.metadata
-      @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml')))
-    end
+      optional
 
-    def scratch_resources
-      scratch[:<%= profile_identifier %>_resources] ||= {}
-    end
+      def resource_type
+        '<%= resource_type %>'
+      end
 
-    run do
-      perform_must_support_test(<%= resource_collection_string %>)
+      def self.metadata
+        @metadata ||= Generator::GroupMetadata.new(YAML.load_file(File.join(__dir__, 'metadata.yml'), aliases: true))
+      end
+
+      def scratch_resources
+        scratch[:<%= profile_identifier %>_resources] ||= {}
+      end
+
+      run do
+        perform_must_support_test(<%= resource_collection_string %>)
+      end
     end
   end
 end

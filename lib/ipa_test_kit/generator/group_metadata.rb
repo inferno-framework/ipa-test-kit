@@ -9,6 +9,7 @@ module IpaTestKit
         :resource,
         :profile_url,
         :profile_name,
+        :profile_version,
         :title,
         :short_description,
         :interactions,
@@ -28,19 +29,10 @@ module IpaTestKit
         :delayed_references
       ].freeze
 
-      NON_USCDI_RESOURCES = [
-        'Encounter',
-        'Location',
-        'Organization',
-        'Practitioner',
-        'PractitionerRole',
-        'Provenance'
-      ].freeze
-
       ATTRIBUTES.each { |name| attr_accessor name }
 
-      def initialize(params)
-        params.each do |key, value|
+      def initialize(metadata)
+        metadata.each do |key, value|
           raise "Unknown attribute #{key}" unless ATTRIBUTES.include? key
 
           instance_variable_set(:"@#{key}", value)
@@ -50,15 +42,11 @@ module IpaTestKit
       def delayed?
         return false if resource == 'Patient'
 
-        no_patient_searches? || non_uscdi_resource?
+        no_patient_searches?
       end
 
       def no_patient_searches?
         searches.none? { |search| search[:names].include? 'patient' }
-      end
-
-      def non_uscdi_resource?
-        NON_USCDI_RESOURCES.include? resource
       end
 
       def add_test(id:, file_name:)
@@ -77,7 +65,7 @@ module IpaTestKit
       end
 
       def to_hash
-        ATTRIBUTES.each_with_object({}) { |key, hash| hash[key] = send(key) }
+        ATTRIBUTES.each_with_object({}) { |key, hash| hash[key] = send(key) unless send(key).nil? }
       end
 
       def add_delayed_references(delayed_profiles, ig_resources)

@@ -5,17 +5,19 @@ module IpaTestKit
   class Generator
     class GroupGenerator
       class << self
-        def generate(ig_metadata)
+        def generate(ig_metadata, base_output_dir)
           ig_metadata.ordered_groups
-            .reject { |group| SpecialCases.exclude_resource? group.resource }
-            .each { |group| new(group).generate }
+            .reject { |group| group.nil?}
+            .reject { |group| SpecialCases.exclude_group? group }
+            .each { |group| new(group, base_output_dir).generate }
         end
       end
 
-      attr_accessor :group_metadata
+      attr_accessor :group_metadata, :base_output_dir
 
-      def initialize(group_metadata)
+      def initialize(group_metadata, base_output_dir)
         self.group_metadata = group_metadata
+        self.base_output_dir = base_output_dir
       end
 
       def template
@@ -38,6 +40,10 @@ module IpaTestKit
         "#{Naming.upper_camel_case_for_profile(group_metadata)}Group"
       end
 
+      def module_name
+        "Ipa#{group_metadata.reformatted_version.upcase}"
+      end
+
       def title
         group_metadata.title
       end
@@ -47,11 +53,11 @@ module IpaTestKit
       end
 
       def output_file_name
-        File.join(__dir__, '..', 'generated', base_output_file_name)
+        File.join(base_output_dir, base_output_file_name)
       end
 
       def metadata_file_name
-        File.join(__dir__, '..', 'generated', profile_identifier, base_metadata_file_name)
+        File.join(base_output_dir, profile_identifier, base_metadata_file_name)
       end
 
       def profile_identifier
@@ -59,11 +65,25 @@ module IpaTestKit
       end
 
       def group_id
-        "ipa_010_#{profile_identifier}"
+        "ipa_#{group_metadata.reformatted_version}_#{profile_identifier}"
       end
 
       def resource_type
         group_metadata.resource
+      end
+
+      def search_validation_resource_type
+        text = "#{resource_type} resources"
+        if resource_type == 'Condition' && group_metadata.reformatted_version == 'v501'
+          case profile_url
+          when 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis'
+            text.concat(' with category `encounter-diagnosis`')
+          when 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns'
+            text.concat(' with category `problem-list-item | health-concern`')
+          end
+        end
+
+        text
       end
 
       def profile_name
@@ -74,11 +94,29 @@ module IpaTestKit
         group_metadata.profile_url
       end
 
+      def base_observation_group?
+        profile_url == 'http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation'
+      end
+
+      def optional?
+        resource_type == 'QuestionnaireResponse'
+      end
+
+      def read_all_resources?(id)
+        ['Medication', 'Practitioner', 'PractitionerRole'].include?(resource_type) &&
+          id.end_with?('read_test')
+      end
+
       def generate
+        add_special_tests
         File.open(output_file_name, 'w') { |f| f.write(output) }
         group_metadata.id = group_id
         group_metadata.file_name = base_output_file_name
         File.open(metadata_file_name, 'w') { |f| f.write(YAML.dump(group_metadata.to_hash)) }
+      end
+
+      def add_special_tests
+
       end
 
       def test_id_list
@@ -88,7 +126,10 @@ module IpaTestKit
 
       def test_file_list
         @test_file_list ||=
-          group_metadata.tests.map { |test| test[:file_name].delete_suffix('.rb') }
+          group_metadata.tests.map do |test|
+            name_without_suffix = test[:file_name].delete_suffix('.rb')
+            name_without_suffix.start_with?('..') ? name_without_suffix : "#{profile_identifier}/#{name_without_suffix}"
+          end
       end
 
       def required_searches
@@ -123,7 +164,7 @@ module IpaTestKit
 
         ### Search Validation
         Inferno will retrieve up to the first 20 bundle pages of the reply for
-        #{resource_type} resources and save them for subsequent tests. Each of
+        #{search_validation_resource_type} and save them for subsequent tests. Each of
         these resources is then checked to see if it matches the searched
         parameters in accordance with [FHIR search
         guidelines](https://www.hl7.org/fhir/search.html). The test will fail,
@@ -139,7 +180,7 @@ module IpaTestKit
         The IPA #{title} sequence verifies that the system under test is
         able to provide correct responses for #{resource_type} queries. These queries
         must contain resources conforming to the #{profile_name} as
-        specified in the IPA v0.1.0 Implementation Guide.
+        specified in the IPA #{group_metadata.version} Implementation Guide.
 
         # Testing Methodology
         #{search_description}
@@ -161,9 +202,10 @@ module IpaTestKit
         then the test will fail.
 
         ## Reference Validation
-        Each reference within the resources found from the previous tests must
-        resolve. The test will attempt to read each reference found and will
-        fail if any attempted read fails.
+        At least one instance of each external reference in elements marked as
+        "must support" within the resources provided by the system must resolve.
+        The test will attempt to read each reference found and will fail if no
+        read succeeds.
         DESCRIPTION
       end
     end

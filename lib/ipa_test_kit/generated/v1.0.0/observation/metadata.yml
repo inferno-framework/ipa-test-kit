@@ -1,0 +1,341 @@
+---
+:name: ipa_observation
+:class_name: Ipav100ObservationSequence
+:version: v1.0.0
+:reformatted_version: v100
+:resource: Observation
+:profile_url: http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-observation
+:profile_name: IPA-Observation
+:profile_version: 1.0.0
+:title: Observation
+:short_description: Verify support for the server capabilities required by the IPA-Observation.
+:interactions:
+- :code: read
+  :expectation: SHALL
+- :code: search-type
+  :expectation: SHALL
+:operations: []
+:searches:
+- :expectation: SHALL
+  :names:
+  - patient
+  - category
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHALL
+  :names:
+  - patient
+  - code
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHALL
+  :names:
+  - patient
+  - category
+  - date
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - category
+  - status
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :expectation: SHOULD
+  :names:
+  - patient
+  - code
+  - date
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+:search_definitions:
+  :patient:
+    :paths:
+    - AllergyIntolerance.patient
+    - CarePlan.subject
+    - CareTeam.subject
+    - ClinicalImpression.subject
+    - Composition.subject
+    - Condition.subject
+    - Consent.patient
+    - DetectedIssue.patient
+    - DeviceRequest.subject
+    - DeviceUseStatement.subject
+    - DiagnosticReport.subject
+    - DocumentManifest.subject
+    - DocumentReference.subject
+    - Encounter.subject
+    - EpisodeOfCare.patient
+    - FamilyMemberHistory.patient
+    - Flag.subject
+    - Goal.subject
+    - ImagingStudy.subject
+    - Immunization.patient
+    - List.subject
+    - MedicationAdministration.subject
+    - MedicationDispense.subject
+    - MedicationRequest.subject
+    - MedicationStatement.subject
+    - NutritionOrder.patient
+    - subject
+    - Procedure.subject
+    - RiskAssessment.subject
+    - ServiceRequest.subject
+    - SupplyDelivery.patient
+    - VisionPrescription.patient
+    :full_paths:
+    - AllergyIntolerance.patient
+    - CarePlan.subject
+    - CareTeam.subject
+    - ClinicalImpression.subject
+    - Composition.subject
+    - Condition.subject
+    - Consent.patient
+    - DetectedIssue.patient
+    - DeviceRequest.subject
+    - DeviceUseStatement.subject
+    - DiagnosticReport.subject
+    - DocumentManifest.subject
+    - DocumentReference.subject
+    - Encounter.subject
+    - EpisodeOfCare.patient
+    - FamilyMemberHistory.patient
+    - Flag.subject
+    - Goal.subject
+    - ImagingStudy.subject
+    - Immunization.patient
+    - List.subject
+    - MedicationAdministration.subject
+    - MedicationDispense.subject
+    - MedicationRequest.subject
+    - MedicationStatement.subject
+    - NutritionOrder.patient
+    - Observation.subject
+    - Procedure.subject
+    - RiskAssessment.subject
+    - ServiceRequest.subject
+    - SupplyDelivery.patient
+    - VisionPrescription.patient
+    :comparators: {}
+    :values: []
+    :type: Reference
+    :contains_multiple: false
+  :category:
+    :paths:
+    - category
+    :full_paths:
+    - Observation.category
+    :comparators: {}
+    :values: []
+    :type: CodeableConcept
+    :contains_multiple: true
+  :code:
+    :paths:
+    - AllergyIntolerance.code
+    - AllergyIntolerance.reaction.substance
+    - Condition.code
+    - "(DeviceRequest.codeCodeableConcept"
+    - DiagnosticReport.code
+    - FamilyMemberHistory.condition.code
+    - List.code
+    - Medication.code
+    - "(MedicationAdministration.medicationCodeableConcept"
+    - "(MedicationDispense.medicationCodeableConcept"
+    - "(MedicationRequest.medicationCodeableConcept"
+    - "(MedicationStatement.medicationCodeableConcept"
+    - code
+    - Procedure.code
+    - ServiceRequest.code
+    :full_paths:
+    - AllergyIntolerance.code
+    - AllergyIntolerance.reaction.substance
+    - Condition.code
+    - "(DeviceRequest.codeCodeableConcept"
+    - DiagnosticReport.code
+    - FamilyMemberHistory.condition.code
+    - List.code
+    - Medication.code
+    - "(MedicationAdministration.medicationCodeableConcept"
+    - "(MedicationDispense.medicationCodeableConcept"
+    - "(MedicationRequest.medicationCodeableConcept"
+    - "(MedicationStatement.medicationCodeableConcept"
+    - Observation.code
+    - Procedure.code
+    - ServiceRequest.code
+    :comparators: {}
+    :values: []
+    :type: CodeableConcept
+    :contains_multiple: false
+  :date:
+    :paths:
+    - AllergyIntolerance.recordedDate
+    - CarePlan.period
+    - CareTeam.period
+    - ClinicalImpression.date
+    - Composition.date
+    - Consent.dateTime
+    - DiagnosticReport.effective
+    - Encounter.period
+    - EpisodeOfCare.period
+    - FamilyMemberHistory.date
+    - Flag.period
+    - Immunization.occurrence
+    - List.date
+    - effective
+    - Procedure.performed
+    - "(RiskAssessment.occurrenceDateTime"
+    - SupplyRequest.authoredOn
+    :full_paths:
+    - AllergyIntolerance.recordedDate
+    - CarePlan.period
+    - CareTeam.period
+    - ClinicalImpression.date
+    - Composition.date
+    - Consent.dateTime
+    - DiagnosticReport.effective
+    - Encounter.period
+    - EpisodeOfCare.period
+    - FamilyMemberHistory.date
+    - Flag.period
+    - Immunization.occurrence
+    - List.date
+    - Observation.effective
+    - Procedure.performed
+    - "(RiskAssessment.occurrenceDateTime"
+    - SupplyRequest.authoredOn
+    :comparators:
+      :eq: MAY
+      :ne: MAY
+      :gt: MAY
+      :ge: MAY
+      :lt: MAY
+      :le: MAY
+      :sa: MAY
+      :eb: MAY
+      :ap: MAY
+    :values: []
+    :type: date
+    :contains_multiple: false
+  :status:
+    :paths:
+    - status
+    :full_paths:
+    - Observation.status
+    :comparators: {}
+    :values:
+    - registered
+    - preliminary
+    - final
+    - amended
+    - corrected
+    - cancelled
+    - entered-in-error
+    - unknown
+    :type: code
+    :contains_multiple: false
+:include_params: []
+:revincludes:
+- Provenance:target
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: []
+  :elements:
+  - :path: status
+  - :path: category
+  - :path: code
+  - :path: subject
+    :types:
+    - Reference
+  - :path: effective[x]
+  - :path: value[x]
+  - :path: dataAbsentReason
+:mandatory_elements:
+- Observation.status
+- Observation.code
+- Observation.subject
+- Observation.component.code
+:bindings:
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/observation-status
+  :path: status
+:references:
+- :path: Observation.basedOn
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/CarePlan
+  - http://hl7.org/fhir/StructureDefinition/DeviceRequest
+  - http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation
+  - http://hl7.org/fhir/StructureDefinition/MedicationRequest
+  - http://hl7.org/fhir/StructureDefinition/NutritionOrder
+  - http://hl7.org/fhir/StructureDefinition/ServiceRequest
+- :path: Observation.partOf
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/MedicationAdministration
+  - http://hl7.org/fhir/StructureDefinition/MedicationDispense
+  - http://hl7.org/fhir/StructureDefinition/MedicationStatement
+  - http://hl7.org/fhir/StructureDefinition/Procedure
+  - http://hl7.org/fhir/StructureDefinition/Immunization
+  - http://hl7.org/fhir/StructureDefinition/ImagingStudy
+- :path: Observation.subject
+  :profiles:
+  - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
+- :path: Observation.focus
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Resource
+- :path: Observation.encounter
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Encounter
+- :path: Observation.performer
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Practitioner
+  - http://hl7.org/fhir/StructureDefinition/PractitionerRole
+  - http://hl7.org/fhir/StructureDefinition/Organization
+  - http://hl7.org/fhir/StructureDefinition/CareTeam
+  - http://hl7.org/fhir/StructureDefinition/Patient
+  - http://hl7.org/fhir/StructureDefinition/RelatedPerson
+- :path: Observation.specimen
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Specimen
+- :path: Observation.device
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Device
+  - http://hl7.org/fhir/StructureDefinition/DeviceMetric
+- :path: Observation.hasMember
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Observation
+  - http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse
+  - http://hl7.org/fhir/StructureDefinition/MolecularSequence
+- :path: Observation.derivedFrom
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/DocumentReference
+  - http://hl7.org/fhir/StructureDefinition/ImagingStudy
+  - http://hl7.org/fhir/StructureDefinition/Media
+  - http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse
+  - http://hl7.org/fhir/StructureDefinition/Observation
+  - http://hl7.org/fhir/StructureDefinition/MolecularSequence
+:tests:
+- :id: ipa_v100_observation_patient_category_search_test
+  :file_name: observation_patient_category_search_test.rb
+- :id: ipa_v100_observation_patient_code_search_test
+  :file_name: observation_patient_code_search_test.rb
+- :id: ipa_v100_observation_patient_category_date_search_test
+  :file_name: observation_patient_category_date_search_test.rb
+- :id: ipa_v100_observation_patient_category_status_search_test
+  :file_name: observation_patient_category_status_search_test.rb
+- :id: ipa_v100_observation_patient_code_date_search_test
+  :file_name: observation_patient_code_date_search_test.rb
+- :id: ipa_v100_observation_read_test
+  :file_name: observation_read_test.rb
+- :id: ipa_v100_observation_provenance_revinclude_search_test
+  :file_name: observation_provenance_revinclude_search_test.rb
+- :id: ipa_v100_observation_validation_test
+  :file_name: observation_validation_test.rb
+- :id: ipa_v100_observation_must_support_test
+  :file_name: observation_must_support_test.rb
+- :id: ipa_v100_observation_reference_resolution_test
+  :file_name: observation_reference_resolution_test.rb
+:id: ipa_v100_observation
+:file_name: observation_group.rb
+:delayed_references: []

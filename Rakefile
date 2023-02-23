@@ -19,6 +19,6 @@ namespace :ipa do
   task :generate do
     require_relative 'lib/ipa_test_kit/generator'
 
-    IpaTestKit::Generator.new.generate
+    IpaTestKit::Generator.generate
   end
 end

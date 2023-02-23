@@ -6,9 +6,7 @@ module IpaTestKit
       :first_search,
       :fixed_value_search,
       :saves_delayed_references,
-      :possible_status_search,
-      :test_medication_inclusion_mr,
-      :test_medication_inclusion_ms,
+      :test_medication_inclusion,
       :token_search_params,
       :test_reference_variants,
       :params_with_comparators,
@@ -38,16 +36,8 @@ module IpaTestKit
       !!saves_delayed_references
     end
 
-    def possible_status_search?
-      !!possible_status_search
-    end
-
-    def test_medication_inclusion_mr?
-      !!test_medication_inclusion_mr
-    end
-
-    def test_medication_inclusion_ms?
-      !!test_medication_inclusion_ms
+    def test_medication_inclusion?
+      !!test_medication_inclusion
     end
 
     def test_reference_variants?

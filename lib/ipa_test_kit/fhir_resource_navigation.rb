@@ -1,11 +1,14 @@
 module IpaTestKit
   module FHIRResourceNavigation
+    DAR_EXTENSION_URL = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'.freeze
+
     def resolve_path(elements, path)
       elements = Array.wrap(elements)
       return elements if path.blank?
 
       paths = path.split('.')
       segment = paths.first
+      segment.delete_suffix! '[x]'
       remaining_path = paths.drop(1).join('.')
 
       elements.flat_map do |element|
@@ -14,12 +17,18 @@ module IpaTestKit
       end.compact
     end
 
-    def find_a_value_at(element, path)
+    def find_a_value_at(element, path, include_dar: false)
       return nil if element.nil?
 
       elements = Array.wrap(element)
 
       if path.empty?
+        unless include_dar
+          elements = elements.reject do |el|
+            el.respond_to?(:extension) && el.extension.any? { |ext| ext.url == DAR_EXTENSION_URL}
+          end
+        end
+
         return elements.find { |el| yield(el) } if block_given?
 
         return elements.first
@@ -43,9 +52,9 @@ module IpaTestKit
         child = get_next_value(element, segment)
         element_found =
           if block_given?
-            find_a_value_at(child, remaining_path) { |value_found| yield(value_found) }
+            find_a_value_at(child, remaining_path, include_dar: include_dar) { |value_found| yield(value_found) }
           else
-            find_a_value_at(child, remaining_path)
+            find_a_value_at(child, remaining_path, include_dar: include_dar)
           end
 
         return element_found if element_found.present? || element_found == false

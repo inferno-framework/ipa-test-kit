@@ -1,0 +1,99 @@
+{
+  "title": "Inferno Reference Server",
+  "id": "reference-server-ipa",
+  "test_suite_id": "ipa_v100",
+  "inputs": [
+    {
+      "name": "url",
+      "value": "https://inferno.healthit.gov/reference-server/r4",
+      "_title": "FHIR Endpoint",
+      "_description": "URL of the FHIR endpoint",
+      "_type": "text"
+    },
+    {
+      "name": "standalone_client_id",
+      "value": "SAMPLE_PUBLIC_CLIENT_ID",
+      "_title": "Standalone Client ID",
+      "_description": "Client ID provided during registration of Inferno as a standalone application",
+      "_type": "text"
+    },
+    {
+      "name": "standalone_requested_scopes",
+      "value": "launch/patient openid fhirUser offline_access patient/*.rs",
+      "_title": "Standalone Scope",
+      "_description": "OAuth 2.0 scope provided by system to enable all required functionality",
+      "_type": "textarea"
+    },
+    {
+      "name": "use_pkce",
+      "value": "true",
+      "_title": "Proof Key for Code Exchange (PKCE)",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Enabled",
+            "value": "true"
+          },
+          {
+            "label": "Disabled",
+            "value": "false"
+          }
+        ]
+      },
+      "_locked": true
+    },
+    {
+      "name": "pkce_code_challenge_method",
+      "value": "S256",
+      "_title": "PKCE Code Challenge Method",
+      "_type": "radio",
+      "_optional": true,
+      "_options": {
+        "list_options": [
+          {
+            "label": "S256",
+            "value": "S256"
+          },
+          {
+            "label": "plain",
+            "value": "plain"
+          }
+        ]
+      },
+      "_locked": true
+    },
+    {
+      "name": "authorization_method",
+      "value": "get",
+      "_title": "Authorization Method",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "GET",
+            "value": "get"
+          },
+          {
+            "label": "POST",
+            "value": "post"
+          }
+        ]
+      }
+    },
+    {
+      "name": "patient_ids",
+      "value": "85,355",
+      "_title": "Patient IDs",
+      "_description": "Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements",
+      "_type": "text"
+    },
+    {
+      "name": "observation_categories",
+      "value": "social-history,imaging,laboratory,procedure,survey,exam,therapy,activity",
+      "_title": "Observation categories",
+      "_description": "A comma-separated list of observation categories.",
+      "_type": "text"
+    }
+  ]
+}

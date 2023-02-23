@@ -1,20 +1,23 @@
+require_relative 'value_extractor'
+
 module IpaTestKit
   class Generator
     class SearchDefinitionMetadataExtractor
-      attr_accessor :ig_resources, :name, :resource, :profile_elements
+      attr_accessor :ig_resources, :name, :resource, :profile_elements, :base_search_params
 
-      def initialize(name, ig_resources, resource, profile_elements)
+      def initialize(name, ig_resources, resource, profile_elements, base_search_params)
         self.name = name
         self.ig_resources = ig_resources
         self.resource = resource
         self.profile_elements = profile_elements
+        self.base_search_params = base_search_params
       end
 
       def search_definition
         @search_definition ||=
           {
-            path: path,
-            full_path: full_path,
+            paths: paths,
+            full_paths: full_paths,
             comparators: comparators,
             values: values,
             type: type,
@@ -25,31 +28,39 @@ module IpaTestKit
       end
 
       def param
-        @param ||= ig_resources.search_param_by_resource_and_name(resource, name)
+        @param ||= ig_resources.search_param_by_resource_and_name(resource, name) || search_base_param_by_resource_and_name(resource, name)
+      end
+
+      def search_base_param_by_resource_and_name(resource, name)
+        search_param = base_search_params['entry'].find{|entry| entry['resource']['code'] == name && (entry['resource']['base'].include?(resource) || entry['resource']['base'].include?('Resource'))}
+        FHIR::SearchParameter.new(search_param['resource'])
       end
 
       def param_hash
         param.source_hash
       end
 
-      def full_path
-        @full_path ||=
+      def full_paths
+        @full_paths ||=
           begin
-            path = param.expression.gsub(/.where\((.*)/, '')
+            path = param.expression.gsub(/\.where\(resolve\(\)[^\)]*\)/, '')
+            path = path.gsub(/.where\((.*)/, '')
             path = path[1..-2] if path.start_with?('(') && path.end_with?(')')
-            as_type = path.scan(/[. ]as[( ]([^)]*)[)]?/).flatten.first
-            path.gsub!(/[. ]as[( ]([^)]*)[)]?/, as_type.upcase_first) if as_type.present?
-            path
+            path.scan(/[. ]as[( ]([^)]*)[)]?/).flatten.map do |as_type|
+              path.gsub!(/[. ]as[( ](#{as_type}[^)]*)[)]?/, as_type.upcase_first) if as_type.present?
+            end
+            path.gsub!("Resource.", "#{resource}.")
+            path.split('|').map(&:strip)
           end
       end
 
-      def path
-        @path ||= full_path.gsub("#{resource}.", '')
+      def paths
+        @paths ||= full_paths.map { |a_path| a_path.gsub("#{resource}.", '')}
       end
 
       def profile_element
         @profile_element ||=
-          profile_elements.find { |element| element.id == full_path }
+          profile_elements.find { |element| full_paths.include?(element.id) }
       end
 
       def comparator_expectation_extensions
@@ -107,74 +118,25 @@ module IpaTestKit
       end
 
       def multiple_or_expectation
-        param_hash['_multipleOr']['extension'].first['valueCode']
+        param_hash['_multipleOr']&.[]('extension')&.first&.[]('valueCode')
       end
 
       def values
-        (
-          values_from_slices +
-          values_from_fixed_codes +
-          values_from_pattern_codeable_concept +
-          values_from_value_set_binding
-        ).uniq.presence || values_from_resource_metadata
+          value_extractor.values_from_slicing(profile_element, type).presence ||
+          value_extractor.values_from_value_set_binding(profile_element).presence ||
+          values_from_resource_metadata(paths).presence || []
       end
 
-      def slices
-        return [] unless contains_multiple?
-
-        profile_elements.select do |element|
-          element.path == full_path &&
-            element.sliceName.present? &&
-            element.patternCodeableConcept.present?
+      def values_from_resource_metadata(paths)
+        if multiple_or_expectation == 'SHALL' || paths.any? { |path| path.downcase.include?('status') }
+          value_extractor.values_from_resource_metadata(paths)
+        else
+          []
         end
       end
 
-      def values_from_slices
-        slices.map do |slice|
-          slice.patternCodeableConcept.coding.first.code
-        end
-      end
-
-      def values_from_fixed_codes
-        return [] unless type == 'CodeableConcept'
-
-        profile_elements
-          .select { |element| element.path == "#{profile_element.path}.coding.code" && element.fixedCode.present? }
-          .map { |element| element.fixedCode }
-      end
-
-      def values_from_pattern_codeable_concept
-        return [] if type != 'CodeableConcept' || profile_element.patternCodeableConcept.blank?
-
-        [profile_element.patternCodeableConcept.coding.first.code]
-      end
-
-      def value_set_binding
-        profile_element&.binding
-      end
-
-      def value_set
-        ig_resources.value_set_by_url(value_set_binding&.valueSet)
-      end
-
-      def bound_systems
-        value_set&.compose&.include&.reject { |code| code.concept.nil? }
-      end
-
-      def values_from_value_set_binding
-        return [] if bound_systems.blank?
-
-        bound_systems.flat_map { |system| system.concept.map { |code| code.code } }.uniq
-      end
-
-      def fhir_metadata
-        FHIR.const_get(resource)::METADATA[path.gsub("#{resource}.", '')]
-      end
-
-      def values_from_resource_metadata
-        return [] if fhir_metadata&.dig('valid_codes').blank?
-
-        fhir_metadata['valid_codes'].values.flatten
+      def value_extractor
+        @value_extractor ||= ValueExactor.new(ig_resources, resource, profile_elements)
       end
     end
   end

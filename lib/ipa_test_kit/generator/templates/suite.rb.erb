@@ -1,53 +1,89 @@
 require 'inferno/dsl/oauth_credentials'
-require_relative '../version'
-require_relative '../custom_groups/capability_statement_group'
-require_relative '../custom_groups/clinical_notes_guidance_group'
-require_relative '../custom_groups/data_absent_reason_group'
+require 'smart_app_launch_test_kit'
+
+require_relative '../../version'
+require_relative '<%= capability_statement_file_name %>'
+require_relative '<%= smart_launch_file_name %>'
+require_relative '../../provenance_validator'
 <% group_file_list.each do |file_name| %>require_relative '<%= file_name %>'
 <% end %>
 module IpaTestKit
-  class <%= class_name %> < Inferno::TestSuite
-    title '<%= title %>'
-    version VERSION
+  module <%= module_name %>
+    class <%= class_name %> < Inferno::TestSuite
+      title '<%= title %>'
+      short_title '<%= short_title %>'
+      description %(
+        This test suite evaluates the ability of a system to support applications
+        acting on behalf of patients to access clinical records using a FHIR R4 API
+        in accordance to the [International Patient Access Implementation Guide (IPA IG)](https://www.hl7.org/fhir/uv/ipa/).
+        
+        It accomplishes this by simulating requests performed by a realistic IPA Requestor
+        and validating responses based on requirements specified within the IPA IG and
+        the base FHIR specification.
 
-    VALIDATION_MESSAGE_FILTERS = [
-      %r{Sub-extension url 'introspect' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris$},
-      %r{Sub-extension url 'revoke' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris$},
-      /^Observation\.effective\.ofType\(Period\): vs-1:/, # Invalid invariant in FHIR v4.0.1
-    ].freeze
+        Resources are validated with the FHIR Java validator using `tx.fhir.org`
+        as the terminology server.
 
-    def self.metadata
-      @metadata ||= YAML.load_file(File.join(__dir__, 'metadata.yml'))[:groups].map do |raw_metadata|
-          Generator::GroupMetadata.new(raw_metadata)
+        The following are not yet implemented:
+        * Test for `client-confidential-asymmetric`.
+        * Verify that the server supports all required SMART capabilities, rather than
+          just verifying that the server advertises support for them.
+        * Test `$docref` operation.
+        * Test `Patient.link` requirements.
+        * Verify that the server requires both a code and system for Patient identifier
+          search.
+      )
+      version VERSION
+
+      VALIDATION_MESSAGE_FILTERS = [
+        %r{Sub-extension url 'introspect' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris},
+        %r{Sub-extension url 'revoke' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris},
+        /Observation\.effective\.ofType\(Period\): .*vs-1:/, # Invalid invariant in FHIR v4.0.1
+      ].freeze
+
+      def self.metadata
+        @metadata ||= YAML.load_file(File.join(__dir__, 'metadata.yml'), aliases: true)[:groups].map do |raw_metadata|
+            Generator::GroupMetadata.new(raw_metadata)
+          end
+      end
+
+      validator do
+        url ENV.fetch('<%= validator_env_name %>', 'http://validator_service:4567')
+        exclude_message do |message|
+          VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
         end
-    end
 
-    validator do
-      url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
-      exclude_message do |message|
-        VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
+        perform_additional_validation do |resource, profile_url|
+          ProvenanceValidator.validate(resource) if resource.instance_of?(FHIR::Provenance)
+        end
+      end
+
+      id :<%= suite_id %>
+
+
+      input :url,
+        title: 'FHIR Endpoint',
+        description: 'URL of the FHIR endpoint'
+
+      fhir_client do
+        url :url
+        oauth_credentials :standalone_smart_credentials
+      end
+
+      group from: :<%= smart_launch_group_id %>
+
+      group do
+        title 'IPA Responder Tests'
+        description %(
+          The IPA Responder Tests evaluate the ability of an IPA Responder (IPA FHIR Server)
+          to support required and optional FHIR operations and search parameters to return
+          conformant IPA resources.
+        )
+
+        group from: :<%= capability_statement_group_id %>
+    <% group_id_list.each do |id| %>
+        group from: :<%= id %><% end %>
       end
     end
-
-    id :<%= suite_id %>
-
-    input :url,
-      title: 'FHIR Endpoint',
-      description: 'URL of the FHIR endpoint'
-    input :smart_credentials,
-      title: 'OAuth Credentials',
-      type: :oauth_credentials,
-      optional: true
-
-    fhir_client do
-      url :url
-      oauth_credentials :smart_credentials
-    end
-
-    group from: :ipa_010_capability_statement
-<% group_id_list.each do |id| %>
-    group from: :<%= id %><% end %>
-    group from: :ipa_010_clinical_notes_guidance
-    group from: :ipa_010_data_absent_reason
   end
 end

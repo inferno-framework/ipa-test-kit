@@ -5,21 +5,22 @@ module IpaTestKit
   class Generator
     class SearchTestGenerator
       class << self
-        def generate(ig_metadata)
+        def generate(ig_metadata, base_output_dir)
           ig_metadata.groups
-            .reject { |group| SpecialCases.exclude_resource? group.resource }
+            .reject { |group| SpecialCases.exclude_group? group }
             .select { |group| group.searches.present? }
             .each do |group|
-              group.searches.each { |search| new(group, search).generate }
+              group.searches.each { |search| new(group, search, base_output_dir).generate }
             end
         end
       end
 
-      attr_accessor :group_metadata, :search_metadata
+      attr_accessor :group_metadata, :search_metadata, :base_output_dir
 
-      def initialize(group_metadata, search_metadata)
+      def initialize(group_metadata, search_metadata, base_output_dir)
         self.group_metadata = group_metadata
         self.search_metadata = search_metadata
+        self.base_output_dir = base_output_dir
       end
 
       def template
@@ -35,7 +36,7 @@ module IpaTestKit
       end
 
       def output_file_directory
-        File.join(__dir__, '..', 'generated', profile_identifier)
+        File.join(base_output_dir, profile_identifier)
       end
 
       def output_file_name
@@ -47,7 +48,7 @@ module IpaTestKit
       end
 
       def test_id
-        "ipa_010_#{profile_identifier}_#{search_identifier}_search_test"
+        "ipa_#{group_metadata.reformatted_version}_#{profile_identifier}_#{search_identifier}_search_test"
       end
 
       def search_identifier
@@ -60,6 +61,10 @@ module IpaTestKit
 
       def class_name
         "#{Naming.upper_camel_case_for_profile(group_metadata)}#{search_title}SearchTest"
+      end
+
+      def module_name
+        "Ipa#{group_metadata.reformatted_version.upcase}"
       end
 
       def resource_type
@@ -127,7 +132,7 @@ module IpaTestKit
       end
 
       def optional?
-        conformance_expectation != 'SHALL' || !search_metadata[:must_support_or_mandatory] 
+        conformance_expectation != 'SHALL' || !search_metadata[:must_support_or_mandatory]
       end
 
       def search_definition(name)
@@ -136,11 +141,6 @@ module IpaTestKit
 
       def saves_delayed_references?
         first_search? && group_metadata.delayed_references.present?
-      end
-
-      def possible_status_search?
-        !search_metadata[:names].any? { |name| name.include? 'status' } &&
-          group_metadata.search_definitions.keys.any? { |key| key.to_s.include? 'status' }
       end
 
       def token_search_params
@@ -178,12 +178,8 @@ module IpaTestKit
         first_search? && search_param_names.include?('patient')
       end
 
-      def test_medication_inclusion_mr?
+      def test_medication_inclusion?
         resource_type == 'MedicationRequest'
-      end
-
-      def test_medication_inclusion_ms?
-        resource_type == 'MedicationStatement'
       end
 
       def test_post_search?
@@ -197,14 +193,21 @@ module IpaTestKit
           properties[:resource_type] = "'#{resource_type}'"
           properties[:search_param_names] = search_param_names_array
           properties[:saves_delayed_references] = 'true' if saves_delayed_references?
-          properties[:possible_status_search] = 'true' if possible_status_search?
-          properties[:test_medication_inclusion_mr] = 'true' if test_medication_inclusion_mr?
-          properties[:test_medication_inclusion_ms] = 'true' if test_medication_inclusion_ms?
+          properties[:test_medication_inclusion] = 'true' if test_medication_inclusion?
           properties[:token_search_params] = token_search_params_string if token_search_params.present?
           properties[:test_reference_variants] = 'true' if test_reference_variants?
           properties[:params_with_comparators] = required_comparators_string if required_comparators.present?
           properties[:multiple_or_search_params] = required_multiple_or_search_params_string if required_multiple_or_search_params.present?
           properties[:test_post_search] = 'true' if first_search?
+        end
+      end
+
+      def url_version
+        case group_metadata.version
+        when 'v3.1.1'
+          'STU3.1.1'
+        when 'v4.0.0'
+          'STU4'
         end
       end
 
@@ -231,7 +234,7 @@ module IpaTestKit
         This test verifies that the server supports searching by reference using
         the form `patient=[id]` as well as `patient=Patient/[id]`. The two
         different forms are expected to return the same number of results. IPA
-        requires that both forms are supported by IPA responders.
+        requires that both forms are supported by IPA Core responders.
         REFERENCE_SEARCH_DESCRIPTION
       end
 
@@ -244,24 +247,14 @@ module IpaTestKit
         FIRST_SEARCH_DESCRIPTION
       end
 
-      def medication_inclusion_mr_description
-        return '' unless test_medication_inclusion_mr?
+      def medication_inclusion_description
+        return '' unless test_medication_inclusion?
 
-        <<~MEDICATION_INCLUSION_MR_DESCRIPTION
+        <<~MEDICATION_INCLUSION_DESCRIPTION
         If any MedicationRequest resources use external references to
         Medications, the search will be repeated with
         `_include=MedicationRequest:medication`.
-        MEDICATION_INCLUSION_MR_DESCRIPTION
-      end
-
-      def medication_inclusion_ms_description
-        return '' unless test_medication_inclusion_ms?
-
-        <<~MEDICATION_INCLUSION_MS_DESCRIPTION
-        If any MedicationStatement resources use external references to
-        Medications, the search will be repeated with
-        `_include=MedicationStatement:medication`.
-        MEDICATION_INCLUSION_MS_DESCRIPTION
+        MEDICATION_INCLUSION_DESCRIPTION
       end
 
       def post_search_description
@@ -271,7 +264,7 @@ module IpaTestKit
         Additionally, this test will check that GET and POST search methods
         return the same number of results. Search by POST is required by the
         FHIR R4 specification, and these tests interpret search by GET as a
-        requirement of IPA v0.1.0.
+        requirement of IPA #{group_metadata.version}.
         POST_SEARCH_DESCRIPTION
       end
 
@@ -287,7 +280,9 @@ module IpaTestKit
         #{first_search_description}
         #{post_search_description}
 
-        [IPA Server CapabilityStatement](https://build.fhir.org/ig/HL7/fhir-ipa/CapabilityStatement-ipa-server.html)
+        # TODO: Fix this
+        # [US Core Server CapabilityStatement](http://hl7.org/fhir/us/core/#{url_version}/CapabilityStatement-us-core-server.html)
+
         DESCRIPTION
       end
     end

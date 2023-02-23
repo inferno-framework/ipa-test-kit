@@ -1,6 +1,8 @@
 require 'fhir_models'
+require 'pry'
+require 'pry-byebug'
 
-require_relative 'ext/fhir_models'
+require 'inferno/ext/fhir_models'
 require_relative 'generator/ig_loader'
 require_relative 'generator/ig_metadata_extractor'
 require_relative 'generator/group_generator'
@@ -15,10 +17,24 @@ require_relative 'generator/validation_test_generator'
 
 module IpaTestKit
   class Generator
-    attr_accessor :ig_resources, :ig_metadata
+    def self.generate
+      ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'ipa_test_kit', 'igs', '*.tgz'))
+
+      ig_packages.each do |ig_package|
+        new(ig_package).generate
+      end
+    end
+
+    attr_accessor :ig_resources, :ig_metadata, :ig_file_name, :base_search_params
+
+    def initialize(ig_file_name)
+      self.ig_file_name = ig_file_name
+    end
 
     def generate
+      puts "Generating tests for IG #{File.basename(ig_file_name)}"
       load_ig_package
+      load_base_search_params
       extract_metadata
       generate_resource_list
       generate_search_tests
@@ -35,52 +51,70 @@ module IpaTestKit
       generate_suites
     end
 
+    def load_base_search_params
+      self.base_search_params =
+        JSON.parse(
+          File.read(
+            File.join(
+              Dir.pwd, 'lib', 'ipa_test_kit', 'igs', 'ipa_v100', 'search-parameters.json'
+            )
+          )
+        )
+    end
+
     def extract_metadata
-      self.ig_metadata = IGMetadataExtractor.new(ig_resources).extract
-      File.open(File.join(__dir__, 'generated', 'metadata.yml'), 'w') do |file|
+      self.ig_metadata = IGMetadataExtractor.new(ig_resources, base_search_params).extract
+
+      FileUtils.mkdir_p(base_output_dir)
+      File.open(File.join(base_output_dir, 'metadata.yml'), 'w') do |file|
         file.write(YAML.dump(ig_metadata.to_hash))
       end
     end
 
+    def base_output_dir
+      File.join(__dir__, 'generated', ig_metadata.ig_version)
+    end
+
     def load_ig_package
       FHIR.logger = Logger.new('/dev/null')
-      self.ig_resources = IGLoader.new.load
+      self.ig_resources = IGLoader.new(ig_file_name).load
     end
 
     def generate_resource_list
-      ResourceListGenerator.generate(ig_metadata)
+      ResourceListGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_reference_resolution_tests
-      ReferenceResolutionTestGenerator.generate(ig_metadata)
+      ReferenceResolutionTestGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_must_support_tests
-      MustSupportTestGenerator.generate(ig_metadata)
+      MustSupportTestGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_validation_tests
-      ValidationTestGenerator.generate(ig_metadata)
+      ValidationTestGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_read_tests
-      ReadTestGenerator.generate(ig_metadata)
+      ReadTestGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_search_tests
-      SearchTestGenerator.generate(ig_metadata)
+      SearchTestGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_provenance_revinclude_search_tests
-      ProvenanceRevincludeSearchTestGenerator.generate(ig_metadata)
+      ProvenanceRevincludeSearchTestGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_groups
-      GroupGenerator.generate(ig_metadata)
+      binding.pry if ig_metadata.nil?
+      GroupGenerator.generate(ig_metadata, base_output_dir)
     end
 
     def generate_suites
-      SuiteGenerator.generate(ig_metadata)
+      SuiteGenerator.generate(ig_metadata, base_output_dir)
     end
   end
 end
