@@ -13,7 +13,7 @@ a preliminary test suite based on the [Inferno US
 Core](https://github.com/inferno-framework/us-core-test-kit) test suite.
 
 The [Office of the National Coordinator for Health IT (ONC)](https://healthit.gov) provides a running instance of these tests that can be accessed
-at https://inferno.healthit.gov/suites/ipa
+at https://inferno.healthit.gov/suites/ipa_v100
 
 ## Local Installation Instructions (Docker required)
 
