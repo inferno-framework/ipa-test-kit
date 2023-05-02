@@ -184,7 +184,6 @@
 :mandatory_elements:
 - Patient.identifier
 - Patient.identifier.value
-- Patient.name
 - Patient.communication.language
 - Patient.link.other
 - Patient.link.type
