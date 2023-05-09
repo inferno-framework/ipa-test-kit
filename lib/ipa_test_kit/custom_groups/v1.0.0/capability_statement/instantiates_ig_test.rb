@@ -12,7 +12,7 @@ module IpaTestKit
       run do
         assert_resource_type(:capability_statement)
 
-        ig_url = 'http://hl7.org/fhir/uv/ipa/CapabilityStatement/ipa'
+        ig_url = 'http://hl7.org/fhir/uv/ipa/CapabilityStatement/ipa-server'
 
         assert resource.instantiates.include?(ig_url),
                "The server does not advertise support for the IPA IG by including `#{ig_url}` in the `instantiates` field"
