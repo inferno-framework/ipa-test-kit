@@ -26,7 +26,7 @@ module IpaTestKit
       short_title 'IPA v1.0.0'
       description %(
         This test suite evaluates the ability of a system to support applications
-        acting on behalf of patients to access clinical records using a FHIR R4 API
+        acting on behalf of patients to access clinical records using an HL7® FHIR® R4 API
         in accordance to the [International Patient Access Implementation Guide (IPA IG)](https://www.hl7.org/fhir/uv/ipa/).
         
         It accomplishes this by simulating requests performed by a realistic IPA Requestor
