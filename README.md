@@ -6,14 +6,15 @@ Implementation Guide](https://build.fhir.org/ig/HL7/fhir-ipa/).  This test kit
 is designed and maintained by the Inferno team to support the development of the
 IPA IG and improve the core Inferno Framework.
 
-This test kit includes a web interface to run a configured local [HL7
+This test kit includes a web interface to run a configured local [HL7® FHIR®
 validator](https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator)
 service to validate instances of FHIR resources to the IPA profiles, as well as
 a preliminary test suite based on the [Inferno US
 Core](https://github.com/inferno-framework/us-core-test-kit) test suite.
 
-The [Office of the National Coordinator for Health IT (ONC)](https://healthit.gov) provides a running instance of these tests that can be accessed
-at https://inferno.healthit.gov/suites/ipa_v100
+The [Office of the National Coordinator for Health IT
+(ONC)](https://healthit.gov) provides a running instance of these tests that can
+be accessed at https://inferno.healthit.gov/suites/ipa_v100
 
 ## Local Installation Instructions (Docker required)
 
@@ -96,3 +97,8 @@ Unless required by applicable law or agreed to in writing, software distributed
 under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
+
+## Trademark Notice
+
+HL7, FHIR and the FHIR [FLAME DESIGN] are the registered trademarks of Health
+Level Seven International and their use does not constitute endorsement by HL7.
