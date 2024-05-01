@@ -6,10 +6,7 @@ Implementation Guide](https://build.fhir.org/ig/HL7/fhir-ipa/).  This test kit
 is designed and maintained by the Inferno team to support the development of the
 IPA IG and improve the core Inferno Framework.
 
-This test kit includes a web interface to run a configured local [HL7® FHIR®
-validator](https://confluence.hl7.org/display/FHIR/Using+the+FHIR+Validator)
-service to validate instances of FHIR resources to the IPA profiles, as well as
-a preliminary test suite based on the [Inferno US
+This test kit includes a preliminary test suite based on the [Inferno US
 Core](https://github.com/inferno-framework/us-core-test-kit) test suite.
 
 The [Office of the National Coordinator for Health IT
@@ -24,8 +21,7 @@ be accessed at https://inferno.healthit.gov/suites/ipa_v100
   database.
 - Run `run.sh` to build and run the Inferno environment
 - Navigate to `http://localhost` to access the Inferno IPA Test Suite
-- Navigate to `http://localhost/validator` to access a FHIR resource validator,
-  configured to validate against the IPA FHIR profiles
+
 
 
 ## Maintaining this Test Kit
@@ -39,8 +35,8 @@ terminology service to validate terminology by default.
 To update this test kit to a new version of the IG:
 
 1. Add the .tgz file in `./lib/ipa_test_kit/igs` with the new version
-of the IG package.  This will automatically be uploaded to the HL7
-FHIR Validator to validate resource instance when the Inferno is started.
+of the IG package.  This IG will be used by the HL7 FHIR Validator to 
+validate resource instances when Inferno is started.
 2. Run the generator to generate a new version-specific copy of the IPA suite.
    After installing Ruby, run the following:
 
