@@ -46,11 +46,13 @@ module IpaTestKit
           search.
       )
       version VERSION
+      id :ipa_v100
 
       VALIDATION_MESSAGE_FILTERS = [
         %r{Sub-extension url 'introspect' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris},
         %r{Sub-extension url 'revoke' is not defined by the Extension http://fhir-registry\.smarthealthit\.org/StructureDefinition/oauth-uris},
         /Observation\.effective\.ofType\(Period\): .*vs-1:/, # Invalid invariant in FHIR v4.0.1
+        /\A\S+: \S+: URL value '.*' does not resolve/,
       ].freeze
 
       def self.metadata
@@ -59,8 +61,10 @@ module IpaTestKit
           end
       end
 
-      validator do
-        url ENV.fetch('IPA_V100_VALIDATOR_URL', 'http://validator_service:4567')
+      fhir_resource_validator do
+        url ENV.fetch('IPA_V100_FHIR_RESOURCE_VALIDATOR_URL', 'http://hl7_validator_service:3500')
+        igs 'hl7.fhir.uv.ipa#1.0.0'
+
         exclude_message do |message|
           VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
         end
@@ -69,9 +73,6 @@ module IpaTestKit
           ProvenanceValidator.validate(resource) if resource.instance_of?(FHIR::Provenance)
         end
       end
-
-      id :ipa_v100
-
 
       input :url,
         title: 'FHIR Endpoint',
