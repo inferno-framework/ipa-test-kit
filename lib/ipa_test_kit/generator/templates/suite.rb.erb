@@ -50,7 +50,6 @@ module IpaTestKit
       end
 
       fhir_resource_validator do
-        url ENV.fetch('<%= validator_env_name %>', 'http://hl7_validator_service:3500')
         igs '<%= ig_identifier %>'
 
         exclude_message do |message|

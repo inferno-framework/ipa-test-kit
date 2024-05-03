@@ -62,7 +62,6 @@ module IpaTestKit
       end
 
       fhir_resource_validator do
-        url ENV.fetch('IPA_V100_FHIR_RESOURCE_VALIDATOR_URL', 'http://hl7_validator_service:3500')
         igs 'hl7.fhir.uv.ipa#1.0.0'
 
         exclude_message do |message|
