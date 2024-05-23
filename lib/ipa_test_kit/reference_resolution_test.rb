@@ -165,8 +165,8 @@ module IpaTestKit
       # Only need to know if the resource is valid.
       # Calling resource_is_valid? causes validation errors to be logged.
       validator = find_validator(:default)
-
-      outcome = FHIR::OperationOutcome.new(JSON.parse(validator.validate(resource, target_profile)))
+      validator_response = validator.validate(resource, target_profile)
+      outcome = validator.operation_outcome_from_hl7_wrapped_response(validator_response)
 
       message_hashes = outcome.issue&.map { |issue| validator.message_hash_from_issue(issue, resource) } || []
 

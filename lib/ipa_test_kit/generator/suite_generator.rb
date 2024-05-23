@@ -53,8 +53,9 @@ module IpaTestKit
         "IPA #{ig_metadata.ig_version}"
       end
 
-      def validator_env_name
-        "IPA_#{ig_metadata.reformatted_version.upcase}_VALIDATOR_URL"
+      def ig_identifier
+        version = ig_metadata.ig_version[1..] # Remove leading 'v'
+        "hl7.fhir.uv.ipa##{version}"
       end
 
       def ig_link
