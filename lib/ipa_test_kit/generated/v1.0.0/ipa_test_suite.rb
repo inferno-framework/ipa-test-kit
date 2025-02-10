@@ -1,7 +1,6 @@
 require 'inferno/dsl/oauth_credentials'
 require 'smart_app_launch_test_kit'
 
-require_relative '../../version'
 require_relative '../../custom_groups/v1.0.0/capability_statement_group'
 require_relative '../../custom_groups/v1.0.0/ipa_smart_launch_group'
 require_relative '../../provenance_validator'
@@ -45,7 +44,6 @@ module IpaTestKit
         * Verify that the server requires both a code and system for Patient identifier
           search.
       )
-      version VERSION
       id :ipa_v100
 
       VALIDATION_MESSAGE_FILTERS = [
@@ -108,6 +106,25 @@ module IpaTestKit
         group from: :ipa_v100_practitioner
         group from: :ipa_v100_practitioner_role
       end
+
+      links [
+        {
+          type: 'report_issue',
+          label: 'Report Issue',
+          url: 'https://github.com/inferno-framework/ipa-test-kit/issues/'
+        },
+        {
+          type: 'source_code',
+          label: 'Open Source',
+          url: 'https://github.com/inferno-framework/ipa-test-kit/'
+        },
+        {
+          type: 'download',
+          label: 'Download', 
+          url: 'https://github.com/inferno-framework/ipa-test-kit/releases/'
+        }
+      ]
+
     end
   end
 end

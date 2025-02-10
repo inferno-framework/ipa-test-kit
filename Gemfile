@@ -7,4 +7,5 @@ gemspec
 group :development, :test do
   gem 'debug'
   gem 'pry-byebug'
+  gem 'rack-test'
 end
