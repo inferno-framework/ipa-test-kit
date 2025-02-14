@@ -3,7 +3,7 @@ require_relative 'version'
 module IpaTestKit
   class Metadata < Inferno::TestKit
     id :ipa_test_kit
-    title 'International Patient Acess Test Kit'
+    title 'International Patient Access Test Kit'
     suite_ids [:ipa_v100]
     tags ['SMART App Launch']
     last_updated IpaTestKit::LAST_UPDATED
