@@ -56,7 +56,7 @@ module IpaTestKit
         JSON.parse(
           File.read(
             File.join(
-              Dir.pwd, 'lib', 'ipa_test_kit', 'igs', 'ipa_v100', 'search-parameters.json'
+              Dir.pwd, 'data', 'igs', 'ipa_v100', 'search-parameters.json'
             )
           )
         )
