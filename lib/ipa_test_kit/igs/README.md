@@ -16,3 +16,6 @@ If your IG, or the specific version of the IG you want to test against, is not p
         ...
       end
 ```
+
+## 3. Inferno Validator UI
+The Inferno Validator UI is configured to auto-load any IGs present in the igs folder and include them in all validations. The Inferno Validator UI is currently disabled by default, so this is only relevant if you choose to re-enable it. In general, the Inferno team is currently leaving IGs in this folder even if not otherwise necessary to make it easy to re-enable the validator UI.
