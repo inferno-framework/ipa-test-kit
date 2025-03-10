@@ -18,7 +18,7 @@ require_relative 'generator/validation_test_generator'
 module IpaTestKit
   class Generator
     def self.generate
-      ig_packages = Dir.glob(File.join(Dir.pwd, 'lib', 'ipa_test_kit', 'igs', '*.tgz'))
+      ig_packages = Dir.glob(File.join(Dir.pwd, 'data', 'igs', '*.tgz'))
 
       ig_packages.each do |ig_package|
         new(ig_package).generate
