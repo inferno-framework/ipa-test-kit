@@ -1,3 +1,5 @@
+require 'smart_app_launch_test_kit'
+
 module IpaTestKit
   module IpaV100
     class IPASMARTLaunchGroup < Inferno::TestGroup
@@ -81,10 +83,15 @@ module IpaTestKit
             title: 'SMART Public Standalone Launch',
             config: {
               inputs: {
-                client_secret: {
-                  default: nil,
-                  locked: true,
-                  optional: true
+                smart_auth_info: {
+                  options: {
+                    components: [
+                      { name: :auth_type, default: 'public', locked: true },
+                      { name: :pkce_support, default: 'enabled', locked: true },
+                      { name: :pkce_code_challenge_method, default: 'S256', locked: true },
+                      { name: :requested_scopes, default: 'launch/patient openid fhirUser offline_access patient/*.rs' }
+                    ]
+                  }
                 }
               }
             }
