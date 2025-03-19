@@ -216,7 +216,8 @@
 :must_supports:
   :extensions: []
   :slices:
-  - :name: Condition.category:problem-list-item
+  - :slice_id: Condition.category:problem-list-item
+    :slice_name: problem-list-item
     :path: category
     :discriminator:
       :type: patternCodeableConcept
@@ -231,6 +232,8 @@
   - :path: subject
     :types:
     - Reference
+    :target_profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
 :mandatory_elements:
 - Condition.category
 - Condition.code
