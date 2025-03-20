@@ -241,6 +241,8 @@
   - :path: subject
     :types:
     - Reference
+    :target_profiles:
+    - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
   - :path: encounter
     :types:
     - Reference

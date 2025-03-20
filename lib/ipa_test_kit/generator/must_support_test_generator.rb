@@ -73,7 +73,7 @@ module IpaTestKit
 
       def build_must_support_list_string
         slice_names = group_metadata.must_supports[:slices]
-          .map { |slice| slice[:name] }
+          .map { |slice| slice[:slice_id] }
 
         element_names = group_metadata.must_supports[:elements]
           .map { |element| "#{resource_type}.#{element[:path]}" }
