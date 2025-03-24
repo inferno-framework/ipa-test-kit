@@ -48,8 +48,8 @@ module IpaTestKit
       )
       run_as_group
 
-      input :standalone_smart_auth_info,
-            title: 'SMART App Launch Authorization Information',
+      input :smart_auth_info,
+            title: 'SMART Authorization Information',
             type: :auth_info,
             optional: true,
             options: {
