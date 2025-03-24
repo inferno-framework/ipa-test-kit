@@ -84,6 +84,7 @@ module IpaTestKit
             config: {
               inputs: {
                 smart_auth_info: {
+                  name: :standalone_smart_auth_info,
                   options: {
                     components: [
                       { name: :auth_type, default: 'public', locked: true },
