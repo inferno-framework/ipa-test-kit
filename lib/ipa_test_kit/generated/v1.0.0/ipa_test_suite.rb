@@ -76,9 +76,7 @@ module IpaTestKit
 
       input :smart_auth_info,
         title: 'SMART Authorization Information',
-        options: {
-          mode: 'access'
-        },
+        description: "Public Standalone SMART App Launch",
         optional: true
 
       fhir_client do
