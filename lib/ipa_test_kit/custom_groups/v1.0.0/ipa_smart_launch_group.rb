@@ -23,11 +23,6 @@ module IpaTestKit
         credentials, which is also required.
       )
 
-      input :standalone_smart_auth_info,
-            type: :auth_info
-
-      # TODO asymmetric auth info
-
       group from: :smart_discovery_stu2 do
         run_as_group
 

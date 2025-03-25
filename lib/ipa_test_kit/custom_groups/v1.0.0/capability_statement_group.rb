@@ -49,7 +49,6 @@ module IpaTestKit
       run_as_group
 
       input :smart_auth_info,
-            title: 'SMART Authorization Information',
             type: :auth_info,
             optional: true,
             options: {
