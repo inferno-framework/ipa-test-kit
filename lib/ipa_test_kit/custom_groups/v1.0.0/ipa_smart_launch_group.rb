@@ -27,6 +27,14 @@ module IpaTestKit
       group from: :smart_discovery_stu2 do
         run_as_group
 
+        config(
+          inputs: {
+            smart_auth_info: {
+              name: :standalone_smart_auth_info
+            }
+          }
+        )
+
         test do
           id :ipa_smart_capabilities
           title 'Server supports required SMART capabilities'
