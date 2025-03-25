@@ -86,7 +86,7 @@ module IpaTestKit
                 smart_auth_info: {
                   name: :standalone_smart_auth_info,
                   options: {
-                    # mode: 'auth',
+                    mode: 'auth',
                     components: [
                       { name: :auth_type, default: 'public', locked: true },
                       { name: :pkce_support, default: 'enabled', locked: true },
