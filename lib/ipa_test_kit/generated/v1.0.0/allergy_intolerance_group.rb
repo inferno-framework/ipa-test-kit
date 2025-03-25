@@ -72,8 +72,10 @@ read succeeds.
       id :ipa_v100_allergy_intolerance
       run_as_group
       input :smart_auth_info,
-            title: 'SMART Authorization Information',
-            type: 'auth_info',
+            type: :auth_info,
+            options: {
+              mode: 'access'
+            },
             optional: true
 
       def self.metadata
