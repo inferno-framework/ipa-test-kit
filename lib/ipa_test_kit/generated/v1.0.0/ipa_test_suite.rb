@@ -76,7 +76,6 @@ module IpaTestKit
 
       input :smart_auth_info,
         title: 'SMART Authorization Information',
-        description: "Public Standalone SMART App Launch",
         optional: true
 
       fhir_client do
@@ -88,7 +87,7 @@ module IpaTestKit
             config: {
               inputs: {
                 standalone_smart_auth_info: { name: :smart_auth_info }
-                # TODO assymetric smart auth info
+                # TODO asymmetric smart auth info
               }
             }
 
