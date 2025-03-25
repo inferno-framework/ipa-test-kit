@@ -75,9 +75,9 @@ read succeeds.
 
       id :ipa_v100_medication_request
       run_as_group
-      input :standalone_smart_credentials,
-            title: 'SMART App Launch Credentials',
-            type: 'oauth_credentials',
+      input :smart_auth_info,
+            title: 'SMART Authorization Information',
+            type: 'auth_info',
             optional: true
 
       def self.metadata

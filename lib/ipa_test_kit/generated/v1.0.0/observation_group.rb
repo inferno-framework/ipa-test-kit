@@ -76,9 +76,9 @@ read succeeds.
 
       id :ipa_v100_observation
       run_as_group
-      input :standalone_smart_credentials,
-            title: 'SMART App Launch Credentials',
-            type: 'oauth_credentials',
+      input :smart_auth_info,
+            title: 'SMART Authorization Information',
+            type: 'auth_info',
             optional: true
       input :observation_categories,
             title: 'Observation categories',
