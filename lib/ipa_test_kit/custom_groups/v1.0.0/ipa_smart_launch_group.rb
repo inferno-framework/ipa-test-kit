@@ -91,10 +91,14 @@ module IpaTestKit
                       { name: :auth_type, default: 'public', locked: true },
                       { name: :pkce_support, default: 'enabled', locked: true },
                       { name: :pkce_code_challenge_method, default: 'S256', locked: true },
-                      { name: :requested_scopes, default: 'launch/patient openid fhirUser offline_access patient/*.rs' }
+                      { name: :requested_scopes, default: 'launch/patient openid fhirUser offline_access patient/*.rs' },
+                      { name: :auth_request_method, default: "GET", locked: false }
                     ]
                   }
                 }
+              },
+              outputs: {
+                smart_auth_info: { name: :standalone_smart_auth_info }
               }
             }
 
