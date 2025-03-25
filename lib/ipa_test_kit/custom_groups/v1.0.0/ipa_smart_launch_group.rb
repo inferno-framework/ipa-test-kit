@@ -23,6 +23,11 @@ module IpaTestKit
         credentials, which is also required.
       )
 
+      input :standalone_smart_auth_info,
+            type: :auth_info
+
+      # TODO asymmetric auth info
+
       group from: :smart_discovery_stu2 do
         run_as_group
 
@@ -83,8 +88,7 @@ module IpaTestKit
             title: 'SMART Public Standalone Launch',
             config: {
               inputs: {
-                smart_auth_info: {
-                  name: :standalone_smart_auth_info,
+                standalone_smart_auth_info: {
                   options: {
                     mode: 'auth',
                     components: [
@@ -96,9 +100,6 @@ module IpaTestKit
                     ]
                   }
                 }
-              },
-              outputs: {
-                smart_auth_info: { name: :standalone_smart_auth_info }
               }
             }
 
