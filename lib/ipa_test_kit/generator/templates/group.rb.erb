@@ -13,9 +13,9 @@ module IpaTestKit
       run_as_group<% if optional? %>
       optional
       <% end %>
-      input :standalone_smart_credentials,
-            title: 'SMART App Launch Credentials',
-            type: 'oauth_credentials',
+      input :smart_auth_info,
+            title: 'SMART Authorization Information',
+            type: 'auth_info',
             optional: true<% if base_observation_group? %>
       input :observation_categories,
             title: 'Observation categories',
