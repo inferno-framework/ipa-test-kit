@@ -1,4 +1,5 @@
-require 'smart_app_launch_test_kit'
+require 'smart_app_launch/discovery_stu2_group'
+require 'smart_app_launch/standalone_launch_group_stu2'
 
 module IpaTestKit
   module IpaV100
