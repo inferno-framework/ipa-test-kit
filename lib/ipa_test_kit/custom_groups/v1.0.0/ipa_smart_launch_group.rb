@@ -30,7 +30,6 @@ module IpaTestKit
         config(
           inputs: {
             smart_auth_info: {
-              name: :smart_auth_info,
               options: {
                 mode: 'auth',
                 components: [
