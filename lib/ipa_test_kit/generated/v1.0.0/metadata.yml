@@ -129,6 +129,8 @@
     - :path: patient
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
   :mandatory_elements:
   - AllergyIntolerance.code
   - AllergyIntolerance.patient
@@ -402,6 +404,8 @@
     - :path: subject
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
   :mandatory_elements:
   - Condition.code
   - Condition.subject
@@ -658,7 +662,8 @@
   :must_supports:
     :extensions: []
     :slices:
-    - :name: Condition.category:problem-list-item
+    - :slice_id: Condition.category:problem-list-item
+      :slice_name: problem-list-item
       :path: category
       :discriminator:
         :type: patternCodeableConcept
@@ -673,6 +678,8 @@
     - :path: subject
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
   :mandatory_elements:
   - Condition.category
   - Condition.code
@@ -968,6 +975,8 @@
     - :path: subject
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
     - :path: date
     - :path: author
       :types:
@@ -1229,6 +1238,8 @@
     - :path: patient
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
     - :path: occurrence[x]
   :mandatory_elements:
   - Immunization.status
@@ -1556,6 +1567,8 @@
     - :path: subject
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
     - :path: encounter
       :types:
       - Reference
@@ -1798,6 +1811,8 @@
     - :path: subject
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
     - :path: context
       :types:
       - Reference
@@ -2111,6 +2126,8 @@
     - :path: subject
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-patient
     - :path: effective[x]
     - :path: value[x]
     - :path: dataAbsentReason
@@ -2422,7 +2439,8 @@
   :must_supports:
     :extensions: []
     :slices:
-    - :name: Observation.category:VSCat
+    - :slice_id: Observation.category:VSCat
+      :slice_name: VSCat
       :path: category
       :discriminator:
         :type: value
@@ -2434,10 +2452,10 @@
     :elements:
     - :path: status
     - :path: category
-    - :path: category.coding
-    - :path: category.coding.system
+    - :path: category:VSCat.coding
+    - :path: category:VSCat.coding.system
       :fixed_value: http://terminology.hl7.org/CodeSystem/observation-category
-    - :path: category.coding.code
+    - :path: category:VSCat.coding.code
       :fixed_value: vital-signs
     - :path: code
     - :path: subject
@@ -2816,6 +2834,8 @@
     - :path: practitioner
       :types:
       - Reference
+      :target_profiles:
+      - http://hl7.org/fhir/uv/ipa/StructureDefinition/ipa-practitioner
   :mandatory_elements:
   - PractitionerRole.notAvailable.description
   :bindings:
