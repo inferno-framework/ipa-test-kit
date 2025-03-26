@@ -89,6 +89,9 @@ module IpaTestKit
               inputs: {
                 standalone_smart_auth_info: { name: :smart_auth_info }
                 # TODO asymmetric smart auth info
+              },
+              outputs: {
+                smart_auth_info: { name: :smart_auth_info }
               }
             }
 
