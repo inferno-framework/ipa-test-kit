@@ -12,10 +12,8 @@
     },
     {
       "name": "smart_auth_info",
-      "title": "Backend Services Credentials",
       "type": "auth_info",
       "value": {
-        "encryption_algorithm": "ES384",
         "auth_type": "public",
         "use_discovery": "true",
         "requested_scopes": "launch/patient openid fhirUser offline_access patient/*.rs",
