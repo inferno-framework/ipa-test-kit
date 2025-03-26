@@ -75,6 +75,7 @@ module IpaTestKit
         description: 'URL of the FHIR endpoint'
 
       input :smart_auth_info,
+        type: :auth_info,
         title: 'SMART Authorization Information',
         optional: true
 
