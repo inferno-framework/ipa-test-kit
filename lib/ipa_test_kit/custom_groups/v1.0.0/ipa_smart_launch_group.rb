@@ -30,7 +30,13 @@ module IpaTestKit
         config(
           inputs: {
             smart_auth_info: {
-              name: :standalone_smart_auth_info
+              name: :smart_auth_info,
+              options: {
+                mode: 'auth',
+                components: [
+                  { name: :auth_type, default: 'public', locked: true },
+                ]
+              }
             }
           }
         )
@@ -92,7 +98,7 @@ module IpaTestKit
             title: 'SMART Public Standalone Launch',
             config: {
               inputs: {
-                standalone_smart_auth_info: {
+                smart_auth_info: {
                   options: {
                     mode: 'auth',
                     components: [

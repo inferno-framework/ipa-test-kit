@@ -87,7 +87,7 @@ module IpaTestKit
       group from: :ipa_v100_smart_launch,
             config: {
               inputs: {
-                standalone_smart_auth_info: { name: :smart_auth_info }
+                smart_auth_info: { name: :smart_auth_info }
                 # TODO asymmetric smart auth info
               },
               outputs: {
