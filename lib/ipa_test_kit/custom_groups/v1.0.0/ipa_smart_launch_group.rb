@@ -32,6 +32,7 @@ module IpaTestKit
             smart_auth_info: {
               name: :smart_auth_info,
               options: {
+                mode: 'auth',
                 components: [
                   { name: :auth_type, default: 'public', locked: true }
                 ]
