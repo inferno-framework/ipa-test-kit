@@ -1,4 +1,3 @@
-require 'inferno/dsl/oauth_credentials'
 require 'smart_app_launch_test_kit'
 
 require_relative '../../custom_groups/v1.0.0/capability_statement_group'
@@ -75,12 +74,26 @@ module IpaTestKit
         title: 'FHIR Endpoint',
         description: 'URL of the FHIR endpoint'
 
+      input :smart_auth_info,
+        type: :auth_info,
+        title: 'SMART Authorization Information',
+        optional: true
+
       fhir_client do
         url :url
-        oauth_credentials :standalone_smart_credentials
+        auth_info :smart_auth_info
       end
 
-      group from: :ipa_v100_smart_launch
+      group from: :ipa_v100_smart_launch,
+            config: {
+              inputs: {
+                smart_auth_info: { name: :smart_auth_info }
+                # TODO asymmetric smart auth info
+              },
+              outputs: {
+                smart_auth_info: { name: :smart_auth_info }
+              }
+            }
 
       group do
         title 'IPA Responder Tests'

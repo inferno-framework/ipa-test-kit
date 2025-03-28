@@ -48,10 +48,12 @@ module IpaTestKit
       )
       run_as_group
 
-      input :standalone_smart_credentials,
-            title: 'SMART App Launch Credentials',
+      input :smart_auth_info,
+            type: :auth_info,
             optional: true,
-            type: 'oauth_credentials'
+            options: {
+              mode: 'access'
+            }
 
       test from: :tls_version_test,
           id: :standalone_auth_tls,

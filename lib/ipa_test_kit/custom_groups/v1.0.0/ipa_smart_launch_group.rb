@@ -1,3 +1,6 @@
+require 'smart_app_launch/discovery_stu2_group'
+require 'smart_app_launch/standalone_launch_group_stu2'
+
 module IpaTestKit
   module IpaV100
     class IPASMARTLaunchGroup < Inferno::TestGroup
@@ -23,6 +26,20 @@ module IpaTestKit
 
       group from: :smart_discovery_stu2 do
         run_as_group
+
+        config(
+          inputs: {
+            smart_auth_info: {
+              name: :smart_auth_info,
+              options: {
+                mode: 'auth',
+                components: [
+                  { name: :auth_type, default: 'public', locked: true }
+                ]
+              }
+            }
+          }
+        )
 
         test do
           id :ipa_smart_capabilities
@@ -81,10 +98,17 @@ module IpaTestKit
             title: 'SMART Public Standalone Launch',
             config: {
               inputs: {
-                client_secret: {
-                  default: nil,
-                  locked: true,
-                  optional: true
+                smart_auth_info: {
+                  options: {
+                    mode: 'auth',
+                    components: [
+                      { name: :auth_type, default: 'public', locked: true },
+                      { name: :pkce_support, default: 'enabled', locked: true },
+                      { name: :pkce_code_challenge_method, default: 'S256', locked: true },
+                      { name: :requested_scopes, default: 'launch/patient openid fhirUser offline_access patient/*.rs' },
+                      { name: :auth_request_method, default: "GET", locked: false }
+                    ]
+                  }
                 }
               }
             }

@@ -11,74 +11,16 @@
       "_type": "text"
     },
     {
-      "name": "standalone_client_id",
-      "value": "SAMPLE_PUBLIC_CLIENT_ID",
-      "_title": "Standalone Client ID",
-      "_description": "Client ID provided during registration of Inferno as a standalone application",
-      "_type": "text"
-    },
-    {
-      "name": "standalone_requested_scopes",
-      "value": "launch/patient openid fhirUser offline_access patient/*.rs",
-      "_title": "Standalone Scope",
-      "_description": "OAuth 2.0 scope provided by system to enable all required functionality",
-      "_type": "textarea"
-    },
-    {
-      "name": "use_pkce",
-      "value": "true",
-      "_title": "Proof Key for Code Exchange (PKCE)",
-      "_type": "radio",
-      "_options": {
-        "list_options": [
-          {
-            "label": "Enabled",
-            "value": "true"
-          },
-          {
-            "label": "Disabled",
-            "value": "false"
-          }
-        ]
-      },
-      "_locked": true
-    },
-    {
-      "name": "pkce_code_challenge_method",
-      "value": "S256",
-      "_title": "PKCE Code Challenge Method",
-      "_type": "radio",
-      "_optional": true,
-      "_options": {
-        "list_options": [
-          {
-            "label": "S256",
-            "value": "S256"
-          },
-          {
-            "label": "plain",
-            "value": "plain"
-          }
-        ]
-      },
-      "_locked": true
-    },
-    {
-      "name": "authorization_method",
-      "value": "get",
-      "_title": "Authorization Method",
-      "_type": "radio",
-      "_options": {
-        "list_options": [
-          {
-            "label": "GET",
-            "value": "get"
-          },
-          {
-            "label": "POST",
-            "value": "post"
-          }
-        ]
+      "name": "smart_auth_info",
+      "type": "auth_info",
+      "value": {
+        "auth_type": "public",
+        "use_discovery": "true",
+        "requested_scopes": "launch/patient openid fhirUser offline_access patient/*.rs",
+        "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+        "auth_request_method": "GET",
+        "pkce_support": "enabled",
+        "pkce_code_challenge_method": "S256"
       }
     },
     {
