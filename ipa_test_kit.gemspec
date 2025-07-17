@@ -4,7 +4,6 @@ Gem::Specification.new do |spec|
   spec.name          = 'ipa_test_kit'
   spec.version       = IpaTestKit::VERSION
   spec.authors       = ['Inferno Core Team']
-  spec.email         = ['inferno@groups.mitre.org']
   spec.summary       = 'IPA Inferno tests'
   spec.description   = 'IPA Inferno tests'
   spec.homepage      = 'https://github.com/inferno-framework/ipa-test-kit'
