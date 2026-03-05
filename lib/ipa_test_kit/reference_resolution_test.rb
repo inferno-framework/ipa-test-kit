@@ -162,19 +162,16 @@ module IpaTestKit
     def resource_is_valid_with_target_profile?(resource, target_profile)
       return true if target_profile.blank?
 
-      # Only need to know if the resource is valid.
-      # Calling resource_is_valid? causes validation errors to be logged.
       validator = find_validator(:default)
-      validator_response = validator.validate(resource, target_profile)
-      outcome = validator.operation_outcome_from_hl7_wrapped_response(validator_response)
 
-      message_hashes = outcome.issue&.map { |issue| validator.message_hash_from_issue(issue, resource) } || []
-
-      message_hashes.concat(validator.additional_validation_messages(resource, target_profile))
-
-      validator.filter_messages(message_hashes)
-
-      message_hashes.none? { |message_hash| message_hash[:type] == 'error' }
+      # Use the validator's resource_is_valid? method with add_messages_to_runnable: false
+      # to validate silently without adding messages to the test output
+      validator.resource_is_valid?(
+        resource,
+        target_profile,
+        self,
+        add_messages_to_runnable: false
+      )
     end
   end
 end
