@@ -166,7 +166,7 @@ module IpaTestKit
         target_profile.include?('|') ? target_profile : "#{target_profile}|#{metadata.profile_version}"
 
       resource_is_valid?(
-        resource: resource,
+        resource:,
         profile_url: target_profile_with_version,
         add_messages_to_runnable: false
       )
