@@ -162,14 +162,12 @@ module IpaTestKit
     def resource_is_valid_with_target_profile?(resource, target_profile)
       return true if target_profile.blank?
 
-      validator = find_validator(:default)
+      target_profile_with_version =
+        target_profile.include?('|') ? target_profile : "#{target_profile}|#{metadata.profile_version}"
 
-      # Use the validator's resource_is_valid? method with add_messages_to_runnable: false
-      # to validate silently without adding messages to the test output
-      validator.resource_is_valid?(
-        resource,
-        target_profile,
-        self,
+      resource_is_valid?(
+        resource: resource,
+        profile_url: target_profile_with_version,
         add_messages_to_runnable: false
       )
     end
