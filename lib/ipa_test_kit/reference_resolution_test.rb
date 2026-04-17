@@ -86,7 +86,7 @@ module IpaTestKit
           found_one_reference = false
 
           resolve_one_reference = resources.any? do |resource|
-            value_found = resolve_path(resource, path)
+            value_found = resolve_path(resource, path).select { |value| value.is_a?(FHIR::Reference) }
             next if value_found.empty?
 
             found_one_reference = true
