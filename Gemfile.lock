@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ipa_test_kit (0.7.1)
+    ipa_test_kit (0.7.2)
       inferno_core (~> 1.2, >= 1.2.2)
       smart_app_launch_test_kit (~> 1.0, >= 1.0.1)
       tls_test_kit (~> 1.0, >= 1.0.2)
@@ -439,7 +439,7 @@ CHECKSUMS
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   inferno_core (1.2.2) sha256=1ad8cfcb53a3c55723b4b802d467b7ff638a86ee81df4e425aba36c74bcd4284
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
-  ipa_test_kit (0.7.1)
+  ipa_test_kit (0.7.2)
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   json-jwt (1.15.3.1) sha256=92b27378212b6aa72aba93a537eabd7f7ac7ad38e12b638863cd7727e0dcb08f
   jwt (2.10.2) sha256=31e1ee46f7359883d5e622446969fe9c118c3da87a0b1dca765ce269c3a0c4f4
